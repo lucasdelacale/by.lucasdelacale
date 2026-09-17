@@ -22,5 +22,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
     <Header />
     <main><slot /></main>
     <Footer />
+    <script>
+      const preventImageAction = (event: Event) => {
+        if (event.target instanceof HTMLImageElement) event.preventDefault();
+      };
+
+      document.addEventListener('contextmenu', preventImageAction);
+      document.addEventListener('dragstart', preventImageAction);
+    </script>
   </body>
 </html>
