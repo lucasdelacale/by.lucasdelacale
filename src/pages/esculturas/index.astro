@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionIntro from '../../components/SectionIntro.astro';
+import ArchiveEntry from '../../components/ArchiveEntry.astro';
+import { sortByPublishedAt } from '../../utils/content';
+
+const works = sortByPublishedAt((await getCollection('works')).filter((work) => work.data.type?.toLowerCase() === 'escultura'));
+---
+<BaseLayout title="Esculturas / Acervo">
+  <div class="page">
+    <SectionIntro title="ESCULTURAS" />
+    {works.length > 0 ? <div class="archive-feed">{works.map((work, index) => <ArchiveEntry item={work} kind="work" index={index} />)}</div> : <p class="empty">NENHUM TRABALHO PULICADO</p>}
+  </div>
+</BaseLayout>
