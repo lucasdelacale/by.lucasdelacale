@@ -187,6 +187,18 @@ O projeto pode ser hospedado em serviços como Netlify, Vercel ou GitHub Pages. 
 site: 'https://seu-dominio.com'
 ```
 
+### GitHub Pages
+
+Este repositório já possui o workflow `.github/workflows/deploy.yml`. Ele instala as dependências, executa `npm run build`, publica `dist/` e faz o deploy no Pages.
+
+No GitHub, abra `Settings > Pages` e selecione `GitHub Actions` em `Source`. Não selecione a publicação direta do branch, porque o repositório contém o código-fonte Astro e não a saída final em `dist/`.
+
+Com o repositório atual, o endereço esperado é:
+
+```text
+https://lucasdelacale.github.io/by.lucasdelacale/
+```
+
 ## Rotas
 
 - `/` home editorial aleatória de publicações.

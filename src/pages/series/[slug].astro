@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../../components/WorkCard.astro';
 import { sortByPublishedAt } from '../../utils/content';
+import { sitePath } from '../../utils/paths';
 
 export async function getStaticPaths() {
   const series = sortByPublishedAt(await getCollection('series'));
@@ -23,7 +24,7 @@ const items = sortByPublishedAt((item.data.works ?? []).map((id) => works.find((
       <p class="series-period">{item.data.period ?? 'sem período'}</p>
     </header>
     <div class="series-cover-wrap">
-      {item.data.coverImage && <img class="series-cover" data-series-cover src={item.data.coverImage} alt={item.data.coverAlt ?? 'Imagem da série'} />}
+       {item.data.coverImage && <img class="series-cover" data-series-cover src={sitePath(item.data.coverImage)} alt={item.data.coverAlt ?? 'Imagem da série'} />}
       <div class="series-description prose"><Content /></div>
     </div>
     <section class="series-works" aria-label="Obras da série">

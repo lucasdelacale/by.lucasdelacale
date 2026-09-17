@@ -1,12 +1,14 @@
 ---
+import { sitePath } from '../utils/paths';
+
 interface Props { series: any; index?: number; }
 const { series, index = 0 } = Astro.props;
 const { data } = series;
 ---
 <article class="series-card">
-  <a href={`/series/${series.id}/`} class="series-card-link">
+  <a href={sitePath(`/series/${series.id}/`)} class="series-card-link">
     <div class="series-card-image-wrap">
-      <img src={data.coverImage} alt={data.coverAlt ?? 'Imagem da série'} loading={index < 2 ? 'eager' : 'lazy'} />
+      <img src={sitePath(data.coverImage)} alt={data.coverAlt ?? 'Imagem da série'} loading={index < 2 ? 'eager' : 'lazy'} />
     </div>
     <div class="series-card-info">
       <div>

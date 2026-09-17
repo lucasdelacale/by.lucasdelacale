@@ -3,13 +3,14 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionIntro from '../../components/SectionIntro.astro';
 import { sortByPublishedAt } from '../../utils/content';
+import { sitePath } from '../../utils/paths';
 const texts = sortByPublishedAt(await getCollection('texts'));
 ---
 <BaseLayout title="Textos / Acervo">
   <div class="page">
     <SectionIntro title="Textos" />
     <div class="text-list">
-      {texts.map((text) => <a class="editorial-row" href={`/textos/${text.id}/`}><span class="label">{text.data.kind ?? 'texto'}</span><div>{text.data.title && <h2>{text.data.title}</h2>}<p>{text.data.date ?? 'sem data'}</p></div><span class="arrow-link">ler →</span></a>)}
+      {texts.map((text) => <a class="editorial-row" href={sitePath(`/textos/${text.id}/`)}><span class="label">{text.data.kind ?? 'texto'}</span><div>{text.data.title && <h2>{text.data.title}</h2>}<p>{text.data.date ?? 'sem data'}</p></div><span class="arrow-link">ler →</span></a>)}
     </div>
   </div>
 </BaseLayout>

@@ -1,14 +1,17 @@
 ---
+import { sitePath } from '../utils/paths';
+
 const links = [
-  { href: '/acervo/', label: 'Arquivo' },
-  { href: '/prints/', label: 'Prints' },
-  { href: '/canvas/', label: 'Canvas' },
-  { href: '/series/', label: 'Séries' },
-  { href: '/sobre/', label: 'Sobre' },
+  { href: sitePath('/acervo/'), label: 'Arquivo' },
+  { href: sitePath('/prints/'), label: 'Prints' },
+  { href: sitePath('/canvas/'), label: 'Canvas' },
+  { href: sitePath('/series/'), label: 'Séries' },
+  { href: sitePath('/sobre/'), label: 'Sobre' },
 ];
+const home = sitePath('/');
 ---
 <header class="site-header">
-  <a class="logo" href="/" aria-label="Arquivo, início"><span class="logo-handle">@lucasdelacale</span><img src="/images/0014.png" alt="Arquivo" /></a>
+  <a class="logo" href={home} aria-label="Arquivo, início"><span class="logo-handle">@lucasdelacale</span><img src={sitePath('/images/0014.png')} alt="Arquivo" /></a>
   <button class="menu-button" aria-expanded="false" aria-controls="site-navigation">Menu</button>
   <nav id="site-navigation" aria-label="Navegação principal">
     {links.map((link) => <a href={link.href}>{link.label}</a>)}

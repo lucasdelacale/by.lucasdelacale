@@ -1,4 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { sitePath } from '../utils/paths';
 ---
-<BaseLayout title="Página não encontrada / Acervo"><div class="page"><p class="eyebrow">sala vazia</p><h1>Esta página ainda não encontrou seu lugar.</h1><a class="arrow-link" href="/">voltar à entrada →</a></div></BaseLayout>
+<BaseLayout title="Página não encontrada / Acervo"><div class="page"><p class="eyebrow">sala vazia</p><h1>Esta página ainda não encontrou seu lugar.</h1><a class="arrow-link" href={sitePath('/')}>voltar à entrada →</a></div></BaseLayout>
