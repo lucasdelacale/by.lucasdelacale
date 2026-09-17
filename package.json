@@ -1,0 +1,16 @@
+{
+  "name": "acervo-criativo",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "node scripts/clean-dist.mjs && astro dev",
+    "build": "node scripts/clean-dist.mjs && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/check": "latest",
+    "astro": "latest",
+    "typescript": "latest"
+  }
+}

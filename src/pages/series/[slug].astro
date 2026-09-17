@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { sortByPublishedAt } from '../../utils/content';
+
+export async function getStaticPaths() {
+  const series = sortByPublishedAt(await getCollection('series'));
+  return series.map((item) => ({ params: { slug: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+const title = item.data.title;
+const works = sortByPublishedAt(await getCollection('works'));
+const items = sortByPublishedAt((item.data.works ?? []).map((id) => works.find((work) => work.id === id)).filter((work): work is (typeof works)[number] => Boolean(work)));
+---
+<BaseLayout title={title ? `${title} / Séries` : 'Série / Arquivo'}>
+  <article class="detail series-detail">
+    <header class="detail-head">
+      <p class="eyebrow">Série</p>
+      {title && <h1 class="series-title">{title}</h1>}
+      <p class="series-period">{item.data.period ?? 'sem período'}</p>
+    </header>
+    <div class="series-cover-wrap">
+      {item.data.coverImage && <img class="series-cover" data-series-cover src={item.data.coverImage} alt={item.data.coverAlt ?? 'Imagem da série'} />}
+      <div class="series-description prose"><Content /></div>
+    </div>
+    <section class="series-works" aria-label="Obras da série">
+      <div class="works-grid">{items.map((work, i) => <WorkCard work={work} index={i} />)}</div>
+    </section>
+  </article>
+</BaseLayout>
+<script>
+  const seriesCover = document.querySelector<HTMLImageElement>('[data-series-cover]');
+  seriesCover?.addEventListener('load', () => {
+    if (seriesCover.naturalWidth > seriesCover.naturalHeight) document.querySelector('.series-detail')?.classList.add('is-landscape');
+  });
+  if (seriesCover?.complete && seriesCover.naturalWidth > seriesCover.naturalHeight) document.querySelector('.series-detail')?.classList.add('is-landscape');
+</script>

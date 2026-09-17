@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionIntro from '../../components/SectionIntro.astro';
+import SeriesCard from '../../components/SeriesCard.astro';
+import { sortByPublishedAt } from '../../utils/content';
+const series = sortByPublishedAt(await getCollection('series'));
+---
+<BaseLayout title="Séries / Acervo">
+  <div class="page">
+    <SectionIntro title="Séries" />
+    <div class="series-gallery">
+      {series.map((item, index) => <SeriesCard series={item} index={index} />)}
+    </div>
+  </div>
+</BaseLayout>

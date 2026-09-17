@@ -1,0 +1,5 @@
+---
+import { getCollection, render } from 'astro:content'; import BaseLayout from '../../layouts/BaseLayout.astro';
+export async function getStaticPaths() { const texts = await getCollection('texts'); return texts.map((item) => ({ params: { slug: item.id }, props: { item } })); } const { item } = Astro.props; const { Content } = await render(item); const title = item.data.title;
+---
+<BaseLayout title={title ? `${title} / Textos` : 'Texto / Acervo'}><article class="page reading"><header><p class="eyebrow">{item.data.kind ?? 'texto'} / {item.data.date ?? 'sem data'}</p>{title && <h1>{title}</h1>}</header><div class="prose"><Content /></div></article></BaseLayout>

@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionIntro from '../../components/SectionIntro.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { sortByPublishedAt } from '../../utils/content';
+const works = sortByPublishedAt(await getCollection('works'));
+---
+<BaseLayout title="Arquivo">
+  <div class="page">
+    <SectionIntro title="Arquivo" />
+    {works.length > 0 ? <div class="works-grid" id="works-grid" data-mode="mosaic">{works.map((work, i) => <WorkCard work={work} index={i} mode="mosaic" />)}</div> : <p class="empty" id="empty-state">NENHUM TRABALHO PULICADO</p>}
+  </div>
+</BaseLayout>
