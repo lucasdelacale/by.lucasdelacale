@@ -11,5 +11,3 @@ references:
 texts:
   - slug-do-texto
 ---
-
-Escreva aqui o texto de apresentação da série ou projeto.
