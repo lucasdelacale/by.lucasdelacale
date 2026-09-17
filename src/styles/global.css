@@ -147,8 +147,8 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .about-copy { font:21px/1.5 var(--sans); max-width:560px; }
 .about-main { font:12px var(--mono); }
 .about-side { padding-top:12px; }
-.about-image { align-items:center; aspect-ratio:4/5; color:var(--muted); display:flex; justify-content:center; margin-bottom:28px; max-width:360px; text-align:center; }
-.about-image span { font:11px var(--mono); }
+.about-image { margin-bottom:28px; max-width:360px; }
+.about-image img { aspect-ratio:559/702; object-fit:contain; }
 .about-name { font:300 clamp(38px, 5vw, 76px)/.98 var(--serif); letter-spacing:-.04em; margin:0 0 34px; }
 .about-details p { margin-bottom:22px; }
 .about-biography { margin-top:2.25em; }
