@@ -193,11 +193,13 @@ Este repositório já possui o workflow `.github/workflows/deploy.yml`. Ele inst
 
 No GitHub, abra `Settings > Pages` e selecione `GitHub Actions` em `Source`. Não selecione a publicação direta do branch, porque o repositório contém o código-fonte Astro e não a saída final em `dist/`.
 
-Com o repositório atual, o endereço esperado é:
+O endereço principal do site é:
 
 ```text
-https://lucasdelacale.github.io/by.lucasdelacale/
+https://lucasdelacale.com/
 ```
+
+O endereço provisório do GitHub Pages continua disponível em `https://lucasdelacale.github.io/by.lucasdelacale/`.
 
 ## Rotas
 
