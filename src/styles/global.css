@@ -98,7 +98,7 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .works-grid[data-mode="list"] .work-info .muted { grid-column:auto; }
 .detail { padding:6vw 4vw 10vw; }
 .detail-head { display:grid; grid-template-columns:1fr 1fr; gap:8vw; margin-bottom:8vw; }
-.detail-head h1 { margin:8px 0 30px; }
+.detail-head h1 { font-size:clamp(36px, 5vw, 76px); margin:8px 0 30px; }
 .detail-meta { align-self:end; max-width:270px; font:12px var(--mono); }
 .detail-meta p { margin:0; padding:9px 0; display:flex; justify-content:space-between; gap:10px; }
 .detail-meta strong { font-weight:400; text-align:right; }

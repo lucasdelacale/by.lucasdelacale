@@ -14,7 +14,7 @@ const archive = [
 ---
 <BaseLayout title="Arquivo" description="Obras, processos, textos e referências de um acervo artístico em construção.">
   <section class="home-archive" aria-label="Publicações">
-    {archive.length > 0 ? <div class="archive-feed is-shuffling" data-random-publications aria-busy="true">{archive.map((entry, index) => <ArchiveEntry item={entry.item} kind={entry.kind} index={index} />)}</div> : <p class="empty">NENHUM TRABALHO PULICADO</p>}
+    {archive.length > 0 ? <div class="archive-feed is-shuffling" data-random-publications aria-busy="true">{archive.map((entry, index) => <ArchiveEntry item={entry.item} kind={entry.kind} index={index} showTitle={entry.kind === 'text'} />)}</div> : <p class="empty">NENHUM TRABALHO PULICADO</p>}
   </section>
 </BaseLayout>
 <script>

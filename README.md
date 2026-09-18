@@ -1,5 +1,7 @@
 # Acervo Criativo
 
+Versão atual: **v1.1**. Consulte o [histórico de versões](CHANGELOG.md).
+
 Site estático em Astro para um acervo artístico pessoal. A home funciona como uma entrada editorial: exibe as publicações em um mosaico aleatório a cada carregamento. As séries, os prints e os canvas possuem páginas próprias; o `/acervo` apresenta todas as obras em uma visão de mosaico mais densa e documental.
 
 O site não possui backend ou banco de dados próprio. O painel opcional usa Pages CMS, conecta-se ao GitHub e grava o conteúdo diretamente neste repositório.
@@ -195,6 +197,7 @@ O site é gerado como HTML estático. Em um serviço conectado ao GitHub, o flux
 ### Comportamento das listagens
 
 - A home embaralha somente as publicações no navegador a cada carregamento; a ordem das séries não é envolvida porque elas não aparecem na home.
+- Na home, obras e referências com imagens exibem somente tipo e ano; os títulos aparecem nas páginas individuais.
 - `/acervo/`, `/prints/`, `/canvas/`, `/series/`, `/textos/` e `/referencias/` usam ordenação da publicação mais nova para a mais antiga.
 - A data principal é `publishedAt`. Sem ela, o site usa `date`, `year` ou `period` como fallback.
 - Quando uma listagem não tem trabalhos, a mensagem exibida é `NENHUM TRABALHO PULICADO`.
@@ -230,3 +233,4 @@ O endereço provisório do GitHub Pages continua disponível em `https://lucasde
 - `/textos/` ensaios e anotações.
 - `/referencias/` referências.
 - `/sobre/` apresentação e contato.
+- `/post/` atalho para o painel de publicação do Pages CMS.

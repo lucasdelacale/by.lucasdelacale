@@ -5,8 +5,9 @@ interface Props {
   item: any;
   kind: 'work' | 'series' | 'text' | 'reference';
   index?: number;
+  showTitle?: boolean;
 }
-const { item, kind, index = 0 } = Astro.props;
+const { item, kind, index = 0, showTitle = true } = Astro.props;
 const data = item.data;
 const title = data.title;
 const href = sitePath(kind === 'work' ? `/acervo/${item.id}/` : kind === 'series' ? `/series/${item.id}/` : kind === 'text' ? `/textos/${item.id}/` : '/referencias/');
@@ -19,7 +20,7 @@ const alt = kind === 'work' ? data.coverAlt ?? 'Imagem da obra' : kind === 'seri
     {image ? <img src={sitePath(image)} alt={alt} loading={index < 4 ? 'eager' : 'lazy'} /> : <div class="archive-text-mark" aria-hidden="true">“</div>}
     <div class="archive-entry-info">
       <span class="eyebrow">{label}</span>
-      {title && <h2>{title}</h2>}
+      {showTitle && title && <h2>{title}</h2>}
       <p>{kind === 'work' ? data.year ?? 'sem data' : kind === 'series' ? data.period ?? 'sem período' : kind === 'text' ? data.date ?? 'sem data' : data.year ?? 'referência'}</p>
     </div>
   </a>
