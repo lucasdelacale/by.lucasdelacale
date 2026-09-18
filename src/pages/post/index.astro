@@ -1,0 +1,19 @@
+---
+const cmsUrl = 'https://app.pagescms.org/';
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="refresh" content={`0;url=${cmsUrl}`} />
+    <title>Publicar / Acervo</title>
+  </head>
+  <body>
+    <p>Redirecionando para o painel de publicação...</p>
+    <p><a href={cmsUrl}>Abrir o painel</a></p>
+    <script>
+      window.location.replace('https://app.pagescms.org/');
+    </script>
+  </body>
+</html>
