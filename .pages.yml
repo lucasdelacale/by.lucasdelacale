@@ -23,7 +23,7 @@ content:
     path: src/content/works
     filename: "{primary}.md"
     view:
-      fields: [title, type, year]
+      fields: [title, type, year, coverImage]
       primary: title
       sort: [publishedAt, year, title]
       search: [title, type, year, tags]
@@ -119,7 +119,7 @@ content:
     path: src/content/series
     filename: "{primary}.md"
     view:
-      fields: [title, period]
+      fields: [title, period, coverImage]
       primary: title
       sort: [publishedAt, period, title]
       search: [title, period]
