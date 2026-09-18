@@ -1,0 +1,160 @@
+media:
+  - name: images
+    label: Imagens
+    input: public/images
+    output: /images
+    extensions: [jpg, jpeg, png, webp, avif]
+    rename: safe
+
+settings:
+  content: true
+  commit:
+    identity: user
+    templates:
+      create: "content: create {path}"
+      update: "content: update {path}"
+      delete: "content: delete {path}"
+      rename: "content: rename {oldPath} -> {newPath}"
+
+content:
+  - name: works
+    label: Obras
+    type: collection
+    path: src/content/works
+    filename: "{primary}.md"
+    view:
+      fields: [title, type, year]
+      primary: title
+      sort: [publishedAt, year, title]
+      search: [title, type, year, tags]
+      default:
+        sort: publishedAt
+        order: desc
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: publishedAt
+        label: Data de publicação
+        type: date
+      - name: year
+        label: Ano
+        type: number
+      - name: type
+        label: Tipo
+        type: select
+        required: true
+        options:
+          values:
+            - name: fotografia
+              label: Fotografia
+            - name: print
+              label: Print
+            - name: canvas
+              label: Canvas
+            - name: escultura
+              label: Escultura
+            - name: referencia
+              label: Referência
+      - name: series
+        label: Série
+        type: reference
+        options:
+          collection: series
+          value: "{name}"
+          label: "{primary}"
+      - name: coverImage
+        label: Imagem principal
+        type: image
+        options:
+          media: images
+          path: works
+          extensions: [jpg, jpeg, png, webp, avif]
+      - name: coverAlt
+        label: Texto alternativo da imagem
+        type: string
+      - name: gallery
+        label: Imagens complementares
+        type: image
+        options:
+          media: images
+          path: works
+          multiple:
+            max: 20
+          unique: true
+          extensions: [jpg, jpeg, png, webp, avif]
+      - name: materials
+        label: Materiais
+        type: string
+        list: true
+      - name: dimensions
+        label: Dimensões
+        type: string
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: featured
+        label: Destacar na página inicial
+        type: boolean
+      - name: photoCredit
+        label: Crédito da fotografia
+        type: string
+      - name: body
+        label: Texto da obra
+        type: rich-text
+      - name: relatedWorks
+        label: Obras relacionadas
+        type: reference
+        options:
+          collection: works
+          multiple: true
+          value: "{name}"
+          label: "{primary}"
+
+  - name: series
+    label: Séries
+    type: collection
+    path: src/content/series
+    filename: "{primary}.md"
+    view:
+      fields: [title, period]
+      primary: title
+      sort: [publishedAt, period, title]
+      search: [title, period]
+      default:
+        sort: publishedAt
+        order: desc
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: publishedAt
+        label: Data de publicação
+        type: date
+      - name: period
+        label: Período
+        type: string
+      - name: coverImage
+        label: Imagem de capa
+        type: image
+        options:
+          media: images
+          path: series
+          extensions: [jpg, jpeg, png, webp, avif]
+      - name: coverAlt
+        label: Texto alternativo da imagem
+        type: string
+      - name: body
+        label: Descrição da série
+        type: rich-text
+      - name: works
+        label: Obras da série
+        type: reference
+        options:
+          collection: works
+          multiple: true
+          value: "{name}"
+          label: "{primary}"
