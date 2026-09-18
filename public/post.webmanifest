@@ -1,13 +1,13 @@
 {
-  "name": "Acervo Criativo / Lucas Delacale",
-  "short_name": "Acervo",
-  "start_url": "/",
+  "name": "Publicar / Acervo Criativo",
+  "short_name": "Publicar",
+  "start_url": "/post/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "/site-icon.png",
+      "src": "/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png"
     }
