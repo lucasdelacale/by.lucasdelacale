@@ -33,7 +33,7 @@ const items = sortByPublishedAt([...selectedItems, ...linkedItems].filter((work,
       <div class="series-description prose"><Content /></div>
     </div>
     <section class="series-works" aria-label="Obras da série">
-       <div class="works-grid">{items.map((work, i) => <WorkCard work={work} index={i} seriesLabel={title} />)}</div>
+       <div class="works-grid">{items.map((work, i) => <WorkCard work={work} index={i} minimal />)}</div>
     </section>
   </article>
 </BaseLayout>

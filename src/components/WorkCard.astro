@@ -1,8 +1,8 @@
 ---
 import { sitePath } from '../utils/paths';
 
-interface Props { work: any; index?: number; mode?: 'gallery' | 'mosaic' | 'list'; seriesLabel?: string | null; }
-const { work, index = 0, mode = 'gallery', seriesLabel } = Astro.props;
+interface Props { work: any; index?: number; mode?: 'gallery' | 'mosaic' | 'list'; seriesLabel?: string | null; minimal?: boolean; }
+const { work, index = 0, mode = 'gallery', seriesLabel, minimal = false } = Astro.props;
 const { data } = work;
 const title = data.title;
 const type = data.type ?? 'outro';
@@ -13,10 +13,10 @@ const displayedSeries = seriesLabel ?? data.series;
     <div class="work-image-wrap">
       {data.coverImage ? <img src={sitePath(data.coverImage)} alt={data.coverAlt ?? 'Imagem da obra'} loading={index < 3 ? 'eager' : 'lazy'} /> : <div class="work-placeholder" aria-label="Sem imagem">sem imagem</div>}
     </div>
-    <div class="work-info">
+    {minimal ? (data.caption && <p class="series-caption">{data.caption}</p>) : <div class="work-info">
       {title && <h3>{title}</h3>}
       <p>{type} {data.year ? ` / ${data.year}` : ''}</p>
       {displayedSeries && <p class="muted">{displayedSeries}</p>}
-    </div>
+    </div>}
   </a>
 </article>

@@ -81,6 +81,7 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .work-info h3, .work-info p { max-width:100%; overflow-wrap:anywhere; }
 .work-info p { font:10px var(--mono); text-transform:uppercase; margin:0; color:var(--muted); }
 .work-info .muted { grid-column:1/-1; text-transform:none; }
+.series-caption { color:var(--muted); font:10px var(--mono); margin:10px 0 0; text-align:center; text-transform:none; }
 .works-grid[data-mode="mosaic"] { grid-template-columns:repeat(12, 1fr); gap:2.5vw 1.2vw; align-items:start; }
 .works-grid[data-mode="mosaic"] .work-card { grid-column:span 3; }
 .works-grid[data-mode="mosaic"] .work-card:nth-child(5n+1) { grid-column:span 4; margin-top:2vw; }

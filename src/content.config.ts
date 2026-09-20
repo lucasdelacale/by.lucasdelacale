@@ -18,6 +18,7 @@ const works = defineCollection({
     dimensions: z.string().nullish(),
     coverImage: image,
     coverAlt: z.string().nullish(),
+    caption: z.string().nullish(),
     gallery: z.array(image).nullish(),
     tags: z.array(z.string()).nullish(),
     featured: z.boolean().nullish().default(false),

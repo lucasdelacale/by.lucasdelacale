@@ -74,6 +74,9 @@ content:
       - name: coverAlt
         label: Texto alternativo da imagem
         type: string
+      - name: caption
+        label: Legenda
+        type: string
       - name: gallery
         label: Imagens complementares
         type: image
