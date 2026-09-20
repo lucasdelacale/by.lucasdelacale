@@ -4,6 +4,6 @@ publishedAt: 2026-09-20
 year: 2024
 type: fotografia
 gallery:
-  - /images/nevou-03.jpg
+  - /images/originais-06.jpeg
 featured: false
 ---
