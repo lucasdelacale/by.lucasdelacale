@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../../components/WorkCard.astro';
-import { sortByPublishedAt } from '../../utils/content';
+import { normalizeContentId, sortByPublishedAt } from '../../utils/content';
 import { sitePath } from '../../utils/paths';
 export async function getStaticPaths() { const works = await getCollection('works'); return works.map((work) => ({ params: { slug: work.id }, props: { work } })); }
 const { work } = Astro.props;
@@ -10,6 +10,9 @@ const { Content } = await render(work);
 const title = work.data.title;
 const type = work.data.type ?? 'outro';
 const allWorks = sortByPublishedAt(await getCollection('works'));
+const allSeries = await getCollection('series');
+const seriesReference = normalizeContentId(work.data.series);
+const seriesTitle = allSeries.find((series) => normalizeContentId(series.id) === seriesReference || normalizeContentId(series.data.title) === seriesReference)?.data.title;
 const related = sortByPublishedAt((work.data.relatedWorks ?? []).map((id) => allWorks.find((item) => item.id === id)).filter((item): item is (typeof allWorks)[number] => Boolean(item)));
 const position = allWorks.findIndex((item) => item.id === work.id);
 const previous = allWorks[(position - 1 + allWorks.length) % allWorks.length];
@@ -17,7 +20,7 @@ const next = allWorks[(position + 1) % allWorks.length];
 ---
 <BaseLayout title={title ? `${title} / Acervo` : 'Obra / Acervo'} description={work.data.coverAlt ?? 'Obra do acervo'}>
   <article class="detail">
-    <div class="detail-head"><div><p class="eyebrow">Obra / {type}</p>{title && <h1>{title}</h1>}<p class="muted">{work.data.series ?? 'registro independente'}</p></div><div class="detail-meta"><p><span>Ano</span><strong>{work.data.year ?? '—'}</strong></p><p><span>Materiais</span><strong>{work.data.materials?.join(', ') ?? '—'}</strong></p><p><span>Dimensões</span><strong>{work.data.dimensions ?? '—'}</strong></p><p><span>Tags</span><strong>{work.data.tags?.join(' / ') ?? '—'}</strong></p></div></div>
+     <div class="detail-head"><div><p class="eyebrow">Obra / {type}</p>{title && <h1>{title}</h1>}<p class="muted">{seriesTitle ?? work.data.series ?? 'registro independente'}</p></div><div class="detail-meta"><p><span>Ano</span><strong>{work.data.year ?? '—'}</strong></p><p><span>Materiais</span><strong>{work.data.materials?.join(', ') ?? '—'}</strong></p><p><span>Dimensões</span><strong>{work.data.dimensions ?? '—'}</strong></p><p><span>Tags</span><strong>{work.data.tags?.join(' / ') ?? '—'}</strong></p></div></div>
     {work.data.coverImage ? <img class="detail-image" src={sitePath(work.data.coverImage)} alt={work.data.coverAlt ?? 'Imagem da obra'} /> : <div class="detail-placeholder">Sem imagem para esta obra.</div>}
     <div class="detail-copy prose"><Content /></div>
     {work.data.gallery && <div class="detail-gallery" aria-label="Imagens adicionais">{work.data.gallery.map((image, index) => <button type="button" data-lightbox={image} aria-label={`Ampliar imagem ${index + 2}`}><img src={image} alt={`Vista adicional ${index + 1}`} loading="lazy" /></button>)}</div>}

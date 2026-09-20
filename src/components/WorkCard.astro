@@ -1,11 +1,12 @@
 ---
 import { sitePath } from '../utils/paths';
 
-interface Props { work: any; index?: number; mode?: 'gallery' | 'mosaic' | 'list'; }
-const { work, index = 0, mode = 'gallery' } = Astro.props;
+interface Props { work: any; index?: number; mode?: 'gallery' | 'mosaic' | 'list'; seriesLabel?: string | null; }
+const { work, index = 0, mode = 'gallery', seriesLabel } = Astro.props;
 const { data } = work;
 const title = data.title;
 const type = data.type ?? 'outro';
+const displayedSeries = seriesLabel ?? data.series;
 ---
 <article class={`work-card work-card--${mode}`} style={`--card-index: ${index}`}>
     <a href={sitePath(`/acervo/${work.id}/`)} class="work-link">
@@ -15,7 +16,7 @@ const type = data.type ?? 'outro';
     <div class="work-info">
       {title && <h3>{title}</h3>}
       <p>{type} {data.year ? ` / ${data.year}` : ''}</p>
-      {data.series && <p class="muted">{data.series}</p>}
+      {displayedSeries && <p class="muted">{displayedSeries}</p>}
     </div>
   </a>
 </article>

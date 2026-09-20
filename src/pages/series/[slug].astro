@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../../components/WorkCard.astro';
-import { sortByPublishedAt } from '../../utils/content';
+import { normalizeContentId, sortByPublishedAt } from '../../utils/content';
 import { sitePath } from '../../utils/paths';
 
 export async function getStaticPaths() {
@@ -14,7 +14,12 @@ const { item } = Astro.props;
 const { Content } = await render(item);
 const title = item.data.title;
 const works = sortByPublishedAt(await getCollection('works'));
-const items = sortByPublishedAt((item.data.works ?? []).map((id) => works.find((work) => work.id === id)).filter((work): work is (typeof works)[number] => Boolean(work)));
+const seriesKey = normalizeContentId(item.id);
+const selectedItems = (item.data.works ?? [])
+  .map((id) => works.find((work) => normalizeContentId(work.id) === normalizeContentId(id)))
+  .filter((work): work is (typeof works)[number] => Boolean(work));
+const linkedItems = works.filter((work) => normalizeContentId(work.data.series) === seriesKey);
+const items = sortByPublishedAt([...selectedItems, ...linkedItems].filter((work, index, all) => all.findIndex((candidate) => candidate.id === work.id) === index));
 ---
 <BaseLayout title={title ? `${title} / Séries` : 'Série / Arquivo'}>
   <article class="detail series-detail">
@@ -28,7 +33,7 @@ const items = sortByPublishedAt((item.data.works ?? []).map((id) => works.find((
       <div class="series-description prose"><Content /></div>
     </div>
     <section class="series-works" aria-label="Obras da série">
-      <div class="works-grid">{items.map((work, i) => <WorkCard work={work} index={i} />)}</div>
+       <div class="works-grid">{items.map((work, i) => <WorkCard work={work} index={i} seriesLabel={title} />)}</div>
     </section>
   </article>
 </BaseLayout>

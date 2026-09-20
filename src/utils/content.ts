@@ -2,6 +2,19 @@ export function sortByPublishedAt<T extends { id: string; data: any }>(items: T[
   return [...items].sort(compareByPublishedAt);
 }
 
+export function normalizeContentId(value: unknown): string {
+  return String(value ?? '')
+    .trim()
+    .split('/')
+    .pop()
+    ?.replace(/\.(?:md|mdx)$/i, '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') ?? '';
+}
+
 export function compareByPublishedAt<T extends { id: string; data: any }>(a: T, b: T): number {
   const dateDifference = getPublicationTime(b) - getPublicationTime(a);
 
