@@ -6,7 +6,8 @@
     "dev": "node scripts/clean-dist.mjs && astro dev",
     "build": "node scripts/clean-dist.mjs && astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "optimize": "node scripts/optimize-image.mjs"
   },
   "dependencies": {
     "@astrojs/check": "latest",

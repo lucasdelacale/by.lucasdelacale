@@ -40,6 +40,12 @@ Verifique tipos, schemas e arquivos Astro:
 npm run check
 ```
 
+Reduza imagens antes de subir pelo painel (limite ~3,3 MB, ver [Limite de upload](#limite-de-upload-erro-413)):
+
+```bash
+npm run optimize -- caminho/da/foto.jpg
+```
+
 Gere a versão estática para publicação:
 
 ```bash
@@ -198,6 +204,34 @@ O nome e a extensão precisam corresponder exatamente ao arquivo. `IMG_0185.JPG`
 Use imagens otimizadas e, sempre que possível, nomes simples sem espaços ou caracteres especiais.
 
 As imagens são apresentadas sem bordas visuais. O mosaico controla o tamanho dos cards, enquanto títulos, tipos e anos ficam alinhados dentro da largura de cada imagem.
+
+### Limite de upload (erro 413)
+
+O painel do Pages CMS (`app.pagescms.org`) roda na **Vercel**, que corta o corpo do request em **4,5 MB**, e o arquivo trafega codificado em base64 (que cresce ~33%). O limite prático é **≈ 3,3 MB por imagem**. Acima disso o upload falha com **413** — é limite do serviço, não há configuração no `.pages.yml` que mude isso (ver [pagescms#284](https://github.com/pages-cms/pages-cms/issues/284) e [pagescms#393](https://github.com/hunvreus/pagescms/issues/393)).
+
+Antes de subir uma foto, reduza-a:
+
+```bash
+npm run optimize -- caminho/da/foto.jpg
+```
+
+O script (usa o `sips` do macOS, sem dependências) redimensiona para no máximo 2400px no maior lado e regrava o JPEG em qualidade 80, preservando o perfil de cor. Ele mostra o tamanho em base64 do resultado e avisa se ainda estiver acima do limite.
+
+```bash
+npm run optimize -- public/images/               # uma pasta inteira, no lugar
+npm run optimize -- foto.jpg --dry-run           # só mostra o que faria
+npm run optimize -- foto.jpg --out public/images # grava em outro diretório
+npm run optimize -- foto.jpg --max 1800 --quality 70
+```
+
+Referência de tamanho depois do `optimize`:
+
+| Situação | Upload pelo CMS |
+|---|---|
+| até ~3,3 MB | funciona |
+| acima de ~3,3 MB | erro 413 |
+
+**Alternativa** quando a imagem precisa ficar grande: ignore o painel e commit o arquivo direto em `public/images/` (arraste no GitHub ou `git add`). O limite de 4,5 MB só existe no upload do CMS — o repositório aceita arquivos muito maiores.
 
 ## Outros conteúdos
 
