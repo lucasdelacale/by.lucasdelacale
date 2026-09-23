@@ -56,7 +56,6 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .archive-entry:nth-child(5n) { grid-column:8 / span 4; margin-top:2vw; }
 .archive-entry img { aspect-ratio:4/5; background:transparent; }
 .archive-entry--series img { aspect-ratio:16/10; }
-.archive-entry--reference img { aspect-ratio:1; filter:grayscale(1); }
 .archive-entry-info { padding-top:12px; min-width:0; max-width:100%; text-align:center; }
 .archive-entry-info .eyebrow { display:block; max-width:100%; overflow-wrap:anywhere; }
 .archive-entry-info h2 { font-size:clamp(20px, 2vw, 30px); margin:4px 0 5px; max-width:100%; overflow-wrap:anywhere; }

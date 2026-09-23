@@ -17,13 +17,12 @@ const href = sitePath(kind === 'work' ? `/acervo/${item.id}/` : kind === 'series
 const label = kind === 'work' ? data.type ?? 'outro' : kind === 'series' ? 'série' : kind === 'text' ? data.kind ?? 'texto' : data.kind ?? 'referência';
 const image = kind === 'work' ? data.coverImage : kind === 'series' ? data.coverImage : kind === 'reference' ? data.image : null;
 const alt = kind === 'work' ? data.coverAlt ?? 'Imagem da obra' : kind === 'series' ? data.coverAlt ?? 'Imagem da série' : kind === 'reference' ? data.imageAlt ?? 'Imagem de referência' : '';
-const isReference = kind === 'reference' || data.type === 'referencia';
 const allSeries = await getCollection('series');
 const seriesLabel = kind === 'work' ? resolveSeriesLabel(allSeries, item) : null;
 const sold = kind === 'work' && Boolean(data.sold);
 const saleVisible = showSale && kind === 'work' && isPurchasable(data.type) && (sold || data.price != null);
 ---
-<article class={`archive-entry archive-entry--${kind}${isReference ? ' archive-entry--reference' : ''} archive-entry--${index % 5}`}>
+<article class={`archive-entry archive-entry--${kind} archive-entry--${index % 5}`}>
   <a href={href}>
     {image ? <div class="archive-entry-image-wrap"><img src={sitePath(image)} alt={alt} loading={index < 4 ? 'eager' : 'lazy'} />{sold && <span class="sold-dot" title="Vendida" aria-hidden="true"></span>}</div> : <div class="archive-text-mark" aria-hidden="true">“</div>}
     <div class="archive-entry-info">
