@@ -7,7 +7,7 @@ coverImage: /images/0002.jpg
 materials:
   - Giz pastel sobre papel Canson.
 dimensions: 30 x 40
-tags:
-  - Vendido!
+tags: []
 featured: false
+sold: true
 ---
