@@ -6,8 +6,15 @@ import { glob } from 'astro/loaders';
 const image = z.string().min(1).nullish();
 const publishedAt = z.union([z.string(), z.date()]).nullish();
 
+// Obras vivem em subpastas por área (fotografias/, prints/, canvas/, esculturas/,
+// referencias/), mas o id é o basename — assim as URLs não mudam e nomes precisam
+// ser únicos entre as pastas.
 const works = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/works' }),
+  loader: glob({
+    pattern: '**/*.{md,mdx}',
+    base: './src/content/works',
+    generateId: ({ entry }) => entry.replace(/\.(?:md|mdx)$/i, '').split('/').pop() ?? entry,
+  }),
   schema: z.object({
     title: z.string().nullish(),
     publishedAt,
@@ -22,6 +29,8 @@ const works = defineCollection({
     gallery: z.array(image).nullish(),
     tags: z.array(z.string()).nullish(),
     featured: z.boolean().nullish().default(false),
+    price: z.number().nullish(),
+    sold: z.boolean().nullish().default(false),
     relatedWorks: z.array(z.string()).nullish(),
     relatedReferences: z.array(z.string()).nullish(),
     relatedTexts: z.array(z.string()).nullish(),
@@ -55,18 +64,4 @@ const texts = defineCollection({
   }),
 });
 
-const references = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/references' }),
-  schema: z.object({
-    title: z.string().nullish(),
-    publishedAt,
-    kind: z.string().nullish(),
-    year: z.number().nullish(),
-    image,
-    imageAlt: z.string().nullish(),
-    relatedWorks: z.array(z.string()).nullish(),
-    relatedSeries: z.array(z.string()).nullish(),
-  }),
-});
-
-export const collections = { works, series, texts, references };
+export const collections = { works, series, texts };

@@ -17,11 +17,314 @@ settings:
       rename: "content: rename {oldPath} -> {newPath}"
 
 content:
-  - name: works
+  # ------------------------------------------------------------------
+  # Trabalhos à venda. Cada área carimba o campo `type` automaticamente
+  # (default + hidden), então a classificação não é digitada à mão.
+  # ------------------------------------------------------------------
+  - name: trabalhos
+    label: Trabalhos
+    type: group
+    items:
+      - name: prints
+        label: Prints
+        type: collection
+        path: src/content/works/prints
+        filename: "{primary}.md"
+        subfolders: false
+        view:
+          fields: [title, year, price, sold, coverImage]
+          primary: title
+          sort: [publishedAt, year, title, price]
+          search: [title, year, tags]
+          default:
+            sort: publishedAt
+            order: desc
+        fields:
+          - name: title
+            label: Título
+            type: string
+            required: true
+          - name: publishedAt
+            label: Data de publicação
+            type: date
+          - name: year
+            label: Ano
+            type: number
+          - name: type
+            label: Tipo
+            type: string
+            readonly: true
+            default: print
+          - name: price
+            label: Valor (R$)
+            type: number
+            options:
+              min: 0
+            description: Valor de venda em reais. Deixe vazio para não exibir preço.
+          - name: sold
+            label: Vendida
+            type: boolean
+            default: false
+            description: Marque para exibir o ponto vermelho de galeria e sinalizar a peça como vendida.
+          - name: series
+            label: Série
+            type: reference
+            options:
+              collection: series
+              value: "{name}"
+              label: "{primary}"
+          - name: coverImage
+            label: Imagem principal
+            type: image
+            options:
+              media: images
+              path: works
+              extensions: [jpg, jpeg, png, webp, avif]
+          - name: coverAlt
+            label: Texto alternativo da imagem
+            type: string
+          - name: caption
+            label: Legenda
+            type: string
+          - name: gallery
+            label: Imagens complementares
+            type: image
+            options:
+              media: images
+              path: works
+              multiple:
+                max: 20
+              unique: true
+              extensions: [jpg, jpeg, png, webp, avif]
+          - name: materials
+            label: Materiais
+            type: string
+            list: true
+          - name: dimensions
+            label: Dimensões
+            type: string
+          - name: tags
+            label: Tags
+            type: string
+            list: true
+          - name: featured
+            label: Destacar na página inicial
+            type: boolean
+          - name: photoCredit
+            label: Crédito da fotografia
+            type: string
+          - name: body
+            label: Texto da obra
+            type: rich-text
+          - name: relatedWorks
+            label: Obras relacionadas
+            type: string
+            list: true
+            description: Slug do arquivo da obra (ex.: sem-titulo-17).
+
+      - name: canvas
+        label: Canvas
+        type: collection
+        path: src/content/works/canvas
+        filename: "{primary}.md"
+        subfolders: false
+        view:
+          fields: [title, year, price, sold, coverImage]
+          primary: title
+          sort: [publishedAt, year, title, price]
+          search: [title, year, tags]
+          default:
+            sort: publishedAt
+            order: desc
+        fields:
+          - name: title
+            label: Título
+            type: string
+            required: true
+          - name: publishedAt
+            label: Data de publicação
+            type: date
+          - name: year
+            label: Ano
+            type: number
+          - name: type
+            label: Tipo
+            type: string
+            readonly: true
+            default: canvas
+          - name: price
+            label: Valor (R$)
+            type: number
+            options:
+              min: 0
+            description: Valor de venda em reais. Deixe vazio para não exibir preço.
+          - name: sold
+            label: Vendida
+            type: boolean
+            default: false
+            description: Marque para exibir o ponto vermelho de galeria e sinalizar a peça como vendida.
+          - name: series
+            label: Série
+            type: reference
+            options:
+              collection: series
+              value: "{name}"
+              label: "{primary}"
+          - name: coverImage
+            label: Imagem principal
+            type: image
+            options:
+              media: images
+              path: works
+              extensions: [jpg, jpeg, png, webp, avif]
+          - name: coverAlt
+            label: Texto alternativo da imagem
+            type: string
+          - name: caption
+            label: Legenda
+            type: string
+          - name: gallery
+            label: Imagens complementares
+            type: image
+            options:
+              media: images
+              path: works
+              multiple:
+                max: 20
+              unique: true
+              extensions: [jpg, jpeg, png, webp, avif]
+          - name: materials
+            label: Materiais
+            type: string
+            list: true
+          - name: dimensions
+            label: Dimensões
+            type: string
+          - name: tags
+            label: Tags
+            type: string
+            list: true
+          - name: featured
+            label: Destacar na página inicial
+            type: boolean
+          - name: photoCredit
+            label: Crédito da fotografia
+            type: string
+          - name: body
+            label: Texto da obra
+            type: rich-text
+          - name: relatedWorks
+            label: Obras relacionadas
+            type: string
+            list: true
+            description: Slug do arquivo da obra (ex.: sem-titulo-17).
+
+      - name: esculturas
+        label: Esculturas
+        type: collection
+        path: src/content/works/esculturas
+        filename: "{primary}.md"
+        subfolders: false
+        view:
+          fields: [title, year, price, sold, coverImage]
+          primary: title
+          sort: [publishedAt, year, title, price]
+          search: [title, year, tags]
+          default:
+            sort: publishedAt
+            order: desc
+        fields:
+          - name: title
+            label: Título
+            type: string
+            required: true
+          - name: publishedAt
+            label: Data de publicação
+            type: date
+          - name: year
+            label: Ano
+            type: number
+          - name: type
+            label: Tipo
+            type: string
+            readonly: true
+            default: escultura
+          - name: price
+            label: Valor (R$)
+            type: number
+            options:
+              min: 0
+            description: Valor de venda em reais. Deixe vazio para não exibir preço.
+          - name: sold
+            label: Vendida
+            type: boolean
+            default: false
+            description: Marque para exibir o ponto vermelho de galeria e sinalizar a peça como vendida.
+          - name: series
+            label: Série
+            type: reference
+            options:
+              collection: series
+              value: "{name}"
+              label: "{primary}"
+          - name: coverImage
+            label: Imagem principal
+            type: image
+            options:
+              media: images
+              path: works
+              extensions: [jpg, jpeg, png, webp, avif]
+          - name: coverAlt
+            label: Texto alternativo da imagem
+            type: string
+          - name: caption
+            label: Legenda
+            type: string
+          - name: gallery
+            label: Imagens complementares
+            type: image
+            options:
+              media: images
+              path: works
+              multiple:
+                max: 20
+              unique: true
+              extensions: [jpg, jpeg, png, webp, avif]
+          - name: materials
+            label: Materiais
+            type: string
+            list: true
+          - name: dimensions
+            label: Dimensões
+            type: string
+          - name: tags
+            label: Tags
+            type: string
+            list: true
+          - name: featured
+            label: Destacar na página inicial
+            type: boolean
+          - name: photoCredit
+            label: Crédito da fotografia
+            type: string
+          - name: body
+            label: Texto da obra
+            type: rich-text
+          - name: relatedWorks
+            label: Obras relacionadas
+            type: string
+            list: true
+            description: Slug do arquivo da obra (ex.: sem-titulo-17).
+
+  # ------------------------------------------------------------------
+  # Acervo: obras autorais e referências de pesquisa.
+  # ------------------------------------------------------------------
+  - name: obras
     label: Obras
     type: collection
-    path: src/content/works
+    path: src/content/works/fotografias
     filename: "{primary}.md"
+    subfolders: false
     view:
       fields: [title, type, year, coverImage]
       primary: title
@@ -43,20 +346,9 @@ content:
         type: number
       - name: type
         label: Tipo
-        type: select
-        required: true
-        options:
-          values:
-            - name: fotografia
-              label: Fotografia
-            - name: print
-              label: Print
-            - name: canvas
-              label: Canvas
-            - name: escultura
-              label: Escultura
-            - name: referencia
-              label: Referência
+        type: string
+        readonly: true
+        default: fotografia
       - name: series
         label: Série
         type: reference
@@ -109,18 +401,85 @@ content:
         type: rich-text
       - name: relatedWorks
         label: Obras relacionadas
+        type: string
+        list: true
+        description: Slug do arquivo da obra (ex.: sem-titulo-17).
+
+  - name: referencias
+    label: Referências
+    type: collection
+    path: src/content/works/referencias
+    filename: "{primary}.md"
+    subfolders: false
+    view:
+      fields: [title, year, coverImage]
+      primary: title
+      sort: [publishedAt, year, title]
+      search: [title, year, tags]
+      default:
+        sort: publishedAt
+        order: desc
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: publishedAt
+        label: Data de publicação
+        type: date
+      - name: year
+        label: Ano
+        type: number
+      - name: type
+        label: Tipo
+        type: string
+        readonly: true
+        default: referencia
+      - name: series
+        label: Série
         type: reference
         options:
-          collection: works
-          multiple: true
+          collection: series
           value: "{name}"
           label: "{primary}"
+      - name: coverImage
+        label: Imagem principal
+        type: image
+        options:
+          media: images
+          path: works
+          extensions: [jpg, jpeg, png, webp, avif]
+      - name: coverAlt
+        label: Texto alternativo da imagem
+        type: string
+      - name: caption
+        label: Legenda
+        type: string
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: featured
+        label: Destacar na página inicial
+        type: boolean
+      - name: photoCredit
+        label: Crédito da fotografia
+        type: string
+      - name: body
+        label: Texto da obra
+        type: rich-text
+      - name: relatedWorks
+        label: Obras relacionadas
+        type: string
+        list: true
+        description: Slug do arquivo da obra (ex.: sem-titulo-17).
 
   - name: series
     label: Séries
     type: collection
     path: src/content/series
     filename: "{primary}.md"
+    subfolders: false
     view:
       fields: [title, period, coverImage]
       primary: title
@@ -153,11 +512,3 @@ content:
       - name: body
         label: Descrição da série
         type: rich-text
-      - name: works
-        label: Obras da série
-        type: reference
-        options:
-          collection: works
-          multiple: true
-          value: "{name}"
-          label: "{primary}"

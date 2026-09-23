@@ -3,11 +3,6 @@ title: Originais GQ
 period: "2024"
 coverImage: /images/originais.JPG
 coverAlt: Originais do mês de agosto de 2024 para revista GQ
-works:
-references:
-  - slug-da-referencia
-texts:
-  - slug-do-texto
 ---
 Originais com [@mcph4m](https://www.instagram.com/mcph4m/) [@omcig4m](https://www.instagram.com/omcig4m/) para [@gqbrasil](https://www.instagram.com/gqbrasil/) brasil  
   

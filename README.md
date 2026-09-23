@@ -2,7 +2,7 @@
 
 Versão atual: **v1.1**. Consulte o [histórico de versões](CHANGELOG.md).
 
-Site estático em Astro para um acervo artístico pessoal. A home funciona como uma entrada editorial: exibe as publicações em um mosaico aleatório a cada carregamento. As séries, os prints e os canvas possuem páginas próprias; o `/acervo` apresenta todas as obras em uma visão de mosaico mais densa e documental.
+Site estático em Astro para um acervo artístico pessoal. A home funciona como uma entrada editorial: exibe as publicações em um mosaico aleatório a cada carregamento. `/trabalhos/` reúne as peças à venda (prints, canvas e esculturas) com valor, disponibilidade e selo vermelho de galeria; as séries possuem páginas próprias; o `/acervo` apresenta todas as obras em uma visão de mosaico mais densa e documental.
 
 O site não possui backend ou banco de dados próprio. O painel opcional usa Pages CMS, conecta-se ao GitHub e grava o conteúdo diretamente neste repositório.
 
@@ -57,30 +57,39 @@ npm run preview
 ## Estrutura principal
 
 ```text
-public/images/       imagens locais publicadas
-src/content/works/   obras e registros
-src/content/series/  séries e projetos
-src/content/texts/   ensaios e anotações
-src/content/references/ referências de pesquisa
-src/components/      componentes Astro reutilizáveis
-src/pages/            rotas do site
-src/styles/           tokens e estilos globais
-src/utils/            funções compartilhadas de ordenação
-templates/            modelos de conteúdo
+public/images/                  imagens locais publicadas
+src/content/works/fotografias/  obras autorais            (CMS: Obras)
+src/content/works/prints/       prints à venda            (CMS: Prints)
+src/content/works/canvas/       canvas à venda            (CMS: Canvas)
+src/content/works/esculturas/   esculturas à venda        (CMS: Esculturas)
+src/content/works/referencias/  referências de pesquisa   (CMS: Referências)
+src/content/series/             séries e projetos         (CMS: Séries)
+src/content/texts/              ensaios e anotações
+src/components/                 componentes Astro reutilizáveis
+src/pages/                      rotas do site
+src/styles/                     tokens e estilos globais
+src/utils/                      funções compartilhadas
+templates/                      modelos de conteúdo
 ```
+
+As obras vivem em subpastas por área de gerenciamento, mas a URL usa apenas o nome do arquivo: `src/content/works/prints/nome-do-print.md` gera `/acervo/nome-do-print/`. Por isso **o nome do arquivo precisa ser único entre todas as pastas de `works/`**.
 
 ## Publicar uma obra
 
-Use `templates/obra.md` como ponto de partida. Copie-o para:
+Use `templates/obra.md` como ponto de partida e copie-o para a pasta da área certa:
 
 ```text
-src/content/works/nome-da-obra.md
+src/content/works/fotografias/nome-da-obra.md   → Obras
+src/content/works/prints/nome-do-print.md       → Prints
+src/content/works/canvas/nome-do-canvas.md      → Canvas
+src/content/works/esculturas/nome-da-peca.md    → Esculturas
+src/content/works/referencias/nome-da-ref.md    → Referências
 ```
 
 O nome do arquivo vira o slug da URL. Por exemplo:
 
 ```text
-src/content/works/prada-hash.md
+src/content/works/prints/prada-hash.md
 ```
 
 gera:
@@ -89,7 +98,7 @@ gera:
 /acervo/prada-hash/
 ```
 
-Para exibir uma obra nas páginas específicas, use `type: print`, `type: canvas` ou `type: escultura` no frontmatter. Use `type: referencia` para diferenciar imagens de pesquisa das obras autorais. As obras com `type: fotografia` continuam no Arquivo geral. O nome do arquivo ou o nome da imagem não define a categoria: a classificação vem do campo `type`.
+O nome do arquivo e o nome da imagem não definem a categoria: a classificação vem do campo `type`, que é **carimbado automaticamente pela seção do CMS** (`fotografia`, `print`, `canvas`, `escultura` ou `referencia`). Ao criar o arquivo à mão, mantenha o `type` coerente com a pasta.
 
 Todos os campos do frontmatter são opcionais. Um arquivo mínimo válido é:
 
@@ -105,32 +114,40 @@ Quando não houver `title`, nenhum título será exibido. Quando não houver `ty
 
 Use `publishedAt: YYYY-MM-DD` para definir a data de publicação. As listagens, exceto a home, mostram as entradas mais novas primeiro; quando esse campo não existir, a ordenação usa `date`, `year` ou `period` como fallback.
 
-## Publicar Prints e Canvas
+## Publicar trabalhos à venda
 
-Prints e canvas usam o mesmo modelo de obra e a mesma página de detalhe do Arquivo. Para publicar um print:
+Prints, canvas e esculturas são as peças comercializáveis. Elas usam o mesmo modelo de obra e a mesma página de detalhe do Arquivo, e aparecem em `/trabalhos/` com filtros por tipo. Para publicar um print:
 
-1. Copie `templates/obra.md` para `src/content/works/nome-do-print.md`.
-2. Defina `type: print` no frontmatter.
+1. Copie `templates/obra.md` para `src/content/works/prints/nome-do-print.md`.
+2. Confira `type: print` no frontmatter.
 3. Adicione a imagem em `public/images/` e informe o caminho em `coverImage`.
-4. Execute `npm run check` e faça o build.
+4. Informe `price` (valor em reais, sem símbolo) e deixe `sold: false`.
+5. Execute `npm run check` e faça o build.
 
-O trabalho aparecerá em `/prints/` e também no `/acervo/` geral. Ao clicar na imagem, a página aberta será `/acervo/nome-do-print/`.
+O trabalho aparecerá em `/trabalhos/` e também no `/acervo/` geral. Ao clicar na imagem, a página aberta será `/acervo/nome-do-print/`. Para um canvas ou uma escultura, use `src/content/works/canvas/` ou `src/content/works/esculturas/` com `type: canvas` ou `type: escultura`.
 
-Para publicar um canvas, siga os mesmos passos usando `type: canvas`. A página `/canvas/` permanece vazia enquanto não houver uma obra com esse tipo.
+### Valor, vendida e o ponto vermelho
 
-Para publicar uma escultura, use `type: escultura`. Para cadastrar uma imagem de referência, use `type: referencia`; ela seguirá o mesmo modelo visual de uma fotografia, mas ficará identificada como referência.
+| Campo | Efeito |
+|---|---|
+| `price: 1200` | exibe `R$ 1.200,00` nos cards de `/trabalhos/` e na linha `Preço` do detalhe |
+| `sold: true` | exibe o selo vermelho de galeria sobre a imagem e a marcação `Vendida` |
 
-Os registros atuais chamados `print-01` a `print-05` continuam classificados como `fotografia`; por isso, aparecem no Arquivo geral e não em `/prints/`.
+Enquanto `sold` for `false` e houver `price`, o detalhe mostra `Status: Disponível` e o botão **Consultar →** (um `mailto` com o nome da obra no assunto). Ao marcar `sold: true`, o botão desaparece e o status passa a ser `Vendida`.
+
+O ponto vermelho é o mesmo adesivo que as galerias colam ao lado da peça vendida: aparece no canto inferior direito da imagem em todas as superfícies onde a obra é listada.
 
 ## Publicar uma série
 
-Use `templates/serie.md` e copie o arquivo para `src/content/series/nome-da-serie.md`. Toda série precisa de `coverImage` e `coverAlt`. Os slugs listados em `works`, `references` e `texts` fazem as relações da página.
+Use `templates/serie.md` e copie o arquivo para `src/content/series/nome-da-serie.md`. Toda série precisa de `coverImage` e `coverAlt`.
+
+A relação entre obra e série se autora **pelo campo `Série` da obra** (`series: nome-da-serie.md`), que tem seletor no painel e funciona nos dois sentidos: a obra aparece na página da série, e a série aparece como etiqueta na obra. Não é necessário preencher nada na série.
 
 As séries aparecem em `/series/`, em uma galeria clicável. Elas não são repetidas na home.
 
 ## Painel de publicação
 
-O arquivo `.pages.yml` configura o Pages CMS para editar obras e séries pelo navegador. O painel usa o GitHub como fonte de conteúdo e as imagens continuam sendo salvas em `public/images/`.
+O arquivo `.pages.yml` configura o Pages CMS para editar conteúdo pelo navegador. O painel usa o GitHub como fonte de conteúdo e as imagens continuam sendo salvas em `public/images/`.
 
 Para acessar o painel:
 
@@ -138,11 +155,26 @@ Para acessar o painel:
 2. Entre com a conta do GitHub que possui acesso ao repositório.
 3. Autorize o Pages CMS no repositório `by.lucasdelacale`.
 4. Selecione a branch `main` depois que a configuração for incorporada a ela.
-5. Use as áreas `Obras` e `Séries` para criar ou editar conteúdo.
+5. Use as áreas do menu lateral para criar ou editar conteúdo.
 
-O formulário de obras inclui imagem principal, imagens complementares, tipo, materiais, dimensões, tags e relações com outras obras. O formulário de séries permite selecionar as obras que pertencem a cada série.
+As áreas do painel espelham as pastas de conteúdo:
+
+| Área do CMS | Onde grava | O que é |
+|---|---|---|
+| **Trabalhos → Prints** | `src/content/works/prints/` | peças à venda em print |
+| **Trabalhos → Canvas** | `src/content/works/canvas/` | peças à venda em canvas |
+| **Trabalhos → Esculturas** | `src/content/works/esculturas/` | peças à venda em escultura |
+| **Obras** | `src/content/works/fotografias/` | obras autorais |
+| **Referências** | `src/content/works/referencias/` | imagens de pesquisa |
+| **Séries** | `src/content/series/` | séries e projetos |
+
+O campo `type` aparece bloqueado no formulário: ele é carimbado pela seção em que o item é criado e não pode ser editado à mão. Os campos `Valor (R$)` e `Vendida` só existem nas três áreas de Trabalhos.
+
+O formulário de obras inclui imagem principal, imagens complementares, materiais, dimensões, tags e obras relacionadas. A relação com a série se faz pelo campo **Série** da própria obra. O formulário de séries tem título, período, capa e descrição.
 
 Cada salvamento gera um commit no GitHub e inicia automaticamente o workflow de publicação. O painel não cria um banco de dados separado.
+
+> **Atenção:** o Pages CMS não filtra itens por campo — cada área mostra exatamente os arquivos da sua pasta. Por isso as áreas têm pastas próprias e `subfolders: false`. Não aponte duas áreas para a mesma pasta: ao salvar, o painel reescreve o frontmatter só com os campos da área ativa e descarta o resto.
 
 ## Imagens
 
@@ -184,6 +216,8 @@ relatedWorks:
   - prada-hash
 ```
 
+A relação com a série é a exceção: use o campo `series` na obra, apontando para o arquivo da série (`series: nome-da-serie.md`).
+
 ## Publicação
 
 O site é gerado como HTML estático. Em um serviço conectado ao GitHub, o fluxo recomendado é:
@@ -197,8 +231,9 @@ O site é gerado como HTML estático. Em um serviço conectado ao GitHub, o flux
 ### Comportamento das listagens
 
 - A home embaralha somente as publicações no navegador a cada carregamento; a ordem das séries não é envolvida porque elas não aparecem na home.
-- Na home, obras e referências com imagens exibem somente tipo e ano; os títulos aparecem nas páginas individuais.
-- `/acervo/`, `/prints/`, `/canvas/`, `/series/`, `/textos/` e `/referencias/` usam ordenação da publicação mais nova para a mais antiga.
+- Na home, obras e referências com imagens exibem a etiqueta de série (quando houver), o tipo e o ano; os títulos aparecem nas páginas individuais.
+- `/acervo/`, `/trabalhos/`, `/series/`, `/textos/` e `/referencias/` usam ordenação da publicação mais nova para a mais antiga.
+- `/trabalhos/` filtra `print`, `canvas` e `escultura` e permite restringir por tipo pelos botões acima da grade.
 - A data principal é `publishedAt`. Sem ela, o site usa `date`, `year` ou `period` como fallback.
 - Quando uma listagem não tem trabalhos, a mensagem exibida é `NENHUM TRABALHO PULICADO`.
 
@@ -227,10 +262,9 @@ O endereço provisório do GitHub Pages continua disponível em `https://lucasde
 - `/` home editorial aleatória de publicações.
 - `/acervo/` arquivo geral de obras em mosaico.
 - `/acervo/[slug]/` página individual da obra.
-- `/prints/` trabalhos em formato print.
-- `/canvas/` trabalhos em canvas.
+- `/trabalhos/` peças à venda (prints, canvas e esculturas) com filtros por tipo.
 - `/series/` séries e projetos.
 - `/textos/` ensaios e anotações.
-- `/referencias/` referências.
+- `/referencias/` referências de pesquisa.
 - `/sobre/` apresentação e contato.
 - `/post/` atalho para o painel de publicação do Pages CMS.

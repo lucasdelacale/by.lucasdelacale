@@ -1,27 +1,40 @@
 ---
+import { getCollection } from 'astro:content';
 import { sitePath } from '../utils/paths';
+import { formatPrice, isPurchasable, resolveSeriesLabel } from '../utils/content';
 
 interface Props {
   item: any;
   kind: 'work' | 'series' | 'text' | 'reference';
   index?: number;
   showTitle?: boolean;
+  showSale?: boolean;
 }
-const { item, kind, index = 0, showTitle = true } = Astro.props;
+const { item, kind, index = 0, showTitle = true, showSale = false } = Astro.props;
 const data = item.data;
 const title = data.title;
 const href = sitePath(kind === 'work' ? `/acervo/${item.id}/` : kind === 'series' ? `/series/${item.id}/` : kind === 'text' ? `/textos/${item.id}/` : '/referencias/');
 const label = kind === 'work' ? data.type ?? 'outro' : kind === 'series' ? 'série' : kind === 'text' ? data.kind ?? 'texto' : data.kind ?? 'referência';
 const image = kind === 'work' ? data.coverImage : kind === 'series' ? data.coverImage : kind === 'reference' ? data.image : null;
 const alt = kind === 'work' ? data.coverAlt ?? 'Imagem da obra' : kind === 'series' ? data.coverAlt ?? 'Imagem da série' : kind === 'reference' ? data.imageAlt ?? 'Imagem de referência' : '';
+const isReference = kind === 'reference' || data.type === 'referencia';
+const allSeries = await getCollection('series');
+const seriesLabel = kind === 'work' ? resolveSeriesLabel(allSeries, item) : null;
+const sold = kind === 'work' && Boolean(data.sold);
+const saleVisible = showSale && kind === 'work' && isPurchasable(data.type) && (sold || data.price != null);
 ---
-<article class={`archive-entry archive-entry--${kind} archive-entry--${index % 5}`}>
+<article class={`archive-entry archive-entry--${kind}${isReference ? ' archive-entry--reference' : ''} archive-entry--${index % 5}`}>
   <a href={href}>
-    {image ? <img src={sitePath(image)} alt={alt} loading={index < 4 ? 'eager' : 'lazy'} /> : <div class="archive-text-mark" aria-hidden="true">“</div>}
+    {image ? <div class="archive-entry-image-wrap"><img src={sitePath(image)} alt={alt} loading={index < 4 ? 'eager' : 'lazy'} />{sold && <span class="sold-dot" title="Vendida" aria-hidden="true"></span>}</div> : <div class="archive-text-mark" aria-hidden="true">“</div>}
     <div class="archive-entry-info">
       <span class="eyebrow">{label}</span>
+      {seriesLabel && <span class="series-tag">Série · {seriesLabel}</span>}
       {showTitle && title && <h2>{title}</h2>}
       <p>{kind === 'work' ? data.year ?? 'sem data' : kind === 'series' ? data.period ?? 'sem período' : kind === 'text' ? data.date ?? 'sem data' : data.year ?? 'referência'}</p>
+      {saleVisible && <p class="sale-line">
+        {data.price != null && <span class="sale-price">{formatPrice(data.price)}</span>}
+        {sold && <span class="sale-sold">Vendida</span>}
+      </p>}
     </div>
   </a>
 </article>

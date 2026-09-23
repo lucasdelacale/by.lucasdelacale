@@ -4,13 +4,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionIntro from '../../components/SectionIntro.astro';
 import { sortByPublishedAt } from '../../utils/content';
 import { sitePath } from '../../utils/paths';
-const references = sortByPublishedAt(await getCollection('references'));
+
+const references = sortByPublishedAt(
+  (await getCollection('works')).filter((work) => String(work.data.type ?? '').toLowerCase() === 'referencia'),
+);
 ---
 <BaseLayout title="Referências / Acervo">
   <div class="page">
     <SectionIntro title="Referências" />
     <div class="reference-list">
-      {references.map((ref) => { const title = ref.data.title; return <article class="ref-card">{ref.data.image && <img src={sitePath(ref.data.image)} alt={ref.data.imageAlt ?? 'Imagem de referência'} loading="lazy" />}<p class="eyebrow">{ref.data.kind ?? 'referência'}</p>{title && <h2>{title}</h2>}<p class="muted">{ref.data.year ?? 'sem data'}</p></article>; })}
+      {references.map((ref) => { const title = ref.data.title; return <article class="ref-card">{ref.data.coverImage && <img src={sitePath(ref.data.coverImage)} alt={ref.data.coverAlt ?? 'Imagem de referência'} loading="lazy" />}<p class="eyebrow">referência</p>{title && <h2>{title}</h2>}<p class="muted">{ref.data.year ?? 'sem data'}</p></article>; })}
     </div>
   </div>
 </BaseLayout>

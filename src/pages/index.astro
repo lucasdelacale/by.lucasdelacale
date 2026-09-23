@@ -3,13 +3,12 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArchiveEntry from '../components/ArchiveEntry.astro';
 import { compareByPublishedAt, sortByPublishedAt } from '../utils/content';
+
 const works = sortByPublishedAt(await getCollection('works'));
 const texts = sortByPublishedAt(await getCollection('texts'));
-const references = sortByPublishedAt(await getCollection('references'));
 const archive = [
   ...works.map((item) => ({ item, kind: 'work' as const })),
   ...texts.map((item) => ({ item, kind: 'text' as const })),
-  ...references.map((item) => ({ item, kind: 'reference' as const })),
 ].sort((a, b) => compareByPublishedAt(a.item, b.item));
 ---
 <BaseLayout title="Arquivo" description="Obras, processos, textos e referências de um acervo artístico em construção.">

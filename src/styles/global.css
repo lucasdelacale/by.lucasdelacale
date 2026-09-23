@@ -158,6 +158,16 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .empty { padding:25px 0; color:var(--muted); font:13px var(--mono); }
 .detail-nav { display:flex; justify-content:space-between; margin-top:8vw; padding-top:15px; font:11px var(--mono); text-transform:uppercase; }
 .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.archive-entry-image-wrap { position:relative; max-width:100%; }
+.detail-image-wrap { position:relative; }
+.sold-dot { position:absolute; right:10px; bottom:10px; width:12px; height:12px; border-radius:50%; background:var(--accent); }
+.series-tag { color:var(--accent); display:block; font:11px var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+.sale-line { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:4px 0 0; font:10px var(--mono); text-transform:uppercase; }
+.sale-price { color:var(--muted); }
+.sale-sold { color:var(--accent); }
+.detail-cta { justify-content:flex-start !important; padding-top:14px !important; }
+.detail-cta .arrow-link { color:var(--accent); }
+.work-card[hidden] { display:none; }
 @media (max-width:700px) {
   .site-header { padding:20px 5vw; }
   .menu-button { display:block; }
@@ -196,6 +206,7 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
   .series-detail:not(.is-landscape) .series-cover-wrap { display:block; }
   .series-detail:not(.is-landscape) .series-description { margin:0 0 35px; padding:0; }
   .detail-meta { margin-top:20px; }
+  .sold-dot { right:8px; bottom:8px; }
   .editorial-row { grid-template-columns:80px 1fr; gap:10px; }
   .editorial-row .arrow-link { grid-column:2; }
   .site-footer { flex-direction:column; gap:5px; }

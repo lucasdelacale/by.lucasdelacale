@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionIntro from '../../components/SectionIntro.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { isPurchasable, sortByPublishedAt } from '../../utils/content';
+
+const works = sortByPublishedAt((await getCollection('works')).filter((work) => isPurchasable(work.data.type)));
+const filters = [
+  { id: 'all', label: 'Todos' },
+  { id: 'print', label: 'Prints' },
+  { id: 'canvas', label: 'Canvas' },
+  { id: 'escultura', label: 'Esculturas' },
+];
+---
+<BaseLayout title="Trabalhos / Acervo" description="Trabalhos à venda: prints, canvas e esculturas.">
+  <div class="page">
+    <SectionIntro title="Trabalhos" copy="Peças à venda. Prints, canvas e esculturas — consulte valor e disponibilidade." />
+    {works.length > 0 ? (
+      <>
+        <div class="archive-toolbar">
+          <div class="view-switch" role="group" aria-label="Filtrar por tipo">
+            {filters.map((filter, index) => (
+              <button type="button" data-filter={filter.id} aria-pressed={index === 0 ? 'true' : 'false'}>{filter.label}</button>
+            ))}
+          </div>
+        </div>
+        <div class="works-grid" id="trabalhos-grid">
+          {works.map((work, i) => <WorkCard work={work} index={i} mode="gallery" showSale />)}
+        </div>
+      </>
+    ) : <p class="empty">NENHUM TRABALHO PULICADO</p>}
+  </div>
+</BaseLayout>
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const cards = document.querySelectorAll<HTMLElement>('#trabalhos-grid .work-card');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter ?? 'all';
+
+      buttons.forEach((candidate) => candidate.setAttribute('aria-pressed', String(candidate === button)));
+      cards.forEach((card) => {
+        const type = card.dataset.workType ?? '';
+        card.hidden = filter !== 'all' && type !== filter;
+      });
+    });
+  });
+</script>
