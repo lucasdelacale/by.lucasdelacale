@@ -42,8 +42,10 @@
   {
     "filename": "0006.jpg",
     "path": "/images/0006.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-33.md"
+    ],
     "size": 723301,
     "format": "JPG"
   },
