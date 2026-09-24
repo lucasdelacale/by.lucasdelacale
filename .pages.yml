@@ -18,8 +18,7 @@ settings:
 
 content:
   # ------------------------------------------------------------------
-  # Trabalhos à venda. Cada área carimba o campo `type` automaticamente
-  # (default + hidden), então a classificação não é digitada à mão.
+  # Trabalhos à venda. Cada área carimba o campo `type` automaticamente.
   # ------------------------------------------------------------------
   - name: trabalhos
     label: Trabalhos
@@ -29,7 +28,9 @@ content:
         label: Prints
         type: collection
         path: src/content/works/prints
-        filename: "{primary}.md"
+        filename:
+          template: "{primary}.md"
+          field: create
         subfolders: false
         view:
           fields: [title, year, price, sold, coverImage]
@@ -76,9 +77,10 @@ content:
           - name: coverImage
             label: Imagem principal
             type: image
+            required: true
             options:
               media: images
-              path: works
+              path: works/prints
               extensions: [jpg, jpeg, png, webp, avif]
           - name: coverAlt
             label: Texto alternativo da imagem
@@ -91,7 +93,7 @@ content:
             type: image
             options:
               media: images
-              path: works
+              path: works/prints
               multiple:
                 max: 20
               unique: true
@@ -120,13 +122,15 @@ content:
             label: Obras relacionadas
             type: string
             list: true
-            description: Slug do arquivo da obra (ex.: sem-titulo-17).
+            description: "Slug do arquivo da obra (ex.: sem-titulo-17)."
 
       - name: canvas
         label: Canvas
         type: collection
         path: src/content/works/canvas
-        filename: "{primary}.md"
+        filename:
+          template: "{primary}.md"
+          field: create
         subfolders: false
         view:
           fields: [title, year, price, sold, coverImage]
@@ -173,9 +177,10 @@ content:
           - name: coverImage
             label: Imagem principal
             type: image
+            required: true
             options:
               media: images
-              path: works
+              path: works/canvas
               extensions: [jpg, jpeg, png, webp, avif]
           - name: coverAlt
             label: Texto alternativo da imagem
@@ -188,7 +193,7 @@ content:
             type: image
             options:
               media: images
-              path: works
+              path: works/canvas
               multiple:
                 max: 20
               unique: true
@@ -217,13 +222,15 @@ content:
             label: Obras relacionadas
             type: string
             list: true
-            description: Slug do arquivo da obra (ex.: sem-titulo-17).
+            description: "Slug do arquivo da obra (ex.: sem-titulo-17)."
 
       - name: esculturas
         label: Esculturas
         type: collection
         path: src/content/works/esculturas
-        filename: "{primary}.md"
+        filename:
+          template: "{primary}.md"
+          field: create
         subfolders: false
         view:
           fields: [title, year, price, sold, coverImage]
@@ -270,9 +277,10 @@ content:
           - name: coverImage
             label: Imagem principal
             type: image
+            required: true
             options:
               media: images
-              path: works
+              path: works/esculturas
               extensions: [jpg, jpeg, png, webp, avif]
           - name: coverAlt
             label: Texto alternativo da imagem
@@ -285,7 +293,7 @@ content:
             type: image
             options:
               media: images
-              path: works
+              path: works/esculturas
               multiple:
                 max: 20
               unique: true
@@ -314,7 +322,7 @@ content:
             label: Obras relacionadas
             type: string
             list: true
-            description: Slug do arquivo da obra (ex.: sem-titulo-17).
+            description: "Slug do arquivo da obra (ex.: sem-titulo-17)."
 
   # ------------------------------------------------------------------
   # Acervo: obras autorais e referências de pesquisa.
@@ -323,7 +331,9 @@ content:
     label: Obras
     type: collection
     path: src/content/works/fotografias
-    filename: "{primary}.md"
+    filename:
+      template: "{primary}.md"
+      field: create
     subfolders: false
     view:
       fields: [title, type, year, coverImage]
@@ -359,9 +369,10 @@ content:
       - name: coverImage
         label: Imagem principal
         type: image
+        required: true
         options:
           media: images
-          path: works
+          path: works/fotografias
           extensions: [jpg, jpeg, png, webp, avif]
       - name: coverAlt
         label: Texto alternativo da imagem
@@ -374,7 +385,7 @@ content:
         type: image
         options:
           media: images
-          path: works
+          path: works/fotografias
           multiple:
             max: 20
           unique: true
@@ -403,13 +414,15 @@ content:
         label: Obras relacionadas
         type: string
         list: true
-        description: Slug do arquivo da obra (ex.: sem-titulo-17).
+        description: "Slug do arquivo da obra (ex.: sem-titulo-17)."
 
   - name: referencias
     label: Referências
     type: collection
     path: src/content/works/referencias
-    filename: "{primary}.md"
+    filename:
+      template: "{primary}.md"
+      field: create
     subfolders: false
     view:
       fields: [title, year, coverImage]
@@ -445,9 +458,10 @@ content:
       - name: coverImage
         label: Imagem principal
         type: image
+        required: true
         options:
           media: images
-          path: works
+          path: works/referencias
           extensions: [jpg, jpeg, png, webp, avif]
       - name: coverAlt
         label: Texto alternativo da imagem
@@ -472,13 +486,15 @@ content:
         label: Obras relacionadas
         type: string
         list: true
-        description: Slug do arquivo da obra (ex.: sem-titulo-17).
+        description: "Slug do arquivo da obra (ex.: sem-titulo-17)."
 
   - name: series
     label: Séries
     type: collection
     path: src/content/series
-    filename: "{primary}.md"
+    filename:
+      template: "{primary}.md"
+      field: create
     subfolders: false
     view:
       fields: [title, period, coverImage]
@@ -502,6 +518,7 @@ content:
       - name: coverImage
         label: Imagem de capa
         type: image
+        required: true
         options:
           media: images
           path: series
@@ -511,4 +528,48 @@ content:
         type: string
       - name: body
         label: Descrição da série
+        type: rich-text
+
+  - name: textos
+    label: Textos
+    type: collection
+    path: src/content/texts
+    filename:
+      template: "{primary}.md"
+      field: create
+    subfolders: false
+    view:
+      fields: [title, kind, date]
+      primary: title
+      sort: [publishedAt, date, title]
+      search: [title, kind, date]
+      default:
+        sort: publishedAt
+        order: desc
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: publishedAt
+        label: Data de publicação
+        type: date
+      - name: kind
+        label: Tipo
+        type: string
+      - name: date
+        label: Data exibida
+        type: string
+      - name: relatedWorks
+        label: Obras relacionadas
+        type: string
+        list: true
+        description: Slug do arquivo da obra.
+      - name: relatedReferences
+        label: Referências relacionadas
+        type: string
+        list: true
+        description: Slug do arquivo da referência.
+      - name: body
+        label: Texto
         type: rich-text

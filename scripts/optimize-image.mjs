@@ -63,6 +63,7 @@ function listImages(target) {
   if (info.isFile()) return [target];
   return readdirSync(target)
     .map((name) => join(target, name))
+    .flatMap((file) => statSync(file).isDirectory() ? listImages(file) : [file])
     .filter((file) => statSync(file).isFile() && IMAGE_EXTENSIONS.has(extname(file).toLowerCase()))
     .sort();
 }
@@ -85,6 +86,7 @@ function b64(bytes) {
 
 let optimized = 0;
 let skipped = 0;
+let planned = 0;
 let saved = 0;
 let wouldFail = 0;
 
@@ -106,6 +108,7 @@ for (const target of targets.flatMap(listImages)) {
 
   if (options.dryRun) {
     console.log(`  ? ${basename(target).padEnd(28)} ${human(before.size).padStart(9)}  ${before.width}x${before.height} → redimensionaria`);
+    planned += 1;
     continue;
   }
 
@@ -143,7 +146,7 @@ for (const target of targets.flatMap(listImages)) {
 }
 
 console.log('');
-console.log(`Otimizadas: ${optimized}  ·  mantidas: ${skipped}  ·  economia: ${human(saved)}`);
+console.log(`Otimizadas: ${optimized}  ·  planejadas: ${planned}  ·  mantidas: ${skipped}  ·  economia: ${human(saved)}`);
 console.log(`Limite do Pages CMS: 4,5 MB em base64 (~3,3 MB de arquivo).`);
 if (wouldFail > 0) console.warn(`Atenção: ${wouldFail} arquivo(s) ainda estouram o limite — baixe --max ou --quality.`);
 if (optimized > 0) console.log('Agora é só subir pelo CMS ou commitar em public/images/.');

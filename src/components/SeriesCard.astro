@@ -1,8 +1,8 @@
 ---
 import { sitePath } from '../utils/paths';
 
-interface Props { series: any; index?: number; }
-const { series, index = 0 } = Astro.props;
+interface Props { series: any; index?: number; workCount?: number; }
+const { series, index = 0, workCount } = Astro.props;
 const { data } = series;
 ---
 <article class="series-card">
@@ -17,7 +17,7 @@ const { data } = series;
       </div>
       <div class="series-card-meta">
         <span>{data.period ?? 'sem período'}</span>
-        <span>{data.works?.length ?? 0} trabalhos</span>
+        <span>{workCount ?? data.works?.length ?? 0} trabalhos</span>
       </div>
     </div>
   </a>

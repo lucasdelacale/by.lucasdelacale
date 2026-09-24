@@ -1,0 +1,9 @@
+---
+import { sitePath } from '../../utils/paths';
+const destination = sitePath('/trabalhos/');
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head><meta charset="UTF-8" /><meta http-equiv="refresh" content={`0;url=${destination}`} /><meta name="robots" content="noindex" /><title>Trabalhos / Acervo</title></head>
+  <body><p>Esta área foi incorporada a <a href={destination}>Trabalhos</a>.</p><script is:inline define:vars={{ destination }}>window.location.replace(destination);</script></body>
+</html>

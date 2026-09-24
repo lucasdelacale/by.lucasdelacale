@@ -13,7 +13,8 @@ const archive = [
 ---
 <BaseLayout title="Arquivo" description="Obras, processos, textos e referências de um acervo artístico em construção.">
   <section class="home-archive" aria-label="Publicações">
-    {archive.length > 0 ? <div class="archive-feed is-shuffling" data-random-publications aria-busy="true">{archive.map((entry, index) => <ArchiveEntry item={entry.item} kind={entry.kind} index={index} showTitle={entry.kind === 'text'} />)}</div> : <p class="empty">NENHUM TRABALHO PULICADO</p>}
+    <h1 class="sr-only">Arquivo</h1>
+    {archive.length > 0 ? <div class="archive-feed" data-random-publications>{archive.map((entry, index) => <ArchiveEntry item={entry.item} kind={entry.kind} index={index} showTitle={entry.kind === 'text'} />)}</div> : <p class="empty">NENHUM TRABALHO PUBLICADO</p>}
   </section>
 </BaseLayout>
 <script>
@@ -30,7 +31,5 @@ const archive = [
     const fragment = document.createDocumentFragment();
     entries.forEach((entry) => fragment.append(entry));
     publications.append(fragment);
-    publications.classList.remove('is-shuffling');
-    publications.removeAttribute('aria-busy');
   }
 </script>

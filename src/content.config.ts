@@ -4,7 +4,9 @@ import { glob } from 'astro/loaders';
 
 // Accepts both local files from public/ and hosted image URLs.
 const image = z.string().min(1).nullish();
+const gallery = z.array(z.string().min(1)).nullish();
 const publishedAt = z.union([z.string(), z.date()]).nullish();
+const workType = z.enum(['fotografia', 'print', 'canvas', 'escultura', 'referencia', 'outro']).nullish();
 
 // Obras vivem em subpastas por área (fotografias/, prints/, canvas/, esculturas/,
 // referencias/), mas o id é o basename — assim as URLs não mudam e nomes precisam
@@ -19,17 +21,17 @@ const works = defineCollection({
     title: z.string().nullish(),
     publishedAt,
     year: z.number().nullish(),
-    type: z.string().nullish(),
+    type: workType,
     series: z.string().nullish(),
     materials: z.array(z.string()).nullish(),
     dimensions: z.string().nullish(),
     coverImage: image,
     coverAlt: z.string().nullish(),
     caption: z.string().nullish(),
-    gallery: z.array(image).nullish(),
+    gallery,
     tags: z.array(z.string()).nullish(),
     featured: z.boolean().nullish().default(false),
-    price: z.number().nullish(),
+    price: z.number().min(0).nullish(),
     sold: z.boolean().nullish().default(false),
     relatedWorks: z.array(z.string()).nullish(),
     relatedReferences: z.array(z.string()).nullish(),

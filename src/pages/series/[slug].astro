@@ -21,7 +21,7 @@ const selectedItems = (item.data.works ?? [])
 const linkedItems = works.filter((work) => normalizeContentId(work.data.series) === seriesKey);
 const items = sortByPublishedAt([...selectedItems, ...linkedItems].filter((work, index, all) => all.findIndex((candidate) => candidate.id === work.id) === index));
 ---
-<BaseLayout title={title ? `${title} / Séries` : 'Série / Arquivo'}>
+<BaseLayout title={title ? `${title} / Séries` : 'Série / Arquivo'} ogImage={item.data.coverImage}>
   <article class="detail series-detail">
     <header class="detail-head">
       <p class="eyebrow">Série</p>
@@ -32,8 +32,8 @@ const items = sortByPublishedAt([...selectedItems, ...linkedItems].filter((work,
        {item.data.coverImage && <img class="series-cover" data-series-cover src={sitePath(item.data.coverImage)} alt={item.data.coverAlt ?? 'Imagem da série'} />}
       <div class="series-description prose"><Content /></div>
     </div>
-    <section class="series-works" aria-label="Obras da série">
-       <div class="works-grid">{items.map((work, i) => <WorkCard work={work} index={i} minimal />)}</div>
+       <section class="series-works" aria-label="Obras da série">
+        {items.length > 0 ? <div class="works-grid">{items.map((work, i) => <WorkCard work={work} index={i} minimal />)}</div> : <p class="empty">Esta série ainda não tem obras publicadas.</p>}
     </section>
   </article>
 </BaseLayout>

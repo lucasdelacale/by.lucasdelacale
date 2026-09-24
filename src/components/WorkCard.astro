@@ -14,24 +14,27 @@ interface Props {
 const { work, index = 0, mode = 'gallery', seriesLabel, minimal = false, showSale = false } = Astro.props;
 const { data } = work;
 const title = data.title;
-const type = data.type ?? 'outro';
+const type = String(data.type ?? 'outro').toLowerCase();
 const allSeries = await getCollection('series');
 const displayedSeries = seriesLabel ?? resolveSeriesLabel(allSeries, work);
 const sold = Boolean(data.sold);
-const saleVisible = showSale && isPurchasable(type) && (sold || data.price != null);
+const saleVisible = showSale && isPurchasable(type);
 ---
 <article class={`work-card work-card--${mode}`} data-work-type={type} style={`--card-index: ${index}`}>
     <a href={sitePath(`/acervo/${work.id}/`)} class="work-link">
     <div class="work-image-wrap">
       {data.coverImage ? <img src={sitePath(data.coverImage)} alt={data.coverAlt ?? 'Imagem da obra'} loading={index < 3 ? 'eager' : 'lazy'} /> : <div class="work-placeholder" aria-label="Sem imagem">sem imagem</div>}
-      {sold && <span class="sold-dot" title="Vendida" aria-hidden="true"></span>}
+      {sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}
     </div>
-    {minimal ? (data.caption && <p class="series-caption">{data.caption}</p>) : <div class="work-info">
+    {minimal ? <div class="work-info work-info--minimal">
+      {title && <h3>{title}</h3>}
+      {data.caption && <p class="series-caption">{data.caption}</p>}
+    </div> : <div class="work-info">
       {title && <h3>{title}</h3>}
       <p>{type} {data.year ? ` / ${data.year}` : ''}</p>
       {displayedSeries && <p class="muted">{displayedSeries}</p>}
       {saleVisible && <p class="sale-line">
-        {data.price != null && <span class="sale-price">{formatPrice(data.price)}</span>}
+        {data.price != null ? <span class="sale-price">{formatPrice(data.price)}</span> : !sold && <span class="sale-price">Sob consulta</span>}
         {sold && <span class="sale-sold">Vendida</span>}
       </p>}
     </div>}

@@ -3,14 +3,18 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionIntro from '../../components/SectionIntro.astro';
 import SeriesCard from '../../components/SeriesCard.astro';
-import { sortByPublishedAt } from '../../utils/content';
-const series = sortByPublishedAt(await getCollection('series'));
+import { normalizeContentId, sortByPublishedAt } from '../../utils/content';
+const works = await getCollection('works');
+const series = sortByPublishedAt(await getCollection('series')).map((item) => ({
+  item,
+  workCount: works.filter((work) => normalizeContentId(work.data.series) === normalizeContentId(item.id)).length,
+}));
 ---
 <BaseLayout title="Séries / Acervo">
   <div class="page">
     <SectionIntro title="Séries" />
     <div class="series-gallery">
-      {series.map((item, index) => <SeriesCard series={item} index={index} />)}
+      {series.map(({ item, workCount }, index) => <SeriesCard series={item} index={index} workCount={workCount} />)}
     </div>
   </div>
 </BaseLayout>

@@ -2,26 +2,41 @@
 import { sitePath } from '../utils/paths';
 
 const links = [
-  { href: sitePath('/acervo/'), label: 'Arquivo' },
-  { href: sitePath('/trabalhos/'), label: 'Trabalhos' },
-  { href: sitePath('/series/'), label: 'Séries' },
-  { href: sitePath('/sobre/'), label: 'Sobre' },
+  { path: '/acervo/', label: 'Arquivo' },
+  { path: '/trabalhos/', label: 'Trabalhos' },
+  { path: '/series/', label: 'Séries' },
+  { path: '/referencias/', label: 'Referências' },
+  { path: '/textos/', label: 'Textos' },
+  { path: '/sobre/', label: 'Sobre' },
 ];
 const home = sitePath('/');
+const currentPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 ---
 <header class="site-header">
   <a class="logo" href={home} aria-label="Arquivo, início"><span class="logo-handle">@lucasdelacale</span><img src={sitePath('/images/0014.png')} alt="Arquivo" /></a>
-  <button class="menu-button" aria-expanded="false" aria-controls="site-navigation">Menu</button>
+  <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-navigation">Menu</button>
   <nav id="site-navigation" aria-label="Navegação principal">
-    {links.map((link) => <a href={link.href}>{link.label}</a>)}
+    {links.map((link) => <a href={sitePath(link.path)} aria-current={currentPath === sitePath(link.path) ? 'page' : undefined}>{link.label}</a>)}
   </nav>
 </header>
 <script>
   const button = document.querySelector<HTMLButtonElement>('.menu-button');
   const navigation = document.querySelector<HTMLElement>('#site-navigation');
+  const closeMenu = () => {
+    button?.setAttribute('aria-expanded', 'false');
+    navigation?.classList.remove('is-open');
+  };
+
   button?.addEventListener('click', () => {
     const open = button.getAttribute('aria-expanded') === 'true';
     button.setAttribute('aria-expanded', String(!open));
     navigation?.classList.toggle('is-open', !open);
+  });
+  navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeMenu();
+      button?.focus();
+    }
   });
 </script>

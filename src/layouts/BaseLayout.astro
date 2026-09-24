@@ -4,8 +4,9 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { sitePath } from '../utils/paths';
 
-const { title = 'Arquivo', description = 'Um arquivo vivo de obras, imagens, textos e referências.' } = Astro.props;
+const { title = 'Arquivo', description = 'Um arquivo vivo de obras, imagens, textos e referências.', ogImage = '/site-icon.png' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const socialImage = new URL(sitePath(ogImage) ?? sitePath('/site-icon.png')!, Astro.site ?? Astro.url.origin);
 ---
 <!doctype html>
 <html lang="pt-BR">
@@ -15,12 +16,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" href={sitePath('/site-icon.png')} />
-    <link rel="apple-touch-icon" sizes="180x180" href={sitePath('/site-icon.png')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={sitePath('/apple-touch-icon.png')} />
     <link rel="manifest" href={sitePath('/site.webmanifest')} />
     <meta name="theme-color" content="#ffffff" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
     <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
     <title>{title}</title>
   </head>
   <body>

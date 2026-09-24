@@ -40,6 +40,12 @@ Verifique tipos, schemas e arquivos Astro:
 npm run check
 ```
 
+Valide IDs, tipos, séries e imagens locais:
+
+```bash
+npm run validate:content
+```
+
 Reduza imagens antes de subir pelo painel (limite ~3,3 MB, ver [Limite de upload](#limite-de-upload-erro-413)):
 
 ```bash
@@ -124,9 +130,9 @@ Use `publishedAt: YYYY-MM-DD` para definir a data de publicação. As listagens,
 
 Prints, canvas e esculturas são as peças comercializáveis. Elas usam o mesmo modelo de obra e a mesma página de detalhe do Arquivo, e aparecem em `/trabalhos/` com filtros por tipo. Para publicar um print:
 
-1. Copie `templates/obra.md` para `src/content/works/prints/nome-do-print.md`.
-2. Confira `type: print` no frontmatter.
-3. Adicione a imagem em `public/images/` e informe o caminho em `coverImage`.
+1. No CMS, entre em **Trabalhos → Prints** e crie uma entrada. Se fizer manualmente, copie `templates/obra.md` para `src/content/works/prints/nome-do-print.md`.
+2. A área do CMS carimba `type: print` automaticamente.
+3. Adicione a imagem pelo próprio campo de imagem e informe o caminho gerado em `coverImage`.
 4. Informe `price` (valor em reais, sem símbolo) e deixe `sold: false`.
 5. Execute `npm run check` e faça o build.
 
@@ -153,7 +159,7 @@ As séries aparecem em `/series/`, em uma galeria clicável. Elas não são repe
 
 ## Painel de publicação
 
-O arquivo `.pages.yml` configura o Pages CMS para editar conteúdo pelo navegador. O painel usa o GitHub como fonte de conteúdo e as imagens continuam sendo salvas em `public/images/`.
+O arquivo `.pages.yml` configura o Pages CMS para editar conteúdo pelo navegador. O painel usa o GitHub como fonte de conteúdo. Imagens antigas continuam em `public/images/`; novos uploads são organizados em subpastas de `public/images/works/` ou `public/images/series/` conforme a área.
 
 Para acessar o painel:
 
@@ -173,22 +179,25 @@ As áreas do painel espelham as pastas de conteúdo:
 | **Obras** | `src/content/works/fotografias/` | obras autorais |
 | **Referências** | `src/content/works/referencias/` | imagens de pesquisa |
 | **Séries** | `src/content/series/` | séries e projetos |
+| **Textos** | `src/content/texts/` | ensaios e anotações |
 
 O campo `type` aparece bloqueado no formulário: ele é carimbado pela seção em que o item é criado e não pode ser editado à mão. Os campos `Valor (R$)` e `Vendida` só existem nas três áreas de Trabalhos.
 
-O formulário de obras inclui imagem principal, imagens complementares, materiais, dimensões, tags e obras relacionadas. A relação com a série se faz pelo campo **Série** da própria obra. O formulário de séries tem título, período, capa e descrição.
+O formulário de obras inclui imagem principal, imagens complementares, materiais, dimensões, tags e obras relacionadas. A relação com a série se faz pelo campo **Série** da própria obra. O formulário de séries tem título, período, capa e descrição. O campo de filename aparece ao criar uma entrada para evitar colisões entre obras com o mesmo título. Textos podem ser criados pela área **Textos**.
 
 Cada salvamento gera um commit no GitHub e inicia automaticamente o workflow de publicação. O painel não cria um banco de dados separado.
 
-> **Atenção:** o Pages CMS não filtra itens por campo — cada área mostra exatamente os arquivos da sua pasta. Por isso as áreas têm pastas próprias e `subfolders: false`. Não aponte duas áreas para a mesma pasta: ao salvar, o painel reescreve o frontmatter só com os campos da área ativa e descarta o resto.
+> **Atenção:** o Pages CMS não filtra itens por campo — cada área mostra exatamente os arquivos da sua pasta. Por isso as áreas têm pastas próprias e `subfolders: false`. A configuração usa `settings.content: true`, então campos de frontmatter que não aparecem no formulário são preservados ao salvar. Ainda assim, relações devem ser mantidas pelo formulário ou pelo modelo documentado.
 
 ## Imagens
 
-Coloque as imagens em:
+Imagens adicionadas manualmente podem ficar em:
 
 ```text
 public/images/
 ```
+
+Pelo CMS, use o seletor da própria entrada. Prints, canvas, esculturas, fotografias e referências têm pastas de mídia separadas dentro de `public/images/works/`; séries usam `public/images/series/`.
 
 No frontmatter, use o caminho público, sem incluir `public`:
 
@@ -269,7 +278,7 @@ O site é gerado como HTML estático. Em um serviço conectado ao GitHub, o flux
 - `/acervo/`, `/trabalhos/`, `/series/`, `/textos/` e `/referencias/` usam ordenação da publicação mais nova para a mais antiga.
 - `/trabalhos/` filtra `print`, `canvas` e `escultura` e permite restringir por tipo pelos botões acima da grade.
 - A data principal é `publishedAt`. Sem ela, o site usa `date`, `year` ou `period` como fallback.
-- Quando uma listagem não tem trabalhos, a mensagem exibida é `NENHUM TRABALHO PULICADO`.
+- Quando uma listagem não tem trabalhos, a mensagem explica que ainda não há conteúdo publicado.
 
 O projeto pode ser hospedado em serviços como Netlify, Vercel ou GitHub Pages. A configuração específica do domínio fica em `astro.config.mjs`:
 
@@ -279,7 +288,7 @@ site: 'https://seu-dominio.com'
 
 ### GitHub Pages
 
-Este repositório já possui o workflow `.github/workflows/deploy.yml`. Ele instala as dependências, executa `npm run build`, publica `dist/` e faz o deploy no Pages.
+O workflow `.github/workflows/deploy.yml` instala as dependências, executa `npm run check`, executa `npm run build`, publica `dist/` e faz o deploy no Pages a cada push na branch `main`.
 
 No GitHub, abra `Settings > Pages` e selecione `GitHub Actions` em `Source`. Não selecione a publicação direta do branch, porque o repositório contém o código-fonte Astro e não a saída final em `dist/`.
 
@@ -297,6 +306,7 @@ O endereço provisório do GitHub Pages continua disponível em `https://lucasde
 - `/acervo/` arquivo geral de obras em mosaico.
 - `/acervo/[slug]/` página individual da obra.
 - `/trabalhos/` peças à venda (prints, canvas e esculturas) com filtros por tipo.
+- `/prints/`, `/canvas/` e `/esculturas/` redirecionam para `/trabalhos/` para preservar links antigos.
 - `/series/` séries e projetos.
 - `/textos/` ensaios e anotações.
 - `/referencias/` referências de pesquisa.
