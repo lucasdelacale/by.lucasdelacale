@@ -372,8 +372,10 @@
   {
     "filename": "0045.jpeg",
     "path": "/images/0045.jpeg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-35.md"
+    ],
     "size": 254329,
     "format": "JPEG"
   },
