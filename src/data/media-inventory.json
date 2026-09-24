@@ -1092,8 +1092,10 @@
   {
     "filename": "img9675.jpeg",
     "path": "/images/img9675.jpeg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-34.md"
+    ],
     "size": 149094,
     "format": "JPEG"
   },
