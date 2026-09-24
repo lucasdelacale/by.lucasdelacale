@@ -6,6 +6,8 @@ type: gravura
 price: 280
 sold: true
 coverImage: /images/0001.jpeg
+gallery:
+  - /images/0001.jpeg
 materials:
   - Giz pastel a óleo
   - Papel Canson 200g
