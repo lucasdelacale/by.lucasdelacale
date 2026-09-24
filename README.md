@@ -228,6 +228,8 @@ npm run optimize -- caminho/da/foto.jpg
 
 O script (usa o `sips` do macOS, sem dependências) redimensiona para no máximo 2400px no maior lado e regrava o JPEG em qualidade 80, preservando o perfil de cor. Ele mostra o tamanho em base64 do resultado e avisa se ainda estiver acima do limite.
 
+Depois que o CMS consegue aceitar o upload, o workflow `.github/workflows/optimize-uploaded-images.yml` também faz essa otimização automaticamente no GitHub antes do deploy. Isso não consegue resolver um 413: o erro ocorre antes do commit, enquanto o arquivo ainda está sendo enviado ao Pages CMS.
+
 ```bash
 npm run optimize -- public/images/               # uma pasta inteira, no lugar
 npm run optimize -- foto.jpg --dry-run           # só mostra o que faria

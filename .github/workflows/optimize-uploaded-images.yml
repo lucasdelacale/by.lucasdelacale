@@ -1,0 +1,64 @@
+name: Optimize uploaded images
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/images/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: optimize-images
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Install ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+      - name: Optimize changed JPEGs
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="${{ github.event.before }}"
+          if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
+            base="$(git rev-parse HEAD^ 2>/dev/null || true)"
+          fi
+          if [ -z "$base" ]; then
+            exit 0
+          fi
+
+          changed=0
+          while IFS= read -r file; do
+            [ -f "$file" ] || continue
+            case "${file##*.}" in
+              jpg|JPG|jpeg|JPEG) ;;
+              *) continue ;;
+            esac
+
+            temp="$(mktemp --suffix=".${file##*.}")"
+            convert "$file" -resize '2400x2400>' -quality 80 "$temp"
+            if [ "$(stat -c%s "$temp")" -lt "$(stat -c%s "$file")" ]; then
+              cp "$temp" "$file"
+              changed=1
+            fi
+            rm -f "$temp"
+          done < <(git diff --name-only "$base" "$GITHUB_SHA" -- 'public/images/**')
+
+          if [ "$changed" -eq 1 ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/images
+            git commit -m "chore: optimize uploaded images [skip ci]"
+            git push
+          fi
