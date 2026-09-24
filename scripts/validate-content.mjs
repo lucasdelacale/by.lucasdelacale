@@ -41,7 +41,7 @@ for (const file of workFiles) {
 
   const data = frontmatter(file);
   const type = values(data, 'type')[0];
-  if (type && !['fotografia', 'print', 'canvas', 'escultura', 'referencia', 'outro'].includes(type.toLowerCase())) {
+  if (type && !['fotografia', 'print', 'gravura', 'canvas', 'escultura', 'referencia', 'outro'].includes(type.toLowerCase())) {
     errors.push(`Tipo inválido "${type}" em ${relative(root, file)}`);
   }
 
