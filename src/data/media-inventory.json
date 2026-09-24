@@ -2,8 +2,10 @@
   {
     "filename": "0001.jpeg",
     "path": "/images/0001.jpeg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Virgil Abloh · works/gravuras/virgil-abloh.md"
+    ],
     "size": 2036617,
     "format": "JPEG"
   },
@@ -950,7 +952,7 @@
     "path": "/images/IMG_0373.JPG",
     "status": "DISPONÍVEL",
     "usedIn": [],
-    "size": 3564079,
+    "size": 686217,
     "format": "JPG"
   },
   {
@@ -958,7 +960,7 @@
     "path": "/images/IMG_0374.JPG",
     "status": "DISPONÍVEL",
     "usedIn": [],
-    "size": 4577858,
+    "size": 815377,
     "format": "JPG"
   },
   {
@@ -966,7 +968,7 @@
     "path": "/images/IMG_0375.JPG",
     "status": "DISPONÍVEL",
     "usedIn": [],
-    "size": 5645488,
+    "size": 1136115,
     "format": "JPG"
   },
   {
@@ -974,7 +976,7 @@
     "path": "/images/IMG_0376.JPG",
     "status": "DISPONÍVEL",
     "usedIn": [],
-    "size": 6524482,
+    "size": 1361338,
     "format": "JPG"
   },
   {
@@ -982,7 +984,7 @@
     "path": "/images/IMG_0377.JPG",
     "status": "DISPONÍVEL",
     "usedIn": [],
-    "size": 4902460,
+    "size": 1338540,
     "format": "JPG"
   },
   {
