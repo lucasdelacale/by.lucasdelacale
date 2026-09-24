@@ -199,7 +199,7 @@ Imagens adicionadas manualmente podem ficar em:
 public/images/
 ```
 
-Pelo CMS, use o seletor da própria entrada. Prints, canvas, esculturas, fotografias e referências têm pastas de mídia separadas dentro de `public/images/works/`; séries usam `public/images/series/`.
+Pelo CMS, use o seletor da própria entrada. Todas as imagens são selecionadas da raiz central `public/images/`, que é onde estão os arquivos atuais e também onde imagens adicionadas manualmente pelo computador devem ser colocadas.
 
 No frontmatter, use o caminho público, sem incluir `public`:
 
