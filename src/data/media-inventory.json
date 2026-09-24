@@ -2,8 +2,10 @@
   {
     "filename": "0001.jpeg",
     "path": "/images/0001.jpeg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-36.md"
+    ],
     "size": 2036617,
     "format": "JPEG"
   },
