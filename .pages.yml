@@ -645,3 +645,36 @@ content:
       - name: body
         label: Texto
         type: rich-text
+
+  - name: bancoImagens
+    label: Banco de imagens
+    type: file
+    path: src/data/media-inventory.json
+    format: json
+    list: true
+    fields:
+      - name: filename
+        label: Arquivo
+        type: string
+        readonly: true
+      - name: path
+        label: Caminho
+        type: string
+        readonly: true
+      - name: status
+        label: Status
+        type: string
+        readonly: true
+      - name: usedIn
+        label: Usada em
+        type: string
+        list: true
+        readonly: true
+      - name: size
+        label: Tamanho em bytes
+        type: number
+        readonly: true
+      - name: format
+        label: Formato
+        type: string
+        readonly: true

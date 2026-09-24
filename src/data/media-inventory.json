@@ -1,0 +1,1456 @@
+[
+  {
+    "filename": "0001.jpeg",
+    "path": "/images/0001.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 2036617,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0002.jpg",
+    "path": "/images/0002.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 297513,
+    "format": "JPG"
+  },
+  {
+    "filename": "0003.jpg",
+    "path": "/images/0003.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 796471,
+    "format": "JPG"
+  },
+  {
+    "filename": "0004.jpg",
+    "path": "/images/0004.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 830796,
+    "format": "JPG"
+  },
+  {
+    "filename": "0005.jpg",
+    "path": "/images/0005.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 818899,
+    "format": "JPG"
+  },
+  {
+    "filename": "0006.jpg",
+    "path": "/images/0006.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 723301,
+    "format": "JPG"
+  },
+  {
+    "filename": "0007.jpeg",
+    "path": "/images/0007.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 647819,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0008.png",
+    "path": "/images/0008.png",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-5.md"
+    ],
+    "size": 688582,
+    "format": "PNG"
+  },
+  {
+    "filename": "0009.png",
+    "path": "/images/0009.png",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo.md"
+    ],
+    "size": 618862,
+    "format": "PNG"
+  },
+  {
+    "filename": "0010.png",
+    "path": "/images/0010.png",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 441060,
+    "format": "PNG"
+  },
+  {
+    "filename": "0011.png",
+    "path": "/images/0011.png",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-3.md"
+    ],
+    "size": 545187,
+    "format": "PNG"
+  },
+  {
+    "filename": "0012.jpeg",
+    "path": "/images/0012.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1091410,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0013-1.jpeg",
+    "path": "/images/0013-1.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-2.md"
+    ],
+    "size": 880858,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0013.jpeg",
+    "path": "/images/0013.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 880858,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0014.png",
+    "path": "/images/0014.png",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-25.md"
+    ],
+    "size": 52089,
+    "format": "PNG"
+  },
+  {
+    "filename": "0015.jpg",
+    "path": "/images/0015.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 400714,
+    "format": "JPG"
+  },
+  {
+    "filename": "0016.jpeg",
+    "path": "/images/0016.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-1.md"
+    ],
+    "size": 1319582,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0018.jpeg",
+    "path": "/images/0018.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-4.md"
+    ],
+    "size": 1476059,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0019.JPG",
+    "path": "/images/0019.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1705751,
+    "format": "JPG"
+  },
+  {
+    "filename": "0020.JPG",
+    "path": "/images/0020.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 122571,
+    "format": "JPG"
+  },
+  {
+    "filename": "0021.jpg",
+    "path": "/images/0021.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 463234,
+    "format": "JPG"
+  },
+  {
+    "filename": "0022.JPG",
+    "path": "/images/0022.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 148390,
+    "format": "JPG"
+  },
+  {
+    "filename": "0023.JPG",
+    "path": "/images/0023.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1066841,
+    "format": "JPG"
+  },
+  {
+    "filename": "0024.jpg",
+    "path": "/images/0024.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 169534,
+    "format": "JPG"
+  },
+  {
+    "filename": "0025.jpg",
+    "path": "/images/0025.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-32.md"
+    ],
+    "size": 418077,
+    "format": "JPG"
+  },
+  {
+    "filename": "0026.JPG",
+    "path": "/images/0026.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1009316,
+    "format": "JPG"
+  },
+  {
+    "filename": "0027.JPG",
+    "path": "/images/0027.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 293212,
+    "format": "JPG"
+  },
+  {
+    "filename": "0028.JPG",
+    "path": "/images/0028.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 646080,
+    "format": "JPG"
+  },
+  {
+    "filename": "0029.jpeg",
+    "path": "/images/0029.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1084336,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0030.jpg",
+    "path": "/images/0030.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/mc-daleste.md"
+    ],
+    "size": 78053,
+    "format": "JPG"
+  },
+  {
+    "filename": "0031.jpg",
+    "path": "/images/0031.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-10.md"
+    ],
+    "size": 478665,
+    "format": "JPG"
+  },
+  {
+    "filename": "0032.jpeg",
+    "path": "/images/0032.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1096051,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0033.jpeg",
+    "path": "/images/0033.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 434808,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0034.jpeg",
+    "path": "/images/0034.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 993976,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0037.jpeg",
+    "path": "/images/0037.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-19.md"
+    ],
+    "size": 1371611,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0038.jpeg",
+    "path": "/images/0038.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 374752,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0039.jpeg",
+    "path": "/images/0039.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 374752,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0040.jpeg",
+    "path": "/images/0040.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1319424,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0041.jpeg",
+    "path": "/images/0041.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 791053,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0042.JPG",
+    "path": "/images/0042.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 721870,
+    "format": "JPG"
+  },
+  {
+    "filename": "0043.jpeg",
+    "path": "/images/0043.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 31678,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0044.jpeg",
+    "path": "/images/0044.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 173203,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0045.jpeg",
+    "path": "/images/0045.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 254329,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0046.jpeg",
+    "path": "/images/0046.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-28.md"
+    ],
+    "size": 169748,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0047.jpeg",
+    "path": "/images/0047.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 24488,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0048.JPG",
+    "path": "/images/0048.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 27297,
+    "format": "JPG"
+  },
+  {
+    "filename": "0049.JPG",
+    "path": "/images/0049.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 174294,
+    "format": "JPG"
+  },
+  {
+    "filename": "0050.jpg",
+    "path": "/images/0050.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 134661,
+    "format": "JPG"
+  },
+  {
+    "filename": "0051.jpg",
+    "path": "/images/0051.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 283751,
+    "format": "JPG"
+  },
+  {
+    "filename": "0052.JPG",
+    "path": "/images/0052.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 201970,
+    "format": "JPG"
+  },
+  {
+    "filename": "0053.jpg",
+    "path": "/images/0053.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-21.md"
+    ],
+    "size": 358626,
+    "format": "JPG"
+  },
+  {
+    "filename": "0054.JPG",
+    "path": "/images/0054.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 147927,
+    "format": "JPG"
+  },
+  {
+    "filename": "0055.jpg",
+    "path": "/images/0055.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 95386,
+    "format": "JPG"
+  },
+  {
+    "filename": "0056.jpeg",
+    "path": "/images/0056.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 631431,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0057.jpg",
+    "path": "/images/0057.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 193487,
+    "format": "JPG"
+  },
+  {
+    "filename": "0058.jpg",
+    "path": "/images/0058.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 388208,
+    "format": "JPG"
+  },
+  {
+    "filename": "0059.jpg",
+    "path": "/images/0059.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 187473,
+    "format": "JPG"
+  },
+  {
+    "filename": "0060.jpg",
+    "path": "/images/0060.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 149463,
+    "format": "JPG"
+  },
+  {
+    "filename": "0061.jpg",
+    "path": "/images/0061.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 216821,
+    "format": "JPG"
+  },
+  {
+    "filename": "0062.jpg",
+    "path": "/images/0062.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 579431,
+    "format": "JPG"
+  },
+  {
+    "filename": "0063.jpg",
+    "path": "/images/0063.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 254512,
+    "format": "JPG"
+  },
+  {
+    "filename": "0064.jpg",
+    "path": "/images/0064.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 243502,
+    "format": "JPG"
+  },
+  {
+    "filename": "0065.jpg",
+    "path": "/images/0065.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 394743,
+    "format": "JPG"
+  },
+  {
+    "filename": "0066.jpg",
+    "path": "/images/0066.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 144859,
+    "format": "JPG"
+  },
+  {
+    "filename": "0067.jpg",
+    "path": "/images/0067.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-22.md"
+    ],
+    "size": 169060,
+    "format": "JPG"
+  },
+  {
+    "filename": "0068.jpg",
+    "path": "/images/0068.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 179578,
+    "format": "JPG"
+  },
+  {
+    "filename": "0069.jpeg",
+    "path": "/images/0069.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 792901,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0070.jpeg",
+    "path": "/images/0070.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 986646,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0071.jpeg",
+    "path": "/images/0071.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1095582,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0072.PNG",
+    "path": "/images/0072.PNG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1513001,
+    "format": "PNG"
+  },
+  {
+    "filename": "0073.jpeg",
+    "path": "/images/0073.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-7.md"
+    ],
+    "size": 703526,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0074.jpeg",
+    "path": "/images/0074.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 793555,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0075.jpeg",
+    "path": "/images/0075.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 900465,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0076.JPG",
+    "path": "/images/0076.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 115387,
+    "format": "JPG"
+  },
+  {
+    "filename": "0077.PNG",
+    "path": "/images/0077.PNG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1161836,
+    "format": "PNG"
+  },
+  {
+    "filename": "0078.PNG",
+    "path": "/images/0078.PNG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 45717,
+    "format": "PNG"
+  },
+  {
+    "filename": "0079.JPG",
+    "path": "/images/0079.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 103349,
+    "format": "JPG"
+  },
+  {
+    "filename": "0080.JPG",
+    "path": "/images/0080.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 14339,
+    "format": "JPG"
+  },
+  {
+    "filename": "0081.JPG",
+    "path": "/images/0081.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 169205,
+    "format": "JPG"
+  },
+  {
+    "filename": "0082.JPG",
+    "path": "/images/0082.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1100552,
+    "format": "JPG"
+  },
+  {
+    "filename": "0083.jpeg",
+    "path": "/images/0083.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1222943,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0084.JPG",
+    "path": "/images/0084.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 196817,
+    "format": "JPG"
+  },
+  {
+    "filename": "0085.JPG",
+    "path": "/images/0085.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1181253,
+    "format": "JPG"
+  },
+  {
+    "filename": "0086.JPG",
+    "path": "/images/0086.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 160059,
+    "format": "JPG"
+  },
+  {
+    "filename": "0087.JPG",
+    "path": "/images/0087.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 664318,
+    "format": "JPG"
+  },
+  {
+    "filename": "0088.JPG",
+    "path": "/images/0088.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 423223,
+    "format": "JPG"
+  },
+  {
+    "filename": "0089.JPG",
+    "path": "/images/0089.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 158942,
+    "format": "JPG"
+  },
+  {
+    "filename": "0090.JPG",
+    "path": "/images/0090.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1495827,
+    "format": "JPG"
+  },
+  {
+    "filename": "0091.jpeg",
+    "path": "/images/0091.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1287450,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0092.jpeg",
+    "path": "/images/0092.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1012921,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0093.jpeg",
+    "path": "/images/0093.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1356570,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0094.JPG",
+    "path": "/images/0094.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1275656,
+    "format": "JPG"
+  },
+  {
+    "filename": "0095.jpeg",
+    "path": "/images/0095.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1458712,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0096.jpeg",
+    "path": "/images/0096.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1357392,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0097.jpeg",
+    "path": "/images/0097.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1353386,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0098.JPG",
+    "path": "/images/0098.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 163386,
+    "format": "JPG"
+  },
+  {
+    "filename": "0099.JPG",
+    "path": "/images/0099.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 169303,
+    "format": "JPG"
+  },
+  {
+    "filename": "0100.JPG",
+    "path": "/images/0100.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 52947,
+    "format": "JPG"
+  },
+  {
+    "filename": "0101.JPG",
+    "path": "/images/0101.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 387851,
+    "format": "JPG"
+  },
+  {
+    "filename": "0102.jpeg",
+    "path": "/images/0102.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 688466,
+    "format": "JPEG"
+  },
+  {
+    "filename": "0103.jpg",
+    "path": "/images/0103.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 367202,
+    "format": "JPG"
+  },
+  {
+    "filename": "0104.jpg",
+    "path": "/images/0104.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 298156,
+    "format": "JPG"
+  },
+  {
+    "filename": "0105.jpg",
+    "path": "/images/0105.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 768838,
+    "format": "JPG"
+  },
+  {
+    "filename": "0106.jpg",
+    "path": "/images/0106.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 248543,
+    "format": "JPG"
+  },
+  {
+    "filename": "0107.jpg",
+    "path": "/images/0107.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 271323,
+    "format": "JPG"
+  },
+  {
+    "filename": "0108.jpg",
+    "path": "/images/0108.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 216579,
+    "format": "JPG"
+  },
+  {
+    "filename": "0109.jpg",
+    "path": "/images/0109.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 868360,
+    "format": "JPG"
+  },
+  {
+    "filename": "0a54826eec4dcdea76bd675cc3c0c08f.jpg",
+    "path": "/images/0a54826eec4dcdea76bd675cc3c0c08f.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 266747,
+    "format": "JPG"
+  },
+  {
+    "filename": "35bf9d0e-c288-47d4-9948-4b91ac179526.jpg",
+    "path": "/images/35bf9d0e-c288-47d4-9948-4b91ac179526.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 213940,
+    "format": "JPG"
+  },
+  {
+    "filename": "8b393c09007d7282b9689d57e314462b.jpg",
+    "path": "/images/8b393c09007d7282b9689d57e314462b.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 94413,
+    "format": "JPG"
+  },
+  {
+    "filename": "9c24dbb1197d56e699c02bef13b0e5ec.jpg",
+    "path": "/images/9c24dbb1197d56e699c02bef13b0e5ec.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-33.md"
+    ],
+    "size": 37272,
+    "format": "JPG"
+  },
+  {
+    "filename": "eb030e9899e139d6a378abc88bb4b0ae.jpg",
+    "path": "/images/eb030e9899e139d6a378abc88bb4b0ae.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 124781,
+    "format": "JPG"
+  },
+  {
+    "filename": "ef6239df-84ea-4ff1-903c-8397dd0e812a.jpg",
+    "path": "/images/ef6239df-84ea-4ff1-903c-8397dd0e812a.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-20.md"
+    ],
+    "size": 152413,
+    "format": "JPG"
+  },
+  {
+    "filename": "gavioes4.png",
+    "path": "/images/gavioes4.png",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 120888,
+    "format": "PNG"
+  },
+  {
+    "filename": "IMG_0373.JPG",
+    "path": "/images/IMG_0373.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 3564079,
+    "format": "JPG"
+  },
+  {
+    "filename": "IMG_0374.JPG",
+    "path": "/images/IMG_0374.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 4577858,
+    "format": "JPG"
+  },
+  {
+    "filename": "IMG_0375.JPG",
+    "path": "/images/IMG_0375.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 5645488,
+    "format": "JPG"
+  },
+  {
+    "filename": "IMG_0376.JPG",
+    "path": "/images/IMG_0376.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 6524482,
+    "format": "JPG"
+  },
+  {
+    "filename": "IMG_0377.JPG",
+    "path": "/images/IMG_0377.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 4902460,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0117.jpg",
+    "path": "/images/img0117.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Terrace Culture · works/fotografias/terrace-culture-2.md"
+    ],
+    "size": 501975,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0164.jpeg",
+    "path": "/images/img0164.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-30.md"
+    ],
+    "size": 281071,
+    "format": "JPEG"
+  },
+  {
+    "filename": "img0185.jpeg",
+    "path": "/images/img0185.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Terrace Culture · series/terrace-culture.md"
+    ],
+    "size": 1008744,
+    "format": "JPEG"
+  },
+  {
+    "filename": "img0278.jpg",
+    "path": "/images/img0278.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-24.md"
+    ],
+    "size": 741192,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0308.jpg",
+    "path": "/images/img0308.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 444982,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0320.jpeg",
+    "path": "/images/img0320.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-9.md"
+    ],
+    "size": 196554,
+    "format": "JPEG"
+  },
+  {
+    "filename": "img0321.jpeg",
+    "path": "/images/img0321.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/percival-lafer-mp-97.md"
+    ],
+    "size": 181802,
+    "format": "JPEG"
+  },
+  {
+    "filename": "img9660.jpg",
+    "path": "/images/img9660.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-16.md"
+    ],
+    "size": 49265,
+    "format": "JPG"
+  },
+  {
+    "filename": "img9675.jpeg",
+    "path": "/images/img9675.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 149094,
+    "format": "JPEG"
+  },
+  {
+    "filename": "img9903.jpg",
+    "path": "/images/img9903.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 787435,
+    "format": "JPG"
+  },
+  {
+    "filename": "img9904.jpg",
+    "path": "/images/img9904.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-31.md"
+    ],
+    "size": 733204,
+    "format": "JPG"
+  },
+  {
+    "filename": "nevou-01.jpeg",
+    "path": "/images/nevou-01.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1306196,
+    "format": "JPEG"
+  },
+  {
+    "filename": "nevou-02.jpeg",
+    "path": "/images/nevou-02.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1655821,
+    "format": "JPEG"
+  },
+  {
+    "filename": "nevou-03.jpg",
+    "path": "/images/nevou-03.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 725629,
+    "format": "JPG"
+  },
+  {
+    "filename": "nevou-04.jpg",
+    "path": "/images/nevou-04.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Nevou na Quebrada · series/nevou-na-quebrada.md"
+    ],
+    "size": 651067,
+    "format": "JPG"
+  },
+  {
+    "filename": "nevou-05.jpg",
+    "path": "/images/nevou-05.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 323744,
+    "format": "JPG"
+  },
+  {
+    "filename": "nevou-06.jpg",
+    "path": "/images/nevou-06.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-17.md"
+    ],
+    "size": 480741,
+    "format": "JPG"
+  },
+  {
+    "filename": "nevou-07.jpg",
+    "path": "/images/nevou-07.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 372006,
+    "format": "JPG"
+  },
+  {
+    "filename": "originais-02.JPG",
+    "path": "/images/originais-02.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 790806,
+    "format": "JPG"
+  },
+  {
+    "filename": "originais-03.jpeg",
+    "path": "/images/originais-03.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 916112,
+    "format": "JPEG"
+  },
+  {
+    "filename": "originais-04.jpg",
+    "path": "/images/originais-04.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-27.md"
+    ],
+    "size": 75104,
+    "format": "JPG"
+  },
+  {
+    "filename": "originais-05.jpg",
+    "path": "/images/originais-05.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 702566,
+    "format": "JPG"
+  },
+  {
+    "filename": "originais-06.jpeg",
+    "path": "/images/originais-06.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-18.md"
+    ],
+    "size": 1127648,
+    "format": "JPEG"
+  },
+  {
+    "filename": "originais-07.jpeg",
+    "path": "/images/originais-07.jpeg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 979882,
+    "format": "JPEG"
+  },
+  {
+    "filename": "originais.JPG",
+    "path": "/images/originais.JPG",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Originais GQ · series/originais-gq.md"
+    ],
+    "size": 557487,
+    "format": "JPG"
+  },
+  {
+    "filename": "print-01.png",
+    "path": "/images/print-01.png",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 639880,
+    "format": "PNG"
+  },
+  {
+    "filename": "print-02.png",
+    "path": "/images/print-02.png",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-8.md"
+    ],
+    "size": 390344,
+    "format": "PNG"
+  },
+  {
+    "filename": "print-03.png",
+    "path": "/images/print-03.png",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-15.md"
+    ],
+    "size": 326312,
+    "format": "PNG"
+  },
+  {
+    "filename": "print-04.png",
+    "path": "/images/print-04.png",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 553790,
+    "format": "PNG"
+  },
+  {
+    "filename": "print-05.png",
+    "path": "/images/print-05.png",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-26.md"
+    ],
+    "size": 503965,
+    "format": "PNG"
+  },
+  {
+    "filename": "profile.jpg",
+    "path": "/images/profile.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-12.md"
+    ],
+    "size": 27710,
+    "format": "JPG"
+  },
+  {
+    "filename": "sizensblog29-17042366699921400x.webp",
+    "path": "/images/sizensblog29-17042366699921400x.webp",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-11.md"
+    ],
+    "size": 108856,
+    "format": "WEBP"
+  },
+  {
+    "filename": "sizensblog31-17042367894441400x.webp",
+    "path": "/images/sizensblog31-17042367894441400x.webp",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-13.md"
+    ],
+    "size": 71848,
+    "format": "WEBP"
+  },
+  {
+    "filename": "terrace-01.JPG",
+    "path": "/images/terrace-01.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1047011,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-02.JPG",
+    "path": "/images/terrace-02.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 706717,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-03.JPG",
+    "path": "/images/terrace-03.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 418030,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-04.JPG",
+    "path": "/images/terrace-04.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 32120,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-05.jpeg",
+    "path": "/images/terrace-05.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Terrace Culture · works/fotografias/terrace-culture.md"
+    ],
+    "size": 617864,
+    "format": "JPEG"
+  },
+  {
+    "filename": "terrace-06.JPG",
+    "path": "/images/terrace-06.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 869910,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-07.JPG",
+    "path": "/images/terrace-07.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1031658,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-08.JPG",
+    "path": "/images/terrace-08.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 858633,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-09.JPG",
+    "path": "/images/terrace-09.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1055939,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-10.JPG",
+    "path": "/images/terrace-10.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1005347,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-11.JPG",
+    "path": "/images/terrace-11.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1129377,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-12.JPG",
+    "path": "/images/terrace-12.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1011226,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-13.JPG",
+    "path": "/images/terrace-13.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1061993,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-14.JPG",
+    "path": "/images/terrace-14.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1082380,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-15.jpeg",
+    "path": "/images/terrace-15.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Terrace Culture · works/fotografias/terrace-culture-1.md"
+    ],
+    "size": 891348,
+    "format": "JPEG"
+  },
+  {
+    "filename": "terrace-16.jpeg",
+    "path": "/images/terrace-16.jpeg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-14.md"
+    ],
+    "size": 1143766,
+    "format": "JPEG"
+  },
+  {
+    "filename": "terrace-17.JPG",
+    "path": "/images/terrace-17.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 797782,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-18.JPG",
+    "path": "/images/terrace-18.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 482424,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-19.JPG",
+    "path": "/images/terrace-19.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 760145,
+    "format": "JPG"
+  },
+  {
+    "filename": "terrace-20.JPG",
+    "path": "/images/terrace-20.JPG",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 89943,
+    "format": "JPG"
+  }
+]
