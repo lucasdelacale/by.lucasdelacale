@@ -322,9 +322,7 @@ content:
         label: Esculturas
         type: collection
         path: src/content/works/esculturas
-        filename:
-          template: "{primary}.md"
-          field: create
+        filename: "{primary}.md"
         subfolders: false
         view:
           fields: [title, year, price, sold, coverImage]
