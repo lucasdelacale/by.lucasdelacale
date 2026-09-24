@@ -28,9 +28,7 @@ content:
         label: Prints
         type: collection
         path: src/content/works/prints
-        filename:
-          template: "{primary}.md"
-          field: create
+        filename: "{primary}.md"
         subfolders: false
         view:
           fields: [title, year, price, sold, coverImage]
@@ -128,9 +126,7 @@ content:
         label: Canvas
         type: collection
         path: src/content/works/canvas
-        filename:
-          template: "{primary}.md"
-          field: create
+        filename: "{primary}.md"
         subfolders: false
         view:
           fields: [title, year, price, sold, coverImage]
@@ -228,9 +224,7 @@ content:
         label: Gravuras
         type: collection
         path: src/content/works/gravuras
-        filename:
-          template: "{primary}.md"
-          field: create
+        filename: "{primary}.md"
         subfolders: false
         view:
           fields: [title, year, price, sold, coverImage]
@@ -431,9 +425,7 @@ content:
     label: Obras
     type: collection
     path: src/content/works/fotografias
-    filename:
-      template: "{primary}.md"
-      field: create
+    filename: "{primary}.md"
     subfolders: false
     view:
       fields: [title, type, year, coverImage]
@@ -520,9 +512,7 @@ content:
     label: Referências
     type: collection
     path: src/content/works/referencias
-    filename:
-      template: "{primary}.md"
-      field: create
+    filename: "{primary}.md"
     subfolders: false
     view:
       fields: [title, year, coverImage]
@@ -592,9 +582,7 @@ content:
     label: Séries
     type: collection
     path: src/content/series
-    filename:
-      template: "{primary}.md"
-      field: create
+    filename: "{primary}.md"
     subfolders: false
     view:
       fields: [title, period, coverImage]
@@ -634,9 +622,7 @@ content:
     label: Textos
     type: collection
     path: src/content/texts
-    filename:
-      template: "{primary}.md"
-      field: create
+    filename: "{primary}.md"
     subfolders: false
     view:
       fields: [title, kind, date]

@@ -185,7 +185,7 @@ As áreas do painel espelham as pastas de conteúdo:
 
 O campo `type` aparece bloqueado no formulário: ele é carimbado pela seção em que o item é criado e não pode ser editado à mão. Os campos `Valor (R$)` e `Vendida` só existem nas três áreas de Trabalhos.
 
-O formulário de obras inclui imagem principal, imagens complementares, materiais, dimensões, tags e obras relacionadas. A relação com a série se faz pelo campo **Série** da própria obra. O formulário de séries tem título, período, capa e descrição. O campo de filename aparece ao criar uma entrada para evitar colisões entre obras com o mesmo título. Textos podem ser criados pela área **Textos**.
+O formulário de obras inclui imagem principal, imagens complementares, materiais, dimensões, tags e obras relacionadas. A relação com a série se faz pelo campo **Série** da própria obra. O formulário de séries tem título, período, capa e descrição. Como o filename é derivado do título, mantenha títulos/nomes de arquivo únicos entre as obras. Textos podem ser criados pela área **Textos**.
 
 Cada salvamento gera um commit no GitHub e inicia automaticamente o workflow de publicação. O painel não cria um banco de dados separado.
 
