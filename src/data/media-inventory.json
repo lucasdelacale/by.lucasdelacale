@@ -362,8 +362,10 @@
   {
     "filename": "0044.jpeg",
     "path": "/images/0044.jpeg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-34.md"
+    ],
     "size": 173203,
     "format": "JPEG"
   },
