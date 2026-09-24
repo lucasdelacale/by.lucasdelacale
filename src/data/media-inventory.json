@@ -1240,8 +1240,10 @@
   {
     "filename": "print-01.png",
     "path": "/images/print-01.png",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo.md"
+    ],
     "size": 639880,
     "format": "PNG"
   },
