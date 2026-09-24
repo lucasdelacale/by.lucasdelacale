@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "validate:content": "node scripts/validate-content.mjs",
+    "inventory:media": "node scripts/generate-media-inventory.mjs",
     "optimize": "node scripts/optimize-image.mjs"
   },
   "dependencies": {

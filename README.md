@@ -182,10 +182,13 @@ As áreas do painel espelham as pastas de conteúdo:
 | **Referências** | `src/content/works/referencias/` | imagens de pesquisa |
 | **Séries** | `src/content/series/` | séries e projetos |
 | **Textos** | `src/content/texts/` | ensaios e anotações |
+| **Banco de imagens** | `src/data/media-inventory.json` | status e locais de uso das imagens |
 
 O campo `type` aparece bloqueado no formulário: ele é carimbado pela seção em que o item é criado e não pode ser editado à mão. Os campos `Valor (R$)` e `Vendida` só existem nas três áreas de Trabalhos.
 
 O formulário de obras inclui imagem principal, imagens complementares, materiais, dimensões, tags e obras relacionadas. A relação com a série se faz pelo campo **Série** da própria obra. O formulário de séries tem título, período, capa e descrição. Como o filename é derivado do título, mantenha títulos/nomes de arquivo únicos entre as obras. Textos podem ser criados pela área **Textos**.
+
+O **Banco de imagens** é automático. Ele marca cada arquivo como `PUBLICADA` quando a imagem aparece em algum conteúdo, ou `DISPONÍVEL` quando ainda não é usada. O workflow atualiza esse inventário depois de mudanças em imagens ou conteúdos; não edite essa área manualmente.
 
 Cada salvamento gera um commit no GitHub e inicia automaticamente o workflow de publicação. O painel não cria um banco de dados separado.
 
