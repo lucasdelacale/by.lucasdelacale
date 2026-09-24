@@ -5,9 +5,12 @@ year: 2026
 type: gravura
 price: 280
 sold: true
-coverImage: /images/0001.jpeg
+coverImage: /images/IMG_0373.JPG
 gallery:
-  - /images/0001.jpeg
+  - /images/IMG_0374.JPG
+  - /images/IMG_0375.JPG
+  - /images/IMG_0376.JPG
+  - /images/IMG_0377.JPG
 materials:
   - Giz pastel a óleo
 dimensions: A3 - 29,7x42cm
