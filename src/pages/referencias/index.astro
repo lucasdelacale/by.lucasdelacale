@@ -1,19 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SectionIntro from '../../components/SectionIntro.astro';
-import { sortByPublishedAt } from '../../utils/content';
 import { sitePath } from '../../utils/paths';
-
-const references = sortByPublishedAt(
-  (await getCollection('works')).filter((work) => String(work.data.type ?? '').toLowerCase() === 'referencia'),
-);
+const destination = sitePath('/acervo/');
 ---
-<BaseLayout title="Referências / Acervo">
-  <div class="page">
-    <SectionIntro title="Referências" />
-    {references.length > 0 ? <div class="reference-list">
-      {references.map((ref) => { const title = ref.data.title; return <article class="ref-card"><a href={sitePath(`/acervo/${ref.id}/`)}>{ref.data.coverImage && <img src={sitePath(ref.data.coverImage)} alt={ref.data.coverAlt ?? 'Imagem de referência'} loading="lazy" />}<p class="eyebrow">referência</p>{title && <h2>{title}</h2>}<p class="muted">{ref.data.year ?? 'sem data'}</p></a></article>; })}
-    </div> : <p class="empty">Ainda não há referências publicadas.</p>}
-  </div>
-</BaseLayout>
+<!doctype html>
+<html lang="pt-BR">
+  <head><meta charset="UTF-8" /><meta http-equiv="refresh" content={`0;url=${destination}`} /><meta name="robots" content="noindex" /><title>Arquivo / Acervo</title></head>
+  <body><p>As referências agora fazem parte do <a href={destination}>Arquivo</a>.</p><script is:inline define:vars={{ destination }}>window.location.replace(destination);</script></body>
+</html>

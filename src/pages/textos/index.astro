@@ -1,16 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SectionIntro from '../../components/SectionIntro.astro';
-import { sortByPublishedAt } from '../../utils/content';
 import { sitePath } from '../../utils/paths';
-const texts = sortByPublishedAt(await getCollection('texts'));
+const destination = sitePath('/');
 ---
-<BaseLayout title="Textos / Acervo">
-  <div class="page">
-    <SectionIntro title="Textos" />
-    {texts.length > 0 ? <div class="text-list">
-      {texts.map((text) => <a class="editorial-row" href={sitePath(`/textos/${text.id}/`)}><span class="label">{text.data.kind ?? 'texto'}</span><div>{text.data.title && <h2>{text.data.title}</h2>}<p>{text.data.date ?? 'sem data'}</p></div><span class="arrow-link">ler →</span></a>)}
-    </div> : <p class="empty">Ainda não há textos publicados.</p>}
-  </div>
-</BaseLayout>
+<!doctype html>
+<html lang="pt-BR">
+  <head><meta charset="UTF-8" /><meta http-equiv="refresh" content={`0;url=${destination}`} /><meta name="robots" content="noindex" /><title>Arquivo / Acervo</title></head>
+  <body><p>Os textos aparecem no <a href={destination}>Arquivo</a>.</p><script is:inline define:vars={{ destination }}>window.location.replace(destination);</script></body>
+</html>

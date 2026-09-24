@@ -3,6 +3,7 @@
 # Coloque na pasta da área certa — o campo `type` é carimbado pelo CMS:
 #   src/content/works/fotografias/  → Obras        (type: fotografia)
 #   src/content/works/prints/       → Prints       (type: print)
+#   src/content/works/gravuras/     → Gravuras     (type: gravura)
 #   src/content/works/canvas/       → Canvas       (type: canvas)
 #   src/content/works/esculturas/   → Esculturas   (type: escultura)
 #   src/content/works/referencias/  → Referências  (type: referencia)

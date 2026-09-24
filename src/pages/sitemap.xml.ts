@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 
-const staticPaths = ['/', '/acervo/', '/trabalhos/', '/series/', '/textos/', '/referencias/', '/sobre/'];
+const staticPaths = ['/', '/acervo/', '/trabalhos/', '/series/', '/sobre/'];
 
 export const GET: APIRoute = async ({ site }) => {
   const works = await getCollection('works');

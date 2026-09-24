@@ -72,6 +72,7 @@ npm run preview
 public/images/                  imagens locais publicadas
 src/content/works/fotografias/  obras autorais            (CMS: Obras)
 src/content/works/prints/       prints à venda            (CMS: Prints)
+src/content/works/gravuras/     gravuras à venda          (CMS: Gravuras)
 src/content/works/canvas/       canvas à venda            (CMS: Canvas)
 src/content/works/esculturas/   esculturas à venda        (CMS: Esculturas)
 src/content/works/referencias/  referências de pesquisa   (CMS: Referências)
@@ -128,7 +129,7 @@ Use `publishedAt: YYYY-MM-DD` para definir a data de publicação. As listagens,
 
 ## Publicar trabalhos à venda
 
-Prints, canvas e esculturas são as peças comercializáveis. Elas usam o mesmo modelo de obra e a mesma página de detalhe do Arquivo, e aparecem em `/trabalhos/` com filtros por tipo. Para publicar um print:
+Prints, gravuras, canvas e esculturas são as peças comercializáveis. Elas usam o mesmo modelo de obra e a mesma página de detalhe do Arquivo, e aparecem em `/trabalhos/` com filtros por tipo. Para publicar um print:
 
 1. No CMS, entre em **Trabalhos → Prints** e crie uma entrada. Se fizer manualmente, copie `templates/obra.md` para `src/content/works/prints/nome-do-print.md`.
 2. A área do CMS carimba `type: print` automaticamente.
@@ -136,7 +137,7 @@ Prints, canvas e esculturas são as peças comercializáveis. Elas usam o mesmo 
 4. Informe `price` (valor em reais, sem símbolo) e deixe `sold: false`.
 5. Execute `npm run check` e faça o build.
 
-O trabalho aparecerá em `/trabalhos/` e também no `/acervo/` geral. Ao clicar na imagem, a página aberta será `/acervo/nome-do-print/`. Para um canvas ou uma escultura, use `src/content/works/canvas/` ou `src/content/works/esculturas/` com `type: canvas` ou `type: escultura`.
+O trabalho aparecerá em `/trabalhos/` e também no `/acervo/` geral. Ao clicar na imagem, a página aberta será `/acervo/nome-do-print/`. Para uma gravura, canvas ou escultura, use as áreas correspondentes no CMS. Os tipos são `gravura`, `canvas` e `escultura`.
 
 ### Valor, vendida e o ponto vermelho
 
@@ -174,6 +175,7 @@ As áreas do painel espelham as pastas de conteúdo:
 | Área do CMS | Onde grava | O que é |
 |---|---|---|
 | **Trabalhos → Prints** | `src/content/works/prints/` | peças à venda em print |
+| **Trabalhos → Gravuras** | `src/content/works/gravuras/` | peças à venda em gravura |
 | **Trabalhos → Canvas** | `src/content/works/canvas/` | peças à venda em canvas |
 | **Trabalhos → Esculturas** | `src/content/works/esculturas/` | peças à venda em escultura |
 | **Obras** | `src/content/works/fotografias/` | obras autorais |
@@ -275,8 +277,8 @@ O site é gerado como HTML estático. Em um serviço conectado ao GitHub, o flux
 
 - A home embaralha somente as publicações no navegador a cada carregamento; a ordem das séries não é envolvida porque elas não aparecem na home.
 - Na home, obras e referências com imagens exibem a etiqueta de série (quando houver), o tipo e o ano; os títulos aparecem nas páginas individuais.
-- `/acervo/`, `/trabalhos/`, `/series/`, `/textos/` e `/referencias/` usam ordenação da publicação mais nova para a mais antiga.
-- `/trabalhos/` filtra `print`, `canvas` e `escultura` e permite restringir por tipo pelos botões acima da grade.
+- `/acervo/`, `/trabalhos/` e `/series/` usam ordenação da publicação mais nova para a mais antiga.
+- `/trabalhos/` filtra `print`, `gravura`, `canvas` e `escultura` e permite restringir por tipo pelos botões acima da grade.
 - A data principal é `publishedAt`. Sem ela, o site usa `date`, `year` ou `period` como fallback.
 - Quando uma listagem não tem trabalhos, a mensagem explica que ainda não há conteúdo publicado.
 
@@ -305,10 +307,10 @@ O endereço provisório do GitHub Pages continua disponível em `https://lucasde
 - `/` home editorial aleatória de publicações.
 - `/acervo/` arquivo geral de obras em mosaico.
 - `/acervo/[slug]/` página individual da obra.
-- `/trabalhos/` peças à venda (prints, canvas e esculturas) com filtros por tipo.
+- `/trabalhos/` peças à venda (prints, gravuras, canvas e esculturas) com filtros por tipo.
 - `/prints/`, `/canvas/` e `/esculturas/` redirecionam para `/trabalhos/` para preservar links antigos.
 - `/series/` séries e projetos.
-- `/textos/` ensaios e anotações.
-- `/referencias/` referências de pesquisa.
+- `/textos/[slug]/` leitura individual de textos publicados; `/textos/` redireciona para a home.
+- `/referencias/` redireciona para o Arquivo; referências continuam publicadas como registros do acervo.
 - `/sobre/` apresentação e contato.
 - `/post/` atalho para o painel de publicação do Pages CMS.

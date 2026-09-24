@@ -6,9 +6,9 @@ import { glob } from 'astro/loaders';
 const image = z.string().min(1).nullish();
 const gallery = z.array(z.string().min(1)).nullish();
 const publishedAt = z.union([z.string(), z.date()]).nullish();
-const workType = z.enum(['fotografia', 'print', 'canvas', 'escultura', 'referencia', 'outro']).nullish();
+const workType = z.enum(['fotografia', 'print', 'gravura', 'canvas', 'escultura', 'referencia', 'outro']).nullish();
 
-// Obras vivem em subpastas por área (fotografias/, prints/, canvas/, esculturas/,
+// Obras vivem em subpastas por área (fotografias/, prints/, gravuras/, canvas/, esculturas/,
 // referencias/), mas o id é o basename — assim as URLs não mudam e nomes precisam
 // ser únicos entre as pastas.
 const works = defineCollection({

@@ -9,13 +9,14 @@ const works = sortByPublishedAt((await getCollection('works')).filter((work) => 
 const filters = [
   { id: 'all', label: 'Todos' },
   { id: 'print', label: 'Prints' },
+  { id: 'gravura', label: 'Gravuras' },
   { id: 'canvas', label: 'Canvas' },
   { id: 'escultura', label: 'Esculturas' },
 ];
 ---
-<BaseLayout title="Trabalhos / Acervo" description="Trabalhos à venda: prints, canvas e esculturas.">
+<BaseLayout title="Trabalhos / Acervo" description="Trabalhos à venda: prints, gravuras, canvas e esculturas.">
   <div class="page">
-    <SectionIntro title="Trabalhos" copy="Peças à venda. Prints, canvas e esculturas — consulte valor e disponibilidade." />
+    <SectionIntro title="Trabalhos" copy="Peças à venda. Prints, gravuras, canvas e esculturas — consulte valor e disponibilidade." />
     {works.length > 0 ? (
       <>
         <div class="archive-toolbar">

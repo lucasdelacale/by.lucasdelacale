@@ -34,7 +34,7 @@ function getPublicationTime(item: { data: any }): number {
 }
 
 /** Tipos de obra colocados à venda — alimentam /trabalhos/. */
-export const PURCHASABLE_TYPES = ['print', 'canvas', 'escultura'] as const;
+export const PURCHASABLE_TYPES = ['print', 'gravura', 'canvas', 'escultura'] as const;
 
 export function isPurchasable(type?: string | null): boolean {
   return (PURCHASABLE_TYPES as readonly string[]).includes(String(type ?? '').toLowerCase());

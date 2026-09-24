@@ -224,6 +224,106 @@ content:
             list: true
             description: "Slug do arquivo da obra (ex.: sem-titulo-17)."
 
+      - name: gravuras
+        label: Gravuras
+        type: collection
+        path: src/content/works/gravuras
+        filename:
+          template: "{primary}.md"
+          field: create
+        subfolders: false
+        view:
+          fields: [title, year, price, sold, coverImage]
+          primary: title
+          sort: [publishedAt, year, title, price]
+          search: [title, year, tags]
+          default:
+            sort: publishedAt
+            order: desc
+        fields:
+          - name: title
+            label: Título
+            type: string
+            required: true
+          - name: publishedAt
+            label: Data de publicação
+            type: date
+          - name: year
+            label: Ano
+            type: number
+          - name: type
+            label: Tipo
+            type: string
+            readonly: true
+            default: gravura
+          - name: price
+            label: Valor (R$)
+            type: number
+            options:
+              min: 0
+            description: Valor de venda em reais. Deixe vazio para não exibir preço.
+          - name: sold
+            label: Vendida
+            type: boolean
+            default: false
+            description: Marque para exibir o ponto vermelho de galeria e sinalizar a peça como vendida.
+          - name: series
+            label: Série
+            type: reference
+            options:
+              collection: series
+              value: "{name}"
+              label: "{primary}"
+          - name: coverImage
+            label: Imagem principal
+            type: image
+            required: true
+            options:
+              media: images
+              path: works/gravuras
+              extensions: [jpg, jpeg, png, webp, avif]
+          - name: coverAlt
+            label: Texto alternativo da imagem
+            type: string
+          - name: caption
+            label: Legenda
+            type: string
+          - name: gallery
+            label: Imagens complementares
+            type: image
+            options:
+              media: images
+              path: works/gravuras
+              multiple:
+                max: 20
+              unique: true
+              extensions: [jpg, jpeg, png, webp, avif]
+          - name: materials
+            label: Materiais
+            type: string
+            list: true
+          - name: dimensions
+            label: Dimensões
+            type: string
+          - name: tags
+            label: Tags
+            type: string
+            list: true
+          - name: featured
+            label: Destacar na página inicial
+            type: boolean
+          - name: photoCredit
+            label: Crédito da fotografia
+            type: string
+          - name: body
+            label: Texto da obra
+            type: rich-text
+          - name: relatedWorks
+            label: Obras relacionadas
+            type: string
+            list: true
+            description: "Slug do arquivo da obra (ex.: sem-titulo-17)."
+
       - name: esculturas
         label: Esculturas
         type: collection

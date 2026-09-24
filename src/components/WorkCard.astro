@@ -27,7 +27,6 @@ const saleVisible = showSale && isPurchasable(type);
       {sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}
     </div>
     {minimal ? <div class="work-info work-info--minimal">
-      {title && <h3>{title}</h3>}
       {data.caption && <p class="series-caption">{data.caption}</p>}
     </div> : <div class="work-info">
       {title && <h3>{title}</h3>}
