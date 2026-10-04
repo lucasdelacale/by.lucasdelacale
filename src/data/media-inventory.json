@@ -880,10 +880,8 @@
   {
     "filename": "0745eb103f7463a902e808071c3d415c.jpg",
     "path": "/images/0745eb103f7463a902e808071c3d415c.jpg",
-    "status": "PUBLICADA",
-    "usedIn": [
-      "Sem título · works/fotografias/sem-titulo-39.md"
-    ],
+    "status": "DISPONÍVEL",
+    "usedIn": [],
     "size": 107541,
     "format": "JPG"
   },
@@ -922,10 +920,8 @@
   {
     "filename": "4ae0f49b319944bce2e73f93f62da310-1.jpg",
     "path": "/images/4ae0f49b319944bce2e73f93f62da310-1.jpg",
-    "status": "PUBLICADA",
-    "usedIn": [
-      "Sem título · works/fotografias/sem-titulo-37.md"
-    ],
+    "status": "DISPONÍVEL",
+    "usedIn": [],
     "size": 123988,
     "format": "JPG"
   },
@@ -1140,7 +1136,6 @@
     "path": "/images/img9904.jpg",
     "status": "PUBLICADA",
     "usedIn": [
-      "Sem título · works/fotografias/sem-titulo-31.md",
       "Sem título · works/fotografias/sem-titulo-38.md"
     ],
     "size": 733204,
