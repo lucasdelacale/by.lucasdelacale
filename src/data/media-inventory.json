@@ -924,8 +924,10 @@
   {
     "filename": "4ae0f49b319944bce2e73f93f62da310-1.jpg",
     "path": "/images/4ae0f49b319944bce2e73f93f62da310-1.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-37.md"
+    ],
     "size": 123988,
     "format": "JPG"
   },
