@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@astrojs/check": "latest",
-    "astro": "latest",
+    "astro": "^7.3.5",
     "typescript": "latest"
   }
 }
