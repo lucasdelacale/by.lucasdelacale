@@ -872,8 +872,10 @@
   {
     "filename": "0109.jpg",
     "path": "/images/0109.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-41.md"
+    ],
     "size": 868360,
     "format": "JPG"
   },
