@@ -880,8 +880,10 @@
   {
     "filename": "0745eb103f7463a902e808071c3d415c.jpg",
     "path": "/images/0745eb103f7463a902e808071c3d415c.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-35.md"
+    ],
     "size": 107541,
     "format": "JPG"
   },
@@ -904,8 +906,10 @@
   {
     "filename": "37a1a2a70759f5175fcbd6f9014bd378.jpg",
     "path": "/images/37a1a2a70759f5175fcbd6f9014bd378.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-36.md"
+    ],
     "size": 90843,
     "format": "JPG"
   },
