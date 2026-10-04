@@ -280,8 +280,10 @@
   {
     "filename": "0033.jpeg",
     "path": "/images/0033.jpeg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-40.md"
+    ],
     "size": 434808,
     "format": "JPEG"
   },
