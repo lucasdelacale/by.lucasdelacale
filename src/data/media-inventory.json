@@ -878,8 +878,10 @@
   {
     "filename": "0745eb103f7463a902e808071c3d415c.jpg",
     "path": "/images/0745eb103f7463a902e808071c3d415c.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/fotografias/sem-titulo-39.md"
+    ],
     "size": 107541,
     "format": "JPG"
   },
