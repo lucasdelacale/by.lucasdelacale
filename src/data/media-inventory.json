@@ -910,8 +910,16 @@
     "format": "JPG"
   },
   {
-    "filename": "4ae0f49b319944bce2e73f93f62da310.jpg",
-    "path": "/images/4ae0f49b319944bce2e73f93f62da310.jpg",
+    "filename": "37a1a2a70759f5175fcbd6f9014bd378.jpg",
+    "path": "/images/37a1a2a70759f5175fcbd6f9014bd378.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 90843,
+    "format": "JPG"
+  },
+  {
+    "filename": "4ae0f49b319944bce2e73f93f62da310-1.jpg",
+    "path": "/images/4ae0f49b319944bce2e73f93f62da310-1.jpg",
     "status": "DISPONÍVEL",
     "usedIn": [],
     "size": 123988,
