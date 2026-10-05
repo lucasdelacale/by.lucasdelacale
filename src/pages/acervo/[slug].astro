@@ -20,7 +20,7 @@ const related = sortByPublishedAt((work.data.relatedWorks ?? []).map((id) => all
 const position = allWorks.findIndex((item) => item.id === work.id);
 const previous = allWorks[(position - 1 + allWorks.length) % allWorks.length];
 const next = allWorks[(position + 1) % allWorks.length];
-const consultHref = `mailto:by.lucasdelacale@gmail.com?subject=${encodeURIComponent(`Consulta sobre ${title ?? work.id}`)}`;
+const consultHref = `https://ig.me/m/lucasdelacale`;
 ---
 <BaseLayout title={title ? `${title} / Acervo` : 'Obra / Acervo'} description={work.data.coverAlt ?? 'Obra do acervo'} ogImage={work.data.coverImage}>
   <article class="detail">
