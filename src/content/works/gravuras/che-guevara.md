@@ -1,5 +1,5 @@
 ---
-title: '"Che Guevara"'
+title: Che Guevara
 publishedAt: 2026-10-05
 year: 2026
 type: gravura
