@@ -6,7 +6,7 @@ const root = process.cwd();
 const contentRoot = join(root, 'src/content');
 const publicRoot = join(root, 'public');
 const errors = [];
-const disambiguatedReferenceIds = new Set(['sem-titulo', 'sem-titulo-33', 'sem-titulo-34']);
+const disambiguatedReferenceIds = new Set(['sem-titulo', 'sem-titulo-33', 'sem-titulo-34', 'sem-titulo-35', 'sem-titulo-36']);
 
 function filesIn(directory) {
   if (!existsSync(directory)) return [];

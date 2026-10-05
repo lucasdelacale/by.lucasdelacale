@@ -7,7 +7,7 @@ const image = z.string().min(1).nullish();
 const gallery = z.array(z.string().min(1)).nullish();
 const publishedAt = z.union([z.string(), z.date()]).nullish();
 const workType = z.enum(['fotografia', 'print', 'gravura', 'canvas', 'escultura', 'referencia', 'outro']).nullish();
-const disambiguatedReferenceIds = new Set(['sem-titulo', 'sem-titulo-33', 'sem-titulo-34']);
+const disambiguatedReferenceIds = new Set(['sem-titulo', 'sem-titulo-33', 'sem-titulo-34', 'sem-titulo-35', 'sem-titulo-36']);
 
 // Obras vivem em subpastas por área (fotografias/, prints/, gravuras/, canvas/, esculturas/,
 // referencias/), mas o id é o basename. Referências antigas que colidem com fotografias

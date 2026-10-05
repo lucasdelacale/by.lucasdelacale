@@ -74,3 +74,19 @@ export function resolveSeriesLabels(allSeries: SeriesLike[], work: WorkLike): st
 export function resolveSeriesLabel(allSeries: SeriesLike[], work: WorkLike): string | null {
   return resolveSeriesLabels(allSeries, work).join(' / ') || null;
 }
+
+export function paginate<T>(items: T[], page: number = 1, perPage: number = 20) {
+  const total = items.length;
+  const totalPages = Math.ceil(total / perPage);
+  const currentPage = Math.max(1, Math.min(page, totalPages || 1));
+  const start = (currentPage - 1) * perPage;
+  const end = start + perPage;
+  return {
+    items: items.slice(start, end),
+    currentPage,
+    totalPages,
+    total,
+    hasNext: currentPage < totalPages,
+    hasPrev: currentPage > 1,
+  };
+}

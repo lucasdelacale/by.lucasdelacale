@@ -163,6 +163,10 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .detail-image-wrap { position:relative; }
 .sold-dot { position:absolute; right:10px; bottom:10px; width:12px; height:12px; border-radius:50%; background:var(--accent); }
 .series-tag { color:var(--accent); display:block; font:11px var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+.pagination { align-items:center; display:flex; gap:20px; justify-content:center; margin-top:60px; padding-top:30px; }
+.pagination-link { border:1px solid var(--ink); color:var(--ink); font:11px var(--mono); padding:10px 18px; text-transform:uppercase; }
+.pagination-link:hover { background:var(--ink); color:white; }
+.pagination-info { color:var(--muted); font:11px var(--mono); }
 .sale-line { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:4px 0 0; font:10px var(--mono); text-transform:uppercase; }
 .sale-price { color:var(--muted); }
 .sale-sold { color:var(--accent); }

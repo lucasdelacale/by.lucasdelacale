@@ -3,9 +3,11 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionIntro from '../../components/SectionIntro.astro';
 import WorkCard from '../../components/WorkCard.astro';
-import { isPurchasable, sortByPublishedAt } from '../../utils/content';
+import { isPurchasable, sortByPublishedAt, paginate } from '../../utils/content';
 
-const works = sortByPublishedAt((await getCollection('works')).filter((work) => isPurchasable(work.data.type)));
+const page = Number(Astro.url.searchParams.get('page')) || 1;
+const allWorks = sortByPublishedAt((await getCollection('works')).filter((work) => isPurchasable(work.data.type)));
+const { items: works, currentPage, totalPages, hasNext, hasPrev } = paginate(allWorks, page, 24);
 const filters = [
   { id: 'all', label: 'Todos' },
   { id: 'print', label: 'Prints' },
@@ -27,8 +29,15 @@ const filters = [
           </div>
         </div>
         <div class="works-grid" id="trabalhos-grid">
-          {works.map((work, i) => <WorkCard work={work} index={i} mode="gallery" showSale />)}
+          {works.map((work, i) => <WorkCard work={work} index={(currentPage - 1) * 24 + i} mode="gallery" showSale />)}
         </div>
+        {totalPages > 1 && (
+          <nav class="pagination" aria-label="Navegação de páginas">
+            {hasPrev && <a href={`?page=${currentPage - 1}`} class="pagination-link">← Anterior</a>}
+            <span class="pagination-info">Página {currentPage} de {totalPages}</span>
+            {hasNext && <a href={`?page=${currentPage + 1}`} class="pagination-link">Próxima →</a>}
+          </nav>
+        )}
       </>
     ) : <p class="empty">Ainda não há trabalhos à venda.</p>}
     {works.length > 0 && <p class="empty filter-empty" data-filter-empty hidden>Nenhum trabalho neste filtro.</p>}
