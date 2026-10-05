@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionIntro from '../../components/SectionIntro.astro';
-import WorkCard from '../../components/WorkCard.astro';
+import ArchiveEntry from '../../components/ArchiveEntry.astro';
 import { isPurchasable, sortByPublishedAt, paginate } from '../../utils/content';
 
 const page = Number(Astro.url.searchParams.get('page')) || 1;
@@ -28,8 +28,8 @@ const filters = [
             ))}
           </div>
         </div>
-        <div class="works-grid" id="trabalhos-grid" data-mode="mosaic">
-          {works.map((work, i) => <WorkCard work={work} index={(currentPage - 1) * 24 + i} mode="mosaic" showSale />)}
+        <div class="archive-feed" id="trabalhos-grid">
+          {works.map((work, i) => <ArchiveEntry item={work} kind="work" index={(currentPage - 1) * 24 + i} showSale />)}
         </div>
         {totalPages > 1 && (
           <nav class="pagination" aria-label="Navegação de páginas">
@@ -45,7 +45,7 @@ const filters = [
 </BaseLayout>
 <script>
   const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
-  const cards = document.querySelectorAll<HTMLElement>('#trabalhos-grid .work-card');
+  const cards = document.querySelectorAll<HTMLElement>('#trabalhos-grid .archive-entry');
 
   buttons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -53,10 +53,10 @@ const filters = [
 
       buttons.forEach((candidate) => candidate.setAttribute('aria-pressed', String(candidate === button)));
       cards.forEach((card) => {
-      const type = (card.dataset.workType ?? '').toLowerCase();
-      card.hidden = filter !== 'all' && type !== filter;
-      const visible = [...cards].some((candidate) => !candidate.hidden);
-      document.querySelector<HTMLElement>('[data-filter-empty]')?.toggleAttribute('hidden', visible);
+        const type = (card.dataset.workType ?? '').toLowerCase();
+        card.hidden = filter !== 'all' && type !== filter;
+        const visible = [...cards].some((candidate) => !candidate.hidden);
+        document.querySelector<HTMLElement>('[data-filter-empty]')?.toggleAttribute('hidden', visible);
       });
     });
   });
