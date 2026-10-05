@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
-import { basename, extname, join, relative } from 'node:path';
+import { basename, extname, join, relative, sep } from 'node:path';
 
 const root = process.cwd();
 const contentRoot = join(root, 'src/content');
 const publicRoot = join(root, 'public');
 const errors = [];
+const disambiguatedReferenceIds = new Set(['sem-titulo', 'sem-titulo-33', 'sem-titulo-34']);
 
 function filesIn(directory) {
   if (!existsSync(directory)) return [];
@@ -34,7 +35,9 @@ const seriesFiles = filesIn(join(contentRoot, 'series'));
 const ids = new Map();
 
 for (const file of workFiles) {
-  const id = basename(file, extname(file));
+  const basenameId = basename(file, extname(file));
+  const area = relative(join(contentRoot, 'works'), file).split(sep)[0];
+  const id = area === 'referencias' && disambiguatedReferenceIds.has(basenameId) ? `referencias-${basenameId}` : basenameId;
   const previous = ids.get(id);
   if (previous) errors.push(`ID duplicado "${id}": ${relative(root, previous)} e ${relative(root, file)}`);
   ids.set(id, file);

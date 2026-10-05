@@ -85,7 +85,7 @@ src/utils/                      funções compartilhadas
 templates/                      modelos de conteúdo
 ```
 
-As obras vivem em subpastas por área de gerenciamento, mas a URL usa apenas o nome do arquivo: `src/content/works/prints/nome-do-print.md` gera `/acervo/nome-do-print/`. Por isso **o nome do arquivo precisa ser único entre todas as pastas de `works/`**.
+As obras vivem em subpastas por área de gerenciamento, mas a URL normalmente usa apenas o nome do arquivo: `src/content/works/prints/nome-do-print.md` gera `/acervo/nome-do-print/`. Por isso **o nome do arquivo precisa ser único entre as pastas de `works/`**. Três referências antigas com nomes repetidos recebem o prefixo `referencias-` no ID da URL para manter ambas as entradas acessíveis.
 
 ## Publicar uma obra
 
@@ -232,6 +232,10 @@ npm run optimize -- caminho/da/foto.jpg
 O script (usa o `sips` do macOS, sem dependências) redimensiona para no máximo 2400px no maior lado e regrava o JPEG em qualidade 80, preservando o perfil de cor. Ele mostra o tamanho em base64 do resultado e avisa se ainda estiver acima do limite.
 
 Depois que o CMS consegue aceitar o upload, o workflow `.github/workflows/optimize-uploaded-images.yml` também faz essa otimização automaticamente no GitHub antes do deploy. Isso não consegue resolver um 413: o erro ocorre antes do commit, enquanto o arquivo ainda está sendo enviado ao Pages CMS.
+
+### Preparar e enviar pelo navegador
+
+A ferramenta [`/optimize/`](https://lucasdelacale.com/optimize/) reduz a imagem no próprio navegador, sem enviar o original, e oferece um JPEG otimizado para baixar. Depois, envie esse JPEG pelo seletor de mídia do Pages CMS. A ferramenta também converte fotos HEIC do iPhone e tenta manter o arquivo abaixo de 2,8 MB.
 
 ```bash
 npm run optimize -- public/images/               # uma pasta inteira, no lugar

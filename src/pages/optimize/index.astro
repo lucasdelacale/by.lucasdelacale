@@ -1,0 +1,230 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Preparar imagem para upload / Lucas Delacale"
+  description="Reduza uma imagem no navegador e baixe uma cópia JPEG pronta para enviar ao Pages CMS."
+  noIndex={true}
+>
+  <div class="optimizer">
+    <header class="optimizer-intro">
+      <p class="optimizer-kicker">Ferramenta de imagem</p>
+      <h1>Prepare a foto para o CMS</h1>
+      <p class="optimizer-lede">Escolha uma imagem e baixe uma cópia JPEG menor, pronta para publicar.</p>
+    </header>
+
+    <div class="optimizer-layout">
+      <section class="optimizer-action" aria-labelledby="upload-title">
+        <h2 id="upload-title">Escolha uma foto</h2>
+        <p>JPG, PNG, WebP, AVIF ou HEIC. O processamento acontece neste navegador; o arquivo original não é enviado nem alterado.</p>
+
+        <label class="drop-zone" id="drop-zone" for="image-file">
+          <span class="drop-mark" aria-hidden="true">+</span>
+          <span class="drop-title">Arraste a foto para cá</span>
+          <span class="drop-hint">ou escolha um arquivo no computador</span>
+          <span class="choose-file">Escolher imagem</span>
+          <input class="sr-only" id="image-file" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/heif,.heic,.heif" />
+        </label>
+
+      <p class="privacy-note">A foto original não sai do seu dispositivo. A cópia JPEG não mantém metadados como GPS.</p>
+      </section>
+
+      <section class="optimizer-result" aria-labelledby="result-title" aria-live="polite">
+        <div class="result-heading">
+          <h2 id="result-title">Arquivo preparado</h2>
+          <p class="size-target">Alvo seguro: até 2,8 MB</p>
+        </div>
+
+        <p class="result-status" id="result-status">A versão reduzida aparecerá aqui.</p>
+
+        <figure class="result-preview" id="result-preview-wrap" hidden>
+          <img id="result-preview" alt="Prévia da imagem otimizada" />
+        </figure>
+
+        <dl class="image-details" id="image-details" hidden>
+          <div><dt>Original</dt><dd id="original-size">—</dd></div>
+          <div><dt>Nova imagem</dt><dd id="optimized-size">—</dd></div>
+          <div><dt>Dimensão</dt><dd id="optimized-dimensions">—</dd></div>
+        </dl>
+
+        <a class="download-button" id="download-image" hidden>Baixar JPEG</a>
+      </section>
+    </div>
+
+    <p class="optimizer-footnote">O Pages CMS costuma aceitar imagens abaixo de 3,3 MB. Este preparo deixa uma margem para o tamanho extra do envio.</p>
+  </div>
+
+  <script>
+    const TARGET_BYTES = 2.8 * 1024 * 1024;
+    const MAX_EDGE = 2400;
+    const input = document.querySelector<HTMLInputElement>('#image-file')!;
+    const dropZone = document.querySelector<HTMLElement>('#drop-zone')!;
+    const status = document.querySelector<HTMLElement>('#result-status')!;
+    const previewWrap = document.querySelector<HTMLElement>('#result-preview-wrap')!;
+    const preview = document.querySelector<HTMLImageElement>('#result-preview')!;
+    const details = document.querySelector<HTMLElement>('#image-details')!;
+    const originalSize = document.querySelector<HTMLElement>('#original-size')!;
+    const optimizedSize = document.querySelector<HTMLElement>('#optimized-size')!;
+    const dimensions = document.querySelector<HTMLElement>('#optimized-dimensions')!;
+    const download = document.querySelector<HTMLAnchorElement>('#download-image')!;
+    let previewUrl: string | null = null;
+
+    const formatSize = (bytes: number) => `${(bytes / 1024 / 1024).toFixed(2)} MB`;
+
+    function setStatus(message: string, isError = false) {
+      status.textContent = message;
+      status.classList.toggle('is-error', isError);
+    }
+
+    function resetResult() {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+      previewUrl = null;
+      preview.removeAttribute('src');
+      previewWrap.hidden = true;
+      details.hidden = true;
+      download.hidden = true;
+      download.removeAttribute('href');
+    }
+
+    function makeJpeg(canvas: HTMLCanvasElement, quality: number) {
+      return new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('O navegador não conseguiu gerar o JPEG.')), 'image/jpeg', quality);
+      });
+    }
+
+    async function prepareImage(file: File) {
+      resetResult();
+      setStatus('Preparando a imagem…');
+
+      try {
+        const extension = file.name.split('.').pop()?.toLowerCase();
+        const isHeic = ['heic', 'heif'].includes(extension ?? '') || /image\/(heic|heif)/i.test(file.type);
+        let source: Blob = file;
+
+        if (isHeic) {
+          const { default: heic2any } = await import('heic2any');
+          const converted = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.92 });
+          source = Array.isArray(converted) ? converted[0] : converted;
+        }
+
+        const bitmap = await createImageBitmap(source);
+        let scale = Math.min(1, MAX_EDGE / Math.max(bitmap.width, bitmap.height));
+        let quality = 0.84;
+        let output: Blob | null = null;
+        let outputWidth = 0;
+        let outputHeight = 0;
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        if (!context) throw new Error('Não foi possível iniciar o processamento da imagem.');
+
+        for (let attempt = 0; attempt < 12; attempt += 1) {
+          outputWidth = Math.max(1, Math.round(bitmap.width * scale));
+          outputHeight = Math.max(1, Math.round(bitmap.height * scale));
+          canvas.width = outputWidth;
+          canvas.height = outputHeight;
+          context.clearRect(0, 0, outputWidth, outputHeight);
+          context.fillStyle = '#ffffff';
+          context.fillRect(0, 0, outputWidth, outputHeight);
+          context.drawImage(bitmap, 0, 0, outputWidth, outputHeight);
+          output = await makeJpeg(canvas, quality);
+          if (output.size <= TARGET_BYTES) break;
+
+          if (attempt % 3 < 2) quality -= 0.1;
+          else {
+            scale *= 0.85;
+            quality = 0.82;
+          }
+        }
+
+        bitmap.close();
+        if (!output) throw new Error('Não foi possível preparar essa imagem.');
+
+        previewUrl = URL.createObjectURL(output);
+        preview.src = previewUrl;
+        previewWrap.hidden = false;
+        originalSize.textContent = formatSize(file.size);
+        optimizedSize.textContent = formatSize(output.size);
+        dimensions.textContent = `${outputWidth} × ${outputHeight} px`;
+        details.hidden = false;
+        download.href = previewUrl;
+        download.download = `${file.name.replace(/\.[^.]+$/, '') || 'imagem'}-cms.jpg`;
+        download.hidden = false;
+
+        if (output.size <= TARGET_BYTES) setStatus('Pronta para baixar e enviar pelo CMS.');
+        else setStatus('A imagem continua acima do alvo. Você ainda pode baixar esta versão ou escolher outra foto.', true);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Não foi possível abrir essa imagem.';
+        setStatus(`${message} Tente exportar a foto como JPEG e selecioná-la novamente.`, true);
+      }
+    }
+
+    input.addEventListener('change', () => {
+      const file = input.files?.[0];
+      input.value = '';
+      if (file) void prepareImage(file);
+    });
+
+    for (const eventName of ['dragenter', 'dragover'] as const) {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        dropZone.classList.add('is-dragging');
+      });
+    }
+
+    for (const eventName of ['dragleave', 'drop'] as const) {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        dropZone.classList.remove('is-dragging');
+      });
+    }
+
+    dropZone.addEventListener('drop', (event) => {
+      const file = (event as DragEvent).dataTransfer?.files[0];
+      if (file) void prepareImage(file);
+    });
+  </script>
+
+  <style>
+    .optimizer { padding: 7vw 6vw 8vw; text-transform: none; }
+    .optimizer-intro { max-width: 760px; margin-bottom: 5vw; }
+    .optimizer-kicker { color: var(--accent); font: 11px var(--mono); margin-bottom: 18px; text-transform: uppercase; }
+    .optimizer h1 { max-width: 720px; margin-bottom: 20px; }
+    .optimizer-lede { color: var(--muted); font: 18px/1.5 var(--sans); max-width: 520px; }
+    .optimizer-layout { border-top: 1px solid #d8d7d2; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr); gap: 7vw; padding-top: 26px; }
+    .optimizer h2 { font: 18px/1.2 var(--sans); letter-spacing: 0; margin-bottom: 10px; }
+    .optimizer-action > p { color: var(--muted); font: 13px/1.5 var(--sans); max-width: 470px; }
+    .drop-zone { align-items: center; border: 1px dashed #aaa9a2; cursor: pointer; display: flex; flex-direction: column; justify-content: center; margin-top: 26px; min-height: 270px; padding: 28px; text-align: center; transition: border-color .15s ease, background-color .15s ease; }
+    .drop-zone:hover, .drop-zone.is-dragging { background: #f7f6f3; border-color: var(--accent); }
+    .drop-zone:focus-within { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .drop-mark { color: var(--accent); font: 42px/1 var(--sans); margin-bottom: 16px; }
+    .drop-title { font: 18px var(--sans); }
+    .drop-hint { color: var(--muted); font: 12px var(--sans); margin-top: 7px; }
+    .choose-file, .download-button { border: 1px solid var(--ink); display: inline-block; font: 11px var(--mono); margin-top: 23px; padding: 12px 16px; text-transform: uppercase; }
+    .choose-file { background: var(--ink); color: white; }
+    .drop-zone:hover .choose-file { background: var(--accent); border-color: var(--accent); }
+    .privacy-note { font-size: 11px !important; margin-top: 14px; }
+    .result-heading { align-items: baseline; display: flex; flex-wrap: wrap; gap: 10px 18px; justify-content: space-between; }
+    .result-heading h2 { margin-bottom: 0; }
+    .size-target { color: var(--muted); font: 11px var(--mono); margin: 0; }
+    .result-status { color: var(--muted); font: 13px/1.5 var(--sans); margin: 24px 0 16px; }
+    .result-status.is-error { color: var(--accent); }
+    .result-preview { background: #f3f2ef; margin: 0; max-height: 270px; overflow: hidden; }
+    .result-preview img { height: 270px; object-fit: contain; width: 100%; }
+    .image-details { border-top: 1px solid #d8d7d2; margin: 18px 0 0; }
+    .image-details div { border-bottom: 1px solid #d8d7d2; display: flex; font: 11px var(--mono); justify-content: space-between; padding: 10px 0; }
+    .image-details dt { color: var(--muted); }
+    .image-details dd { margin: 0; }
+    .download-button { background: var(--accent); border-color: var(--accent); color: white; cursor: pointer; }
+    .download-button:hover { color: white; opacity: .82; }
+    .download-button[hidden], .result-preview[hidden], .image-details[hidden] { display: none; }
+    .optimizer-footnote { border-top: 1px solid #d8d7d2; color: var(--muted); font: 11px/1.5 var(--mono); margin: 6vw 0 0; max-width: 600px; padding-top: 15px; }
+    @media (max-width: 700px) {
+      .optimizer { padding: 14vw 5vw 18vw; }
+      .optimizer-intro { margin-bottom: 12vw; }
+      .optimizer-layout { grid-template-columns: 1fr; gap: 12vw; }
+      .drop-zone { min-height: 230px; }
+      .optimizer-footnote { margin-top: 12vw; }
+    }
+  </style>
+</BaseLayout>
