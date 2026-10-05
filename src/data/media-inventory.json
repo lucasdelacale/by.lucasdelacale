@@ -992,10 +992,8 @@
   {
     "filename": "IMG_0373_2.JPG",
     "path": "/images/IMG_0373_2.JPG",
-    "status": "PUBLICADA",
-    "usedIn": [
-      "Virgil Abloh · works/gravuras/virgil-abloh.md"
-    ],
+    "status": "DISPONÍVEL",
+    "usedIn": [],
     "size": 2002426,
     "format": "JPG"
   },
@@ -1010,40 +1008,32 @@
   {
     "filename": "IMG_0374.JPG",
     "path": "/images/IMG_0374.JPG",
-    "status": "PUBLICADA",
-    "usedIn": [
-      "Virgil Abloh · works/gravuras/virgil-abloh.md"
-    ],
+    "status": "DISPONÍVEL",
+    "usedIn": [],
     "size": 815377,
     "format": "JPG"
   },
   {
     "filename": "IMG_0375.JPG",
     "path": "/images/IMG_0375.JPG",
-    "status": "PUBLICADA",
-    "usedIn": [
-      "Virgil Abloh · works/gravuras/virgil-abloh.md"
-    ],
+    "status": "DISPONÍVEL",
+    "usedIn": [],
     "size": 1136115,
     "format": "JPG"
   },
   {
     "filename": "IMG_0376.JPG",
     "path": "/images/IMG_0376.JPG",
-    "status": "PUBLICADA",
-    "usedIn": [
-      "Virgil Abloh · works/gravuras/virgil-abloh.md"
-    ],
+    "status": "DISPONÍVEL",
+    "usedIn": [],
     "size": 1361338,
     "format": "JPG"
   },
   {
     "filename": "IMG_0377.JPG",
     "path": "/images/IMG_0377.JPG",
-    "status": "PUBLICADA",
-    "usedIn": [
-      "Virgil Abloh · works/gravuras/virgil-abloh.md"
-    ],
+    "status": "DISPONÍVEL",
+    "usedIn": [],
     "size": 1338540,
     "format": "JPG"
   },
@@ -1118,9 +1108,21 @@
   {
     "filename": "img0373-1.jpg",
     "path": "/images/img0373-1.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Virgil Abloh · works/gravuras/virgil-abloh.md"
+    ],
     "size": 1558974,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0373-2-cms-1.jpg",
+    "path": "/images/img0373-2-cms-1.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Virgil Abloh · works/gravuras/virgil-abloh.md"
+    ],
+    "size": 764033,
     "format": "JPG"
   },
   {
@@ -1134,40 +1136,50 @@
   {
     "filename": "img0373.jpg",
     "path": "/images/img0373.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Virgil Abloh · works/gravuras/virgil-abloh.md"
+    ],
     "size": 1558974,
     "format": "JPG"
   },
   {
     "filename": "img0374-cms.jpg",
     "path": "/images/img0374-cms.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Virgil Abloh · works/gravuras/virgil-abloh.md"
+    ],
     "size": 912638,
     "format": "JPG"
   },
   {
     "filename": "img0375-cms.jpg",
     "path": "/images/img0375-cms.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Virgil Abloh · works/gravuras/virgil-abloh.md"
+    ],
     "size": 1263732,
     "format": "JPG"
   },
   {
     "filename": "img0376-cms.jpg",
     "path": "/images/img0376-cms.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Virgil Abloh · works/gravuras/virgil-abloh.md"
+    ],
     "size": 1507058,
     "format": "JPG"
   },
   {
     "filename": "img0377-cms.jpg",
     "path": "/images/img0377-cms.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Virgil Abloh · works/gravuras/virgil-abloh.md"
+    ],
     "size": 1449330,
     "format": "JPG"
   },
@@ -1179,6 +1191,16 @@
       "Che Guevara · works/gravuras/che-guevara.md"
     ],
     "size": 733685,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0782-1.jpg",
+    "path": "/images/img0782-1.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Che Guevara · works/gravuras/che-guevara.md"
+    ],
+    "size": 728727,
     "format": "JPG"
   },
   {
