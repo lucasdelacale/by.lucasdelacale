@@ -10,5 +10,10 @@ gallery:
   - /images/img0863-1.jpg
   - /images/img0860.jpg
   - /images/img0856-cms-1.jpg
+materials:
+  - Giz pastel a óleo
+dimensions: A3 - 29,7x42cm
+tags:
+  - Papel Canson 200mg
 featured: false
 ---
