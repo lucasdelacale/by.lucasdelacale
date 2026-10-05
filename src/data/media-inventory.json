@@ -1278,8 +1278,10 @@
   {
     "filename": "original5ef41a7d7b3c96ff641f1103da4105b5.png",
     "path": "/images/original5ef41a7d7b3c96ff641f1103da4105b5.png",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Sem título · works/referencias/sem-titulo-38.md"
+    ],
     "size": 116497,
     "format": "PNG"
   },
