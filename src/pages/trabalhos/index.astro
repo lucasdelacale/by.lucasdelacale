@@ -28,8 +28,8 @@ const filters = [
             ))}
           </div>
         </div>
-        <div class="works-grid" id="trabalhos-grid">
-          {works.map((work, i) => <WorkCard work={work} index={(currentPage - 1) * 24 + i} mode="gallery" showSale />)}
+        <div class="works-grid" id="trabalhos-grid" data-mode="mosaic">
+          {works.map((work, i) => <WorkCard work={work} index={(currentPage - 1) * 24 + i} mode="mosaic" showSale />)}
         </div>
         {totalPages > 1 && (
           <nav class="pagination" aria-label="Navegação de páginas">

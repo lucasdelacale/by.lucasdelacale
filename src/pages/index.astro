@@ -23,6 +23,7 @@ const archive = [
   if (publications) {
     const entries = Array.from(publications.children);
 
+    // Embaralha as entradas
     for (let index = entries.length - 1; index > 0; index -= 1) {
       const randomIndex = Math.floor(Math.random() * (index + 1));
       [entries[index], entries[randomIndex]] = [entries[randomIndex], entries[index]];
@@ -31,5 +32,27 @@ const archive = [
     const fragment = document.createDocumentFragment();
     entries.forEach((entry) => fragment.append(entry));
     publications.append(fragment);
+
+    // Scroll infinito: revela entradas conforme aparecem na tela
+    const allEntries = Array.from(publications.children);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).style.opacity = '1';
+            (entry.target as HTMLElement).style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '100px', threshold: 0.1 }
+    );
+
+    allEntries.forEach((entry, index) => {
+      (entry as HTMLElement).style.opacity = '0';
+      (entry as HTMLElement).style.transform = 'translateY(20px)';
+      (entry as HTMLElement).style.transition = `opacity 0.4s ease ${index * 0.05}s, transform 0.4s ease ${index * 0.05}s`;
+      observer.observe(entry);
+    });
   }
 </script>

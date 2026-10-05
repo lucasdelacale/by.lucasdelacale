@@ -10,8 +10,9 @@ interface Props {
   seriesLabel?: string | null;
   minimal?: boolean;
   showSale?: boolean;
+  showTitle?: boolean;
 }
-const { work, index = 0, mode = 'gallery', seriesLabel, minimal = false, showSale = false } = Astro.props;
+const { work, index = 0, mode = 'gallery', seriesLabel, minimal = false, showSale = false, showTitle = true } = Astro.props;
 const { data } = work;
 const title = data.title;
 const type = String(data.type ?? 'outro').toLowerCase();
@@ -29,7 +30,7 @@ const saleVisible = showSale && isPurchasable(type);
     {minimal ? <div class="work-info work-info--minimal">
       {data.caption && <p class="series-caption">{data.caption}</p>}
     </div> : <div class="work-info">
-      {title && <h3>{title}</h3>}
+      {showTitle && title && <h3>{title}</h3>}
       <p>{type} {data.year ? ` / ${data.year}` : ''}</p>
       {displayedSeries && <p class="muted">{displayedSeries}</p>}
       {saleVisible && <p class="sale-line">
