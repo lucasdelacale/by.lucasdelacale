@@ -1,6 +1,7 @@
 ---
 title: '"Che Guevara"'
 publishedAt: 2026-10-05
+year: 2026
 type: gravura
 price: 250
 sold: false
