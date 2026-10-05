@@ -24,7 +24,7 @@ const saleVisible = showSale && isPurchasable(type);
 <article class={`work-card work-card--${mode}`} data-work-type={type} style={`--card-index: ${index}`}>
     <a href={sitePath(`/acervo/${work.id}/`)} class="work-link">
     <div class="work-image-wrap">
-      {data.coverImage ? <img src={sitePath(data.coverImage)} alt={data.coverAlt ?? 'Imagem da obra'} loading={index < 3 ? 'eager' : 'lazy'} /> : <div class="work-placeholder" aria-label="Sem imagem">sem imagem</div>}
+      {data.coverImage ? <img src={sitePath(data.coverImage)} alt={data.coverAlt ?? 'Imagem da obra'} loading={index < 3 ? 'eager' : 'lazy'} data-orientation-check /> : <div class="work-placeholder" aria-label="Sem imagem">sem imagem</div>}
       {sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}
     </div>
     {minimal ? <div class="work-info work-info--minimal">
@@ -40,3 +40,18 @@ const saleVisible = showSale && isPurchasable(type);
     </div>}
   </a>
 </article>
+<script>
+  const images = document.querySelectorAll<HTMLImageElement>('[data-orientation-check]');
+  images.forEach((img) => {
+    const checkOrientation = () => {
+      if (img.naturalWidth && img.naturalHeight) {
+        const article = img.closest('.work-card');
+        if (article && img.naturalWidth > img.naturalHeight) {
+          article.classList.add('is-landscape');
+        }
+      }
+    };
+    if (img.complete) checkOrientation();
+    else img.addEventListener('load', checkOrientation);
+  });
+</script>

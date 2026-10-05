@@ -33,7 +33,7 @@ const hasExcerpt = excerpt.length > 0;
 ---
 <article class={`archive-entry archive-entry--${kind} archive-entry--${index % 5}`}>
   <a href={href}>
-    {image ? <div class="archive-entry-image-wrap"><img src={sitePath(image)} alt={alt} loading={index < 4 ? 'eager' : 'lazy'} />{sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}</div> : kind === 'text' && hasExcerpt ? <div class="archive-text-preview">{excerpt}{excerpt.length >= 200 ? '…' : ''}</div> : <div class="archive-text-mark" aria-hidden="true">"</div>}
+    {image ? <div class="archive-entry-image-wrap"><img src={sitePath(image)} alt={alt} loading={index < 4 ? 'eager' : 'lazy'} data-orientation-check />{sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}</div> : kind === 'text' && hasExcerpt ? <div class="archive-text-preview">{excerpt}{excerpt.length >= 200 ? '…' : ''}</div> : <div class="archive-text-mark" aria-hidden="true">"</div>}
     <div class="archive-entry-info">
       <span class="eyebrow">{label}</span>
       {seriesLabel && <span class="series-tag">Série · {seriesLabel}</span>}
@@ -46,3 +46,18 @@ const hasExcerpt = excerpt.length > 0;
     </div>
   </a>
 </article>
+<script>
+  const images = document.querySelectorAll<HTMLImageElement>('[data-orientation-check]');
+  images.forEach((img) => {
+    const checkOrientation = () => {
+      if (img.naturalWidth && img.naturalHeight) {
+        const article = img.closest('.archive-entry');
+        if (article && img.naturalWidth > img.naturalHeight) {
+          article.classList.add('is-landscape');
+        }
+      }
+    };
+    if (img.complete) checkOrientation();
+    else img.addEventListener('load', checkOrientation);
+  });
+</script>

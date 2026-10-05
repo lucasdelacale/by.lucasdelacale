@@ -57,6 +57,8 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .archive-entry img { aspect-ratio:4/5; background:transparent; }
 .archive-entry--series img { aspect-ratio:16/10; }
 .archive-entry-info { padding-top:12px; min-width:0; max-width:100%; text-align:center; }
+.archive-entry.is-landscape .archive-entry-info { padding-top:6px; }
+.archive-entry.is-landscape img { aspect-ratio:16/10; }
 .archive-entry-info .eyebrow { display:block; max-width:100%; overflow-wrap:anywhere; }
 .archive-entry-info h2 { font-size:clamp(20px, 2vw, 30px); margin:4px 0 5px; max-width:100%; overflow-wrap:anywhere; }
 .archive-entry-info p { color:var(--muted); font:10px var(--mono); text-transform:uppercase; margin:0; }
@@ -78,6 +80,8 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .work-card img { aspect-ratio:4/5; }
 .work-placeholder { align-items:center; aspect-ratio:4/5; background:#d5d4cd; color:var(--muted); display:flex; font:11px var(--mono); justify-content:center; text-transform:uppercase; }
 .work-info { display:block; padding-top:11px; min-width:0; max-width:100%; text-align:center; }
+.work-card.is-landscape .work-info { padding-top:6px; }
+.work-card.is-landscape img { aspect-ratio:16/10; }
 .work-info h3, .work-info p { max-width:100%; overflow-wrap:anywhere; }
 .work-info p { font:10px var(--mono); text-transform:uppercase; margin:0; color:var(--muted); }
 .work-info .muted { grid-column:1/-1; text-transform:none; }
