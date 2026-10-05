@@ -17,6 +17,6 @@ materials:
   - Giz pastel a óleo
 dimensions: A3 - 29,7x42cm
 tags:
-  - Papel Canson 200mg
+  - Papel Canson 200g
 featured: false
 ---
