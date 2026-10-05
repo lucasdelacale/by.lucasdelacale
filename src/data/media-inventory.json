@@ -1354,24 +1354,30 @@
   {
     "filename": "img0895-2.jpg",
     "path": "/images/img0895-2.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Muhammad Ali · works/gravuras/muhammad-ali.md"
+    ],
     "size": 467421,
     "format": "JPG"
   },
   {
     "filename": "img0895-cms.jpg",
     "path": "/images/img0895-cms.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Muhammad Ali · works/gravuras/muhammad-ali.md"
+    ],
     "size": 822902,
     "format": "JPG"
   },
   {
     "filename": "img0909-cms.jpg",
     "path": "/images/img0909-cms.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Muhammad Ali · works/gravuras/muhammad-ali.md"
+    ],
     "size": 656887,
     "format": "JPG"
   },
@@ -1386,40 +1392,50 @@
   {
     "filename": "img0910-cms.jpg",
     "path": "/images/img0910-cms.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Muhammad Ali · works/gravuras/muhammad-ali.md"
+    ],
     "size": 810793,
     "format": "JPG"
   },
   {
     "filename": "img0911-cms.jpg",
     "path": "/images/img0911-cms.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Muhammad Ali · works/gravuras/muhammad-ali.md"
+    ],
     "size": 806745,
     "format": "JPG"
   },
   {
     "filename": "img0912-cms.jpg",
     "path": "/images/img0912-cms.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Muhammad Ali · works/gravuras/muhammad-ali.md"
+    ],
     "size": 906234,
     "format": "JPG"
   },
   {
     "filename": "img0913-cms.jpg",
     "path": "/images/img0913-cms.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Muhammad Ali · works/gravuras/muhammad-ali.md"
+    ],
     "size": 824081,
     "format": "JPG"
   },
   {
     "filename": "img0914-cms.jpg",
     "path": "/images/img0914-cms.jpg",
-    "status": "DISPONÍVEL",
-    "usedIn": [],
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Muhammad Ali · works/gravuras/muhammad-ali.md"
+    ],
     "size": 898421,
     "format": "JPG"
   },
