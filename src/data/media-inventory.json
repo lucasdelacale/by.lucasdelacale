@@ -1116,6 +1116,164 @@
     "format": "JPEG"
   },
   {
+    "filename": "img0782-1-cms.jpg",
+    "path": "/images/img0782-1-cms.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Che Guevara · works/gravuras/che-guevara.md"
+    ],
+    "size": 733685,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0782.jpg",
+    "path": "/images/img0782.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Che Guevara · works/gravuras/che-guevara.md"
+    ],
+    "size": 970398,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0786-cms.jpg",
+    "path": "/images/img0786-cms.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Che Guevara · works/gravuras/che-guevara.md"
+    ],
+    "size": 1260657,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0787-cms.jpg",
+    "path": "/images/img0787-cms.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Che Guevara · works/gravuras/che-guevara.md"
+    ],
+    "size": 1452041,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0788-cms.jpg",
+    "path": "/images/img0788-cms.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Che Guevara · works/gravuras/che-guevara.md"
+    ],
+    "size": 799246,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0791-cms.jpg",
+    "path": "/images/img0791-cms.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Che Guevara · works/gravuras/che-guevara.md"
+    ],
+    "size": 1062635,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0852-2.jpg",
+    "path": "/images/img0852-2.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Molezinha · works/gravuras/molezinha.md"
+    ],
+    "size": 547024,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0852-cms.jpg",
+    "path": "/images/img0852-cms.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Molezinha · works/gravuras/molezinha.md"
+    ],
+    "size": 569013,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0852.jpg",
+    "path": "/images/img0852.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 1112625,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0853-1.jpg",
+    "path": "/images/img0853-1.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 2668328,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0853.jpg",
+    "path": "/images/img0853.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 2668328,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0854-cms.jpg",
+    "path": "/images/img0854-cms.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 740141,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0856-cms-1.jpg",
+    "path": "/images/img0856-cms-1.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Molezinha · works/gravuras/molezinha.md"
+    ],
+    "size": 733909,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0856-cms.jpg",
+    "path": "/images/img0856-cms.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 733909,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0860.jpg",
+    "path": "/images/img0860.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Molezinha · works/gravuras/molezinha.md"
+    ],
+    "size": 2362750,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0863-1.jpg",
+    "path": "/images/img0863-1.jpg",
+    "status": "PUBLICADA",
+    "usedIn": [
+      "Molezinha · works/gravuras/molezinha.md"
+    ],
+    "size": 2270388,
+    "format": "JPG"
+  },
+  {
+    "filename": "img0863.jpg",
+    "path": "/images/img0863.jpg",
+    "status": "DISPONÍVEL",
+    "usedIn": [],
+    "size": 2270388,
+    "format": "JPG"
+  },
+  {
     "filename": "img9660.jpg",
     "path": "/images/img9660.jpg",
     "status": "PUBLICADA",
