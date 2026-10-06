@@ -53,6 +53,11 @@ for (const file of workFiles) {
       errors.push(`Imagem não encontrada "${image}" em ${relative(root, file)}`);
     }
   }
+
+  const hasCoverAlt = values(data, 'coverAlt').length > 0;
+  if (!hasCoverAlt && values(data, 'coverImage').length > 0) {
+    console.warn(`⚠ coverAlt ausente em ${relative(root, file)} — recomendado para SEO e acessibilidade.`);
+  }
 }
 
 const seriesIds = new Set(seriesFiles.map((file) => normalize(basename(file, extname(file)))));

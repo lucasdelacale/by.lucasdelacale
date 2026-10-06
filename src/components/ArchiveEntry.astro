@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { sitePath } from '../utils/paths';
+import { sitePath, responsiveSrcset } from '../utils/paths';
 import { formatPrice, isPurchasable, resolveSeriesLabel } from '../utils/content';
 
 interface Props {
@@ -23,7 +23,7 @@ const sold = kind === 'work' && Boolean(data.sold);
 const saleVisible = showSale && kind === 'work' && isPurchasable(data.type);
 
 // Extrai trecho do texto para exibição na home
-const bodyContent = kind === 'text' && data.body ? String(data.body) : '';
+const bodyContent = kind === 'text' && item.body ? String(item.body) : '';
 const excerpt = bodyContent
   .replace(/<[^>]*>/g, '')
   .replace(/\s+/g, ' ')
@@ -33,7 +33,7 @@ const hasExcerpt = excerpt.length > 0;
 ---
 <article class={`archive-entry archive-entry--${kind} archive-entry--${index % 5}`}>
   <a href={href}>
-    {image ? <div class="archive-entry-image-wrap"><img src={sitePath(image)} alt={alt} loading={index < 4 ? 'eager' : 'lazy'} data-orientation-check />{sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}</div> : kind === 'text' && hasExcerpt ? <div class="archive-text-preview">{excerpt}{excerpt.length >= 200 ? '…' : ''}</div> : <div class="archive-text-mark" aria-hidden="true">"</div>}
+    {image ? <div class="archive-entry-image-wrap"><img src={sitePath(image)} srcset={responsiveSrcset(image)} sizes="(max-width: 700px) 50vw, 33vw" alt={alt} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" data-orientation-check />{sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}</div> : kind === 'text' && hasExcerpt ? <div class="archive-text-preview">{excerpt}{excerpt.length >= 200 ? '…' : ''}</div> : <div class="archive-text-mark" aria-hidden="true">"</div>}
     <div class="archive-entry-info">
       <span class="eyebrow">{label}</span>
       {seriesLabel && <span class="series-tag">Série · {seriesLabel}</span>}

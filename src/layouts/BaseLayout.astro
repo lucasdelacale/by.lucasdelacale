@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { sitePath } from '../utils/paths';
 
-const { title = 'Arquivo', description = 'Um arquivo vivo de obras, imagens, textos e referências.', ogImage = '/site-icon.png', noIndex = false } = Astro.props;
+const { title = 'Arquivo', description = 'Um arquivo vivo de obras, imagens, textos e referências.', ogImage = '/site-icon.png', noIndex = false, structuredData = null } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 const socialImage = new URL(sitePath(ogImage) ?? sitePath('/site-icon.png')!, Astro.site ?? Astro.url.origin);
 ---
@@ -29,11 +29,13 @@ const socialImage = new URL(sitePath(ogImage) ?? sitePath('/site-icon.png')!, As
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
+    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
     <title>{title}</title>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Ir para o conteúdo</a>
     <Header />
-    <main><slot /></main>
+    <main id="main-content"><slot /></main>
     <Footer />
     <script>
       const preventImageAction = (event: Event) => {

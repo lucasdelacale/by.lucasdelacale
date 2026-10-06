@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "validate:content": "node scripts/validate-content.mjs",
-    "optimize": "node scripts/optimize-image.mjs"
+    "optimize": "node scripts/optimize-image.mjs",
+    "responsive": "node scripts/generate-responsive-images.mjs"
   },
   "dependencies": {
     "@astrojs/check": "latest",

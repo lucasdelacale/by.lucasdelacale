@@ -85,7 +85,7 @@ src/utils/                      funções compartilhadas
 templates/                      modelos de conteúdo
 ```
 
-As obras vivem em subpastas por área de gerenciamento, mas a URL normalmente usa apenas o nome do arquivo: `src/content/works/prints/nome-do-print.md` gera `/acervo/nome-do-print/`. Por isso **o nome do arquivo precisa ser único entre as pastas de `works/`**. Três referências antigas com nomes repetidos recebem o prefixo `referencias-` no ID da URL para manter ambas as entradas acessíveis.
+As obras vivem em subpastas por área de gerenciamento, mas a URL normalmente usa apenas o nome do arquivo: `src/content/works/prints/nome-do-print.md` gera `/acervo/nome-do-print/`. Por isso **o nome do arquivo precisa ser único entre as pastas de `works/`**. Referências antigas com nomes repetidos recebem o prefixo `referencias-` no ID da URL para manter ambas as entradas acessíveis.
 
 ## Publicar uma obra
 
@@ -182,13 +182,11 @@ As áreas do painel espelham as pastas de conteúdo:
 | **Referências** | `src/content/works/referencias/` | imagens de pesquisa |
 | **Séries** | `src/content/series/` | séries e projetos |
 | **Textos** | `src/content/texts/` | ensaios e anotações |
-| **Banco de imagens** | `src/data/media-inventory.json` | status e locais de uso das imagens |
+| **Banco de imagens** | removido | — |
 
 O campo `type` aparece bloqueado no formulário: ele é carimbado pela seção em que o item é criado e não pode ser editado à mão. Os campos `Valor (R$)` e `Vendida` só existem nas três áreas de Trabalhos.
 
 O formulário de obras inclui imagem principal, imagens complementares, materiais, dimensões, tags e obras relacionadas. A relação com a série se faz pelo campo **Série** da própria obra. O formulário de séries tem título, período, capa e descrição. Como o filename é derivado do título, mantenha títulos/nomes de arquivo únicos entre as obras. Textos podem ser criados pela área **Textos**.
-
-O **Banco de imagens** é automático. Ele marca cada arquivo como `PUBLICADA` quando a imagem aparece em algum conteúdo, ou `DISPONÍVEL` quando ainda não é usada. O workflow atualiza esse inventário depois de mudanças em imagens ou conteúdos; não edite essa área manualmente.
 
 Cada salvamento gera um commit no GitHub e inicia automaticamente o workflow de publicação. O painel não cria um banco de dados separado.
 

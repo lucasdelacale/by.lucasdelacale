@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionIntro from '../../components/SectionIntro.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { sortByPublishedAt } from '../../utils/content';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const works = sortByPublishedAt(await getCollection('works'));
+  return paginate(works, { pageSize: 24 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+<BaseLayout title={page.currentPage === 1 ? 'Arquivo' : `Arquivo — Página ${page.currentPage}`}>
+  <div class="page">
+    <SectionIntro title="Arquivo" />
+    {page.data.length > 0 ? (
+      <div class="works-grid" id="works-grid" data-mode="mosaic">
+        {page.data.map((work: any, i: number) => <WorkCard work={work} index={(page.currentPage - 1) * 24 + i} mode="mosaic" showTitle={false} />)}
+      </div>
+    ) : (
+      <p class="empty" id="empty-state">NENHUM TRABALHO PUBLICADO</p>
+    )}
+    {page.lastPage > 1 && (
+      <nav class="pagination" aria-label="Navegação de páginas">
+        {page.url.prev ? <a href={page.url.prev} class="pagination-link">← Anterior</a> : <span class="pagination-link pagination-link--disabled">← Anterior</span>}
+        <span class="pagination-info">Página {page.currentPage} de {page.lastPage}</span>
+        {page.url.next ? <a href={page.url.next} class="pagination-link">Próxima →</a> : <span class="pagination-link pagination-link--disabled">Próxima →</span>}
+      </nav>
+    )}
+  </div>
+</BaseLayout>

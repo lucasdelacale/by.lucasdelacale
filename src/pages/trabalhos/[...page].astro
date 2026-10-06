@@ -1,13 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionIntro from '../../components/SectionIntro.astro';
 import ArchiveEntry from '../../components/ArchiveEntry.astro';
-import { isPurchasable, sortByPublishedAt, paginate } from '../../utils/content';
+import { isPurchasable, sortByPublishedAt } from '../../utils/content';
 
-const page = Number(Astro.url.searchParams.get('page')) || 1;
-const allWorks = sortByPublishedAt((await getCollection('works')).filter((work) => isPurchasable(work.data.type)));
-const { items: works, currentPage, totalPages, hasNext, hasPrev } = paginate(allWorks, page, 24);
+export const getStaticPaths = (async ({ paginate }) => {
+  const works = sortByPublishedAt((await getCollection('works')).filter((work) => isPurchasable(work.data.type)));
+  return paginate(works, { pageSize: 24 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
 const filters = [
   { id: 'all', label: 'Todos' },
   { id: 'print', label: 'Prints' },
@@ -16,10 +20,10 @@ const filters = [
   { id: 'escultura', label: 'Esculturas' },
 ];
 ---
-<BaseLayout title="Trabalhos / Acervo" description="Trabalhos à venda: prints, gravuras, canvas e esculturas.">
+<BaseLayout title={page.currentPage === 1 ? 'Trabalhos / Acervo' : `Trabalhos — Página ${page.currentPage}`} description="Trabalhos à venda: prints, gravuras, canvas e esculturas.">
   <div class="page">
     <SectionIntro title="Trabalhos" copy="Peças à venda. Prints, gravuras, canvas e esculturas — consulte valor e disponibilidade." />
-    {works.length > 0 ? (
+    {page.data.length > 0 ? (
       <>
         <div class="archive-toolbar">
           <div class="view-switch" role="group" aria-label="Filtrar por tipo">
@@ -29,18 +33,18 @@ const filters = [
           </div>
         </div>
         <div class="archive-feed" id="trabalhos-grid">
-          {works.map((work, i) => <ArchiveEntry item={work} kind="work" index={(currentPage - 1) * 24 + i} showSale />)}
+          {page.data.map((work: any, i: number) => <ArchiveEntry item={work} kind="work" index={(page.currentPage - 1) * 24 + i} showSale />)}
         </div>
-        {totalPages > 1 && (
+        {page.lastPage > 1 && (
           <nav class="pagination" aria-label="Navegação de páginas">
-            {hasPrev && <a href={`?page=${currentPage - 1}`} class="pagination-link">← Anterior</a>}
-            <span class="pagination-info">Página {currentPage} de {totalPages}</span>
-            {hasNext && <a href={`?page=${currentPage + 1}`} class="pagination-link">Próxima →</a>}
+            {page.url.prev ? <a href={page.url.prev} class="pagination-link">← Anterior</a> : <span class="pagination-link pagination-link--disabled">← Anterior</span>}
+            <span class="pagination-info">Página {page.currentPage} de {page.lastPage}</span>
+            {page.url.next ? <a href={page.url.next} class="pagination-link">Próxima →</a> : <span class="pagination-link pagination-link--disabled">Próxima →</span>}
           </nav>
         )}
       </>
     ) : <p class="empty">Ainda não há trabalhos à venda.</p>}
-    {works.length > 0 && <p class="empty filter-empty" data-filter-empty hidden>Nenhum trabalho neste filtro.</p>}
+    {page.data.length > 0 && <p class="empty filter-empty" data-filter-empty hidden>Nenhum trabalho neste filtro.</p>}
   </div>
 </BaseLayout>
 <script>

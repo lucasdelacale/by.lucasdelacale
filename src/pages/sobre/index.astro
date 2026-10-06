@@ -2,8 +2,27 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionIntro from '../../components/SectionIntro.astro';
 import { sitePath } from '../../utils/paths';
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Lucas Delacale",
+  "url": "https://lucasdelacale.com",
+  "image": new URL(sitePath('/images/profile.jpg')!, Astro.site ?? Astro.url.origin).href,
+  "jobTitle": "Artista plástico",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "São Paulo",
+    "addressRegion": "SP",
+    "addressCountry": "BR",
+  },
+  "sameAs": [
+    "https://www.instagram.com/lucasdelacale",
+    "https://lucasdelacale.com",
+  ],
+};
 ---
-<BaseLayout title="Sobre / Acervo">
+<BaseLayout title="Sobre / Acervo" structuredData={structuredData}>
   <div class="page">
     <SectionIntro title="Sobre" />
     <div class="about-grid">

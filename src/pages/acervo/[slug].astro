@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../../components/WorkCard.astro';
 import { formatPrice, isPurchasable, normalizeContentId, resolveSeriesLabel, sortByPublishedAt } from '../../utils/content';
-import { sitePath } from '../../utils/paths';
+import { sitePath, responsiveSrcset } from '../../utils/paths';
 
 export async function getStaticPaths() { const works = await getCollection('works'); return works.map((work) => ({ params: { slug: work.id }, props: { work } })); }
 
@@ -14,6 +14,7 @@ const type = work.data.type ?? 'outro';
 const allWorks = sortByPublishedAt(await getCollection('works'));
 const allSeries = await getCollection('series');
 const seriesLabel = resolveSeriesLabel(allSeries, work);
+const seriesEntry = allSeries.find((s) => normalizeContentId(s.id) === normalizeContentId(work.data.series) || normalizeContentId(s.data.title) === normalizeContentId(work.data.series));
 const purchasable = isPurchasable(type);
 const sold = Boolean(work.data.sold);
 const related = sortByPublishedAt((work.data.relatedWorks ?? []).map((id) => allWorks.find((item) => normalizeContentId(item.id) === normalizeContentId(id))).filter((item): item is (typeof allWorks)[number] => Boolean(item)));
@@ -21,18 +22,91 @@ const position = allWorks.findIndex((item) => item.id === work.id);
 const previous = allWorks[(position - 1 + allWorks.length) % allWorks.length];
 const next = allWorks[(position + 1) % allWorks.length];
 const consultHref = `https://ig.me/m/lucasdelacale`;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "VisualArtwork",
+  "name": title ?? 'Obra sem título',
+  "image": work.data.coverImage ? new URL(sitePath(work.data.coverImage)!, Astro.site ?? Astro.url.origin).href : undefined,
+  "description": work.data.coverAlt ?? undefined,
+  "dateCreated": work.data.year ? String(work.data.year) : undefined,
+  "artform": type,
+  "material": work.data.materials?.join(', ') || undefined,
+  "width": work.data.dimensions || undefined,
+  "offers": purchasable && work.data.price != null ? {
+    "@type": "Offer",
+    "price": work.data.price,
+    "priceCurrency": "BRL",
+    "availability": sold ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+  } : undefined,
+  "creator": {
+    "@type": "Person",
+    "name": "Lucas Delacale",
+    "url": "https://lucasdelacale.com",
+  },
+};
 ---
-<BaseLayout title={title ? `${title} / Acervo` : 'Obra / Acervo'} description={work.data.coverAlt ?? 'Obra do acervo'} ogImage={work.data.coverImage}>
+<BaseLayout title={title ? `${title} / Acervo` : 'Obra / Acervo'} description={work.data.coverAlt ?? 'Obra do acervo'} ogImage={work.data.coverImage} structuredData={structuredData}>
   <article class="detail">
-     <div class="detail-head"><div><p class="eyebrow">Obra / {type}</p><h1>{title ?? 'Obra sem título'}</h1><p class="muted">{seriesLabel ?? 'registro independente'}</p></div><div class="detail-meta"><p><span>Ano</span><strong>{work.data.year ?? '—'}</strong></p><p><span>Materiais</span><strong>{work.data.materials?.length ? work.data.materials.join(', ') : '—'}</strong></p><p><span>Dimensões</span><strong>{work.data.dimensions ?? '—'}</strong></p><p><span>Tags</span><strong>{work.data.tags?.length ? work.data.tags.join(' / ') : '—'}</strong></p>{purchasable && <p><span>Preço</span><strong>{work.data.price != null ? formatPrice(work.data.price) : 'Sob consulta'}</strong></p>}{purchasable && <p><span>Status</span><strong class={sold ? 'sale-sold' : undefined}>{sold ? 'Vendida' : 'Disponível'}</strong></p>}{purchasable && !sold && <p class="detail-cta"><a class="arrow-link" href={consultHref}>Consultar →</a></p>}</div></div>
-    <div class="detail-image-wrap">{work.data.coverImage ? <img class="detail-image" src={sitePath(work.data.coverImage)} alt={work.data.coverAlt ?? 'Imagem da obra'} /> : <div class="detail-placeholder">Sem imagem para esta obra.</div>}{sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}</div>
+     <div class="detail-head"><div><p class="eyebrow">Obra / {type}</p><h1>{title ?? 'Obra sem título'}</h1><p class="muted">{seriesEntry ? <a href={sitePath(`/series/${seriesEntry.id}/`)} class="series-link">{seriesLabel}</a> : seriesLabel ?? 'registro independente'}</p></div><div class="detail-meta"><p><span>Ano</span><strong>{work.data.year ?? '—'}</strong></p><p><span>Materiais</span><strong>{work.data.materials?.length ? work.data.materials.join(', ') : '—'}</strong></p><p><span>Dimensões</span><strong>{work.data.dimensions ?? '—'}</strong></p><p><span>Tags</span><strong>{work.data.tags?.length ? work.data.tags.join(' / ') : '—'}</strong></p>{purchasable && <p><span>Preço</span><strong>{work.data.price != null ? formatPrice(work.data.price) : 'Sob consulta'}</strong></p>}{purchasable && <p><span>Status</span><strong class={sold ? 'sale-sold' : undefined}>{sold ? 'Vendida' : 'Disponível'}</strong></p>}{purchasable && !sold && <p class="detail-cta"><a class="arrow-link" href={consultHref}>Consultar →</a></p>}</div></div>
+    <div class="detail-image-wrap">{work.data.coverImage ? <img class="detail-image" src={sitePath(work.data.coverImage)} srcset={responsiveSrcset(work.data.coverImage)} sizes="(max-width: 700px) 100vw, 80vw" alt={work.data.coverAlt ?? 'Imagem da obra'} fetchpriority="high" decoding="async" /> : <div class="detail-placeholder">Sem imagem para esta obra.</div>}{sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}</div>
     <div class="detail-copy prose"><Content /></div>
-    {work.data.gallery?.length && <div class="detail-gallery" aria-label="Imagens adicionais">{work.data.gallery.map((image, index) => <button type="button" data-lightbox={sitePath(image)} aria-label={`Ampliar imagem ${index + 2}`}><img src={sitePath(image)} alt={`Vista adicional ${index + 1}`} loading="lazy" /></button>)}</div>}
+    {work.data.gallery?.length && <div class="detail-gallery" aria-label="Imagens adicionais">{work.data.gallery.map((image, index) => <button type="button" data-lightbox={sitePath(image)} data-lightbox-caption={`Vista adicional ${index + 1}`} aria-label={`Ampliar imagem ${index + 2}`}><img src={sitePath(image)} alt={`Vista adicional ${index + 1}`} loading="lazy" /></button>)}</div>}
     {work.data.photoCredit && <p class="caption muted">Fotografia: {work.data.photoCredit}</p>}
     {related.length > 0 && <section class="related"><p class="eyebrow">Continuações</p><div class="related-grid">{related.map((item, i) => <WorkCard work={item} index={i} />)}</div></section>}
      <nav class="detail-nav" aria-label="Navegar entre obras"><a href={sitePath(`/acervo/${previous.id}/`)}>← anterior</a><a href={sitePath('/acervo/')}>voltar ao acervo</a><a href={sitePath(`/acervo/${next.id}/`)}>próxima →</a></nav>
   </article>
 </BaseLayout>
 <script>
-  document.querySelectorAll<HTMLButtonElement>('[data-lightbox]').forEach((button) => button.addEventListener('click', () => { const image = button.querySelector('img'); if (image) window.open(image.src, '_blank', 'noopener'); }));
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-lightbox]');
+  const dialog = document.getElementById('lightbox-dialog') as HTMLDialogElement | null;
+  const dialogImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
+  const dialogCaption = document.getElementById('lightbox-caption') as HTMLElement | null;
+  const dialogClose = document.getElementById('lightbox-close') as HTMLButtonElement | null;
+  const dialogPrev = document.getElementById('lightbox-prev') as HTMLButtonElement | null;
+  const dialogNext = document.getElementById('lightbox-next') as HTMLButtonElement | null;
+  const images = Array.from(buttons);
+  let currentIndex = 0;
+
+  function showImage(index: number) {
+    if (!dialogImg || !dialog || index < 0 || index >= images.length) return;
+    currentIndex = index;
+    const button = images[index];
+    const src = button.dataset.lightbox ?? '';
+    const caption = button.dataset.lightboxCaption ?? '';
+    dialogImg.src = src;
+    if (dialogCaption) dialogCaption.textContent = caption;
+    if (dialogPrev) dialogPrev.disabled = index === 0;
+    if (dialogNext) dialogNext.disabled = index === images.length - 1;
+  }
+
+  buttons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      if (!dialog) return;
+      showImage(index);
+      dialog.showModal();
+    });
+  });
+
+  dialogClose?.addEventListener('click', () => dialog?.close());
+  dialogPrev?.addEventListener('click', () => showImage(currentIndex - 1));
+  dialogNext?.addEventListener('click', () => showImage(currentIndex + 1));
+
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+
+  dialog?.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') dialog.close();
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+  });
 </script>
+<dialog id="lightbox-dialog" class="lightbox-dialog" aria-label="Ampliar imagem">
+  <button id="lightbox-close" class="lightbox-close" aria-label="Fechar">×</button>
+  <button id="lightbox-prev" class="lightbox-nav lightbox-nav--prev" aria-label="Imagem anterior">←</button>
+  <figure class="lightbox-figure">
+    <img id="lightbox-img" src="" alt="" />
+    <figcaption id="lightbox-caption" class="lightbox-caption"></figcaption>
+  </figure>
+  <button id="lightbox-next" class="lightbox-nav lightbox-nav--next" aria-label="Próxima imagem">→</button>
+</dialog>
