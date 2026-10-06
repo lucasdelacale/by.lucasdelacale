@@ -8,7 +8,7 @@ import { sortByPublishedAt } from '../../utils/content';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const works = sortByPublishedAt(await getCollection('works'));
-  return paginate(works, { pageSize: 24 });
+  return paginate(works, { pageSize: 36 });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
@@ -18,7 +18,7 @@ const { page } = Astro.props;
     <SectionIntro title="Arquivo" />
     {page.data.length > 0 ? (
       <div class="works-grid" id="works-grid" data-mode="mosaic">
-        {page.data.map((work: any, i: number) => <WorkCard work={work} index={(page.currentPage - 1) * 24 + i} mode="mosaic" showTitle={false} />)}
+        {page.data.map((work: any, i: number) => <WorkCard work={work} index={(page.currentPage - 1) * 36 + i} mode="mosaic" showTitle={false} />)}
       </div>
     ) : (
       <p class="empty" id="empty-state">NENHUM TRABALHO PUBLICADO</p>
@@ -65,8 +65,12 @@ const { page } = Astro.props;
         image.loading = 'eager';
         if (index === 0) image.fetchPriority = 'high';
       });
-      nextEntries.forEach((entry) => fragment.appendChild(entry));
+      nextEntries.forEach((entry) => {
+        entry.classList.add('infinite-entry');
+        fragment.appendChild(entry);
+      });
       list.appendChild(fragment);
+      nextEntries.forEach((entry) => revealObserver.observe(entry));
 
       const nextLoader = document.querySelector<HTMLElement>('[data-infinite-loader]');
       nextUrl = nextLoader?.dataset.nextUrl ?? '';
@@ -88,6 +92,14 @@ const { page } = Astro.props;
       if (button && nextUrl) button.disabled = false;
     }
   }
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: '120px 0px', threshold: 0.05 });
 
   button?.addEventListener('click', loadNextBatch);
 

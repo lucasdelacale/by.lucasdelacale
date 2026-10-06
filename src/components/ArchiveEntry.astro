@@ -10,6 +10,7 @@ interface Props {
   showTitle?: boolean;
   showSale?: boolean;
 }
+
 const { item, kind, index = 0, showTitle = true, showSale = false } = Astro.props;
 const data = item.data;
 const title = data.title;
@@ -22,18 +23,28 @@ const seriesLabel = kind === 'work' ? resolveSeriesLabel(allSeries, item) : null
 const sold = kind === 'work' && Boolean(data.sold);
 const saleVisible = showSale && kind === 'work' && isPurchasable(data.type);
 
-// Extrai trecho do texto para exibição na home
-const bodyContent = kind === 'text' && item.body ? String(item.body) : '';
-const excerpt = bodyContent
-  .replace(/<[^>]*>/g, '')
-  .replace(/\s+/g, ' ')
-  .trim()
-  .slice(0, 200);
-const hasExcerpt = excerpt.length > 0;
+// O corpo do Markdown fica em item.body, fora de item.data.
+const excerpt = kind === 'text'
+  ? String(item.body ?? '')
+      .replace(/<[^>]*>/g, '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/[*_`#>]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+  : '';
 ---
 <article class={`archive-entry archive-entry--${kind} archive-entry--${index % 5}`} data-work-type={kind === 'work' ? String(data.type ?? 'outro').toLowerCase() : undefined}>
   <a href={href}>
-    {image ? <div class="archive-entry-image-wrap"><img src={sitePath(image)} alt={alt} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" />{sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}</div> : kind === 'text' && hasExcerpt ? <div class="archive-text-preview">{excerpt}{excerpt.length >= 200 ? '…' : ''}</div> : <div class="archive-text-mark" aria-hidden="true">"</div>}
+    {image ? (
+      <div class="archive-entry-image-wrap">
+        <img src={sitePath(image)} alt={alt} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" />
+        {sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}
+      </div>
+    ) : kind === 'text' ? (
+      <div class="archive-text-preview">{excerpt}</div>
+    ) : (
+      <div class="archive-text-mark" aria-hidden="true">&quot;</div>
+    )}
     <div class="archive-entry-info">
       <span class="eyebrow">{label}</span>
       {seriesLabel && <span class="series-tag">Série · {seriesLabel}</span>}

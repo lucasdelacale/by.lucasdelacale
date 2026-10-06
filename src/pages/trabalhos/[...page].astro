@@ -8,7 +8,7 @@ import { isPurchasable, sortByPublishedAt } from '../../utils/content';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const works = sortByPublishedAt((await getCollection('works')).filter((work) => isPurchasable(work.data.type)));
-  return paginate(works, { pageSize: 24 });
+  return paginate(works, { pageSize: 36 });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
@@ -33,7 +33,7 @@ const filters = [
           </div>
         </div>
         <div class="archive-feed" id="trabalhos-grid">
-          {page.data.map((work: any, i: number) => <ArchiveEntry item={work} kind="work" index={(page.currentPage - 1) * 24 + i} showSale />)}
+          {page.data.map((work: any, i: number) => <ArchiveEntry item={work} kind="work" index={(page.currentPage - 1) * 36 + i} showSale />)}
         </div>
         {page.url.next && (
           <div class="infinite-scroll-loader" data-infinite-loader data-list-selector="#trabalhos-grid" data-next-url={page.url.next}>
@@ -103,8 +103,12 @@ const filters = [
         image.loading = 'eager';
         if (index === 0) image.fetchPriority = 'high';
       });
-      nextEntries.forEach((entry) => fragment.appendChild(entry));
+      nextEntries.forEach((entry) => {
+        entry.classList.add('infinite-entry');
+        fragment.appendChild(entry);
+      });
       list.appendChild(fragment);
+      nextEntries.forEach((entry) => revealObserver.observe(entry));
       applyFilter();
 
       const nextLoader = nextDocument.querySelector<HTMLElement>('[data-infinite-loader]');
@@ -127,6 +131,14 @@ const filters = [
       if (loadButton && nextUrl) loadButton.disabled = false;
     }
   }
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: '120px 0px', threshold: 0.05 });
 
   loadButton?.addEventListener('click', loadNextBatch);
   if (loader && 'IntersectionObserver' in window) {

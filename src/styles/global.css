@@ -57,7 +57,7 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .archive-text-mark { align-items:center; aspect-ratio:1; background:#d5d4cd; display:flex; font:clamp(100px, 14vw, 220px) var(--serif); justify-content:center; line-height:.6; }
 .archive-entry--text .archive-entry-info h2 { font-style:italic; }
 .archive-entry--text a { display:block; }
-.archive-text-preview { align-items:center; aspect-ratio:1; background:#f5f4ef; color:var(--ink); display:flex; font:15px/1.5 var(--sans); justify-content:center; line-height:1.5; padding:30px; text-align:center; text-transform:none; }
+.archive-text-preview { background:#fff; color:var(--ink); font:300 clamp(20px, 2vw, 30px)/1.3 var(--serif); letter-spacing:-.02em; padding:0; text-align:left; text-transform:none; }
 .arrow-link { font:12px var(--mono); text-transform:uppercase; }
 .archive-toolbar { display:flex; justify-content:flex-end; padding:15px 0; margin-bottom:55px; }
 .view-switch { display:flex; gap:18px; font:11px var(--mono); text-transform:uppercase; }
@@ -173,6 +173,8 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .infinite-scroll-loader button { background:transparent; border:1px solid var(--ink); color:var(--ink); cursor:pointer; font:10px var(--mono); padding:10px 16px; text-transform:uppercase; }
 .infinite-scroll-loader button:hover { background:var(--ink); color:#fff; }
 .infinite-scroll-loader button:disabled { cursor:wait; opacity:.55; }
+.infinite-entry { opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+.infinite-entry.is-visible { opacity:1; transform:translateY(0); }
 .sale-line { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:4px 0 0; font:10px var(--mono); text-transform:uppercase; }
 .sale-price { color:var(--muted); }
 .sale-sold { color:var(--accent); }
