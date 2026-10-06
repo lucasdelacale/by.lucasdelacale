@@ -96,7 +96,14 @@ const filters = [
       if (!nextList) throw new Error('Lista seguinte não encontrada.');
 
       const fragment = document.createDocumentFragment();
-      Array.from(nextList.children).forEach((entry) => fragment.appendChild(entry));
+      const nextEntries = Array.from(nextList.children);
+      nextEntries.slice(0, 4).forEach((entry, index) => {
+        const image = entry.querySelector<HTMLImageElement>('img');
+        if (!image) return;
+        image.loading = 'eager';
+        if (index === 0) image.fetchPriority = 'high';
+      });
+      nextEntries.forEach((entry) => fragment.appendChild(entry));
       list.appendChild(fragment);
       applyFilter();
 
@@ -125,7 +132,7 @@ const filters = [
   if (loader && 'IntersectionObserver' in window) {
     observer = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) void loadNextBatch();
-    }, { rootMargin: '500px 0px' });
+    }, { rootMargin: '1800px 0px' });
     observer.observe(loader);
   }
 </script>

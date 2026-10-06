@@ -58,7 +58,14 @@ const { page } = Astro.props;
       if (!nextList) throw new Error('Lista seguinte não encontrada.');
 
       const fragment = document.createDocumentFragment();
-      Array.from(nextList.children).forEach((entry) => fragment.appendChild(entry));
+      const nextEntries = Array.from(nextList.children);
+      nextEntries.slice(0, 4).forEach((entry, index) => {
+        const image = entry.querySelector<HTMLImageElement>('img');
+        if (!image) return;
+        image.loading = 'eager';
+        if (index === 0) image.fetchPriority = 'high';
+      });
+      nextEntries.forEach((entry) => fragment.appendChild(entry));
       list.appendChild(fragment);
 
       const nextLoader = document.querySelector<HTMLElement>('[data-infinite-loader]');
@@ -87,7 +94,7 @@ const { page } = Astro.props;
   const observer = loader && 'IntersectionObserver' in window
     ? new IntersectionObserver((entries) => {
         if (entries.some((entry) => entry.isIntersecting)) void loadNextBatch();
-      }, { rootMargin: '500px 0px' })
+      }, { rootMargin: '1800px 0px' })
     : null;
 
   if (loader && observer) observer.observe(loader);
