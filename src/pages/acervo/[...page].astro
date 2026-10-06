@@ -23,12 +23,72 @@ const { page } = Astro.props;
     ) : (
       <p class="empty" id="empty-state">NENHUM TRABALHO PUBLICADO</p>
     )}
-    {page.lastPage > 1 && (
-      <nav class="pagination" aria-label="Navegação de páginas">
-        {page.url.prev ? <a href={page.url.prev} class="pagination-link">← Anterior</a> : <span class="pagination-link pagination-link--disabled">← Anterior</span>}
-        <span class="pagination-info">Página {page.currentPage} de {page.lastPage}</span>
-        {page.url.next ? <a href={page.url.next} class="pagination-link">Próxima →</a> : <span class="pagination-link pagination-link--disabled">Próxima →</span>}
-      </nav>
+    {page.url.next && (
+      <div class="infinite-scroll-loader" data-infinite-loader data-list-selector="#works-grid" data-next-url={page.url.next}>
+        <p data-infinite-status aria-live="polite">Continue rolando para ver mais obras.</p>
+        <button type="button" data-load-more>Carregar mais</button>
+        <noscript><a href={page.url.next}>Ver próxima parte do acervo</a></noscript>
+      </div>
     )}
   </div>
 </BaseLayout>
+<script>
+  const loader = document.querySelector<HTMLElement>('[data-infinite-loader]');
+  const listSelector = loader?.dataset.listSelector;
+  const list = listSelector ? document.querySelector<HTMLElement>(listSelector) : null;
+  const status = loader?.querySelector<HTMLElement>('[data-infinite-status]');
+  const button = loader?.querySelector<HTMLButtonElement>('[data-load-more]');
+  let nextUrl = loader?.dataset.nextUrl ?? '';
+  let loading = false;
+
+  async function loadNextBatch() {
+    if (!loader || !list || !nextUrl || loading) return;
+    loading = true;
+    if (button) button.disabled = true;
+    if (status) status.textContent = 'Carregando mais obras…';
+
+    try {
+      const batchUrl = new URL(nextUrl, window.location.href);
+      if (!batchUrl.pathname.endsWith('/')) batchUrl.pathname += '/';
+      const response = await fetch(batchUrl);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const document = new DOMParser().parseFromString(await response.text(), 'text/html');
+      const nextList = document.querySelector<HTMLElement>(listSelector!);
+      if (!nextList) throw new Error('Lista seguinte não encontrada.');
+
+      const fragment = document.createDocumentFragment();
+      Array.from(nextList.children).forEach((entry) => fragment.appendChild(entry));
+      list.appendChild(fragment);
+
+      const nextLoader = document.querySelector<HTMLElement>('[data-infinite-loader]');
+      nextUrl = nextLoader?.dataset.nextUrl ?? '';
+      loader.dataset.nextUrl = nextUrl;
+
+      if (!nextUrl) {
+        status && (status.textContent = 'Você chegou ao fim do acervo.');
+        button?.remove();
+        observer?.disconnect();
+      } else if (status) {
+        status.textContent = 'Continue rolando para ver mais obras.';
+      }
+    } catch (error) {
+      console.error('Falha ao carregar mais obras:', error);
+      if (status) status.textContent = 'Não foi possível carregar agora. Tente novamente.';
+      observer?.unobserve(loader);
+    } finally {
+      loading = false;
+      if (button && nextUrl) button.disabled = false;
+    }
+  }
+
+  button?.addEventListener('click', loadNextBatch);
+
+  const observer = loader && 'IntersectionObserver' in window
+    ? new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) void loadNextBatch();
+      }, { rootMargin: '500px 0px' })
+    : null;
+
+  if (loader && observer) observer.observe(loader);
+</script>

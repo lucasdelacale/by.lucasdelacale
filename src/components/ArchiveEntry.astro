@@ -31,7 +31,7 @@ const excerpt = bodyContent
   .slice(0, 200);
 const hasExcerpt = excerpt.length > 0;
 ---
-<article class={`archive-entry archive-entry--${kind} archive-entry--${index % 5}`}>
+<article class={`archive-entry archive-entry--${kind} archive-entry--${index % 5}`} data-work-type={kind === 'work' ? String(data.type ?? 'outro').toLowerCase() : undefined}>
   <a href={href}>
     {image ? <div class="archive-entry-image-wrap"><img src={sitePath(image)} alt={alt} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" />{sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}</div> : kind === 'text' && hasExcerpt ? <div class="archive-text-preview">{excerpt}{excerpt.length >= 200 ? '…' : ''}</div> : <div class="archive-text-mark" aria-hidden="true">"</div>}
     <div class="archive-entry-info">

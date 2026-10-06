@@ -35,12 +35,12 @@ const filters = [
         <div class="archive-feed" id="trabalhos-grid">
           {page.data.map((work: any, i: number) => <ArchiveEntry item={work} kind="work" index={(page.currentPage - 1) * 24 + i} showSale />)}
         </div>
-        {page.lastPage > 1 && (
-          <nav class="pagination" aria-label="Navegação de páginas">
-            {page.url.prev ? <a href={page.url.prev} class="pagination-link">← Anterior</a> : <span class="pagination-link pagination-link--disabled">← Anterior</span>}
-            <span class="pagination-info">Página {page.currentPage} de {page.lastPage}</span>
-            {page.url.next ? <a href={page.url.next} class="pagination-link">Próxima →</a> : <span class="pagination-link pagination-link--disabled">Próxima →</span>}
-          </nav>
+        {page.url.next && (
+          <div class="infinite-scroll-loader" data-infinite-loader data-list-selector="#trabalhos-grid" data-next-url={page.url.next}>
+            <p data-infinite-status aria-live="polite">Continue rolando para ver mais trabalhos.</p>
+            <button type="button" data-load-more>Carregar mais</button>
+            <noscript><a href={page.url.next}>Ver próxima parte dos trabalhos</a></noscript>
+          </div>
         )}
       </>
     ) : <p class="empty">Ainda não há trabalhos à venda.</p>}
@@ -49,19 +49,83 @@ const filters = [
 </BaseLayout>
 <script>
   const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
-  const cards = document.querySelectorAll<HTMLElement>('#trabalhos-grid .archive-entry');
+  const emptyState = document.querySelector<HTMLElement>('[data-filter-empty]');
+  let activeFilter = 'all';
+
+  function applyFilter() {
+    const cards = document.querySelectorAll<HTMLElement>('#trabalhos-grid .archive-entry');
+    cards.forEach((card) => {
+      const type = (card.dataset.workType ?? '').toLowerCase();
+      card.hidden = activeFilter !== 'all' && type !== activeFilter;
+    });
+    const visible = [...cards].some((candidate) => !candidate.hidden);
+    emptyState?.toggleAttribute('hidden', visible);
+  }
 
   buttons.forEach((button) => {
     button.addEventListener('click', () => {
-      const filter = button.dataset.filter ?? 'all';
-
+      activeFilter = button.dataset.filter ?? 'all';
       buttons.forEach((candidate) => candidate.setAttribute('aria-pressed', String(candidate === button)));
-      cards.forEach((card) => {
-        const type = (card.dataset.workType ?? '').toLowerCase();
-        card.hidden = filter !== 'all' && type !== filter;
-        const visible = [...cards].some((candidate) => !candidate.hidden);
-        document.querySelector<HTMLElement>('[data-filter-empty]')?.toggleAttribute('hidden', visible);
-      });
+      applyFilter();
     });
   });
+
+  const loader = document.querySelector<HTMLElement>('[data-infinite-loader]');
+  const listSelector = loader?.dataset.listSelector;
+  const list = listSelector ? document.querySelector<HTMLElement>(listSelector) : null;
+  const status = loader?.querySelector<HTMLElement>('[data-infinite-status]');
+  const loadButton = loader?.querySelector<HTMLButtonElement>('[data-load-more]');
+  let nextUrl = loader?.dataset.nextUrl ?? '';
+  let loading = false;
+  let observer: IntersectionObserver | null = null;
+
+  async function loadNextBatch() {
+    if (!loader || !list || !listSelector || !nextUrl || loading) return;
+    loading = true;
+    if (loadButton) loadButton.disabled = true;
+    if (status) status.textContent = 'Carregando mais trabalhos…';
+
+    try {
+      const batchUrl = new URL(nextUrl, window.location.href);
+      if (!batchUrl.pathname.endsWith('/')) batchUrl.pathname += '/';
+      const response = await fetch(batchUrl);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const nextDocument = new DOMParser().parseFromString(await response.text(), 'text/html');
+      const nextList = nextDocument.querySelector<HTMLElement>(listSelector);
+      if (!nextList) throw new Error('Lista seguinte não encontrada.');
+
+      const fragment = document.createDocumentFragment();
+      Array.from(nextList.children).forEach((entry) => fragment.appendChild(entry));
+      list.appendChild(fragment);
+      applyFilter();
+
+      const nextLoader = nextDocument.querySelector<HTMLElement>('[data-infinite-loader]');
+      nextUrl = nextLoader?.dataset.nextUrl ?? '';
+      loader.dataset.nextUrl = nextUrl;
+
+      if (!nextUrl) {
+        if (status) status.textContent = 'Você chegou ao fim dos trabalhos.';
+        loadButton?.remove();
+        observer?.disconnect();
+      } else if (status) {
+        status.textContent = 'Continue rolando para ver mais trabalhos.';
+      }
+    } catch (error) {
+      console.error('Falha ao carregar mais trabalhos:', error);
+      if (status) status.textContent = 'Não foi possível carregar agora. Tente novamente.';
+      observer?.unobserve(loader);
+    } finally {
+      loading = false;
+      if (loadButton && nextUrl) loadButton.disabled = false;
+    }
+  }
+
+  loadButton?.addEventListener('click', loadNextBatch);
+  if (loader && 'IntersectionObserver' in window) {
+    observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) void loadNextBatch();
+    }, { rootMargin: '500px 0px' });
+    observer.observe(loader);
+  }
 </script>

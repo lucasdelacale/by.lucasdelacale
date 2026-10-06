@@ -168,6 +168,11 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .pagination-link:hover { background:var(--ink); color:white; }
 .pagination-link--disabled { border-color:#d5d4cd; color:#aaa; pointer-events:none; }
 .pagination-info { color:var(--muted); font:11px var(--mono); }
+.infinite-scroll-loader { align-items:center; display:flex; flex-direction:column; gap:12px; justify-content:center; min-height:96px; padding:28px 0; text-align:center; }
+.infinite-scroll-loader p { color:var(--muted); font:10px var(--mono); margin:0; text-transform:uppercase; }
+.infinite-scroll-loader button { background:transparent; border:1px solid var(--ink); color:var(--ink); cursor:pointer; font:10px var(--mono); padding:10px 16px; text-transform:uppercase; }
+.infinite-scroll-loader button:hover { background:var(--ink); color:#fff; }
+.infinite-scroll-loader button:disabled { cursor:wait; opacity:.55; }
 .sale-line { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:4px 0 0; font:10px var(--mono); text-transform:uppercase; }
 .sale-price { color:var(--muted); }
 .sale-sold { color:var(--accent); }
