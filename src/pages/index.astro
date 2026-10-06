@@ -6,54 +6,75 @@ import { compareByPublishedAt, sortByPublishedAt } from '../utils/content';
 
 const works = sortByPublishedAt(await getCollection('works'));
 const texts = sortByPublishedAt(await getCollection('texts'));
-
-// Distribui textos entre as obras, garantindo que nunca fiquem dois textos juntos
-function distributeTexts(works: any[], texts: any[]) {
-  if (texts.length === 0) return works.map((item) => ({ item, kind: 'work' as const }));
-  if (works.length === 0) return texts.slice(0, 1).map((item) => ({ item, kind: 'text' as const }));
-
-  const result: Array<{ item: any; kind: 'work' | 'text' }> = [];
-  const shuffledWorks = [...works].sort(() => Math.random() - 0.5);
-  const shuffledTexts = [...texts].sort(() => Math.random() - 0.5);
-
-  // Calcula a frequência ideal: a cada X obras, coloca 1 texto
-  const frequency = Math.max(1, Math.floor(shuffledWorks.length / (shuffledTexts.length + 1)));
-  let textIndex = 0;
-  let workIndex = 0;
-
-  for (let i = 0; i < shuffledWorks.length + shuffledTexts.length && (workIndex < shuffledWorks.length || textIndex < shuffledTexts.length); i++) {
-    // Coloca um texto a cada 'frequency' obras, mas nunca dois textos seguidos
-    if (textIndex < shuffledTexts.length && workIndex > 0 && workIndex % frequency === 0 && result[result.length - 1]?.kind !== 'text') {
-      result.push({ item: shuffledTexts[textIndex], kind: 'text' });
-      textIndex++;
-    } else if (workIndex < shuffledWorks.length) {
-      result.push({ item: shuffledWorks[workIndex], kind: 'work' });
-      workIndex++;
-    } else if (textIndex < shuffledTexts.length) {
-      // Se acabaram as obras, adiciona textos restantes (mas nunca dois seguidos)
-      if (result[result.length - 1]?.kind !== 'text') {
-        result.push({ item: shuffledTexts[textIndex], kind: 'text' });
-        textIndex++;
-      }
-    }
-  }
-
-  return result;
-}
-
-const archive = distributeTexts(works, texts);
+const archive = [
+  ...works.map((item) => ({ item, kind: 'work' as const })),
+  ...texts.map((item) => ({ item, kind: 'text' as const })),
+].sort((a, b) => compareByPublishedAt(a.item, b.item));
 ---
 <BaseLayout title="Arquivo" description="Obras, processos, textos e referências de um acervo artístico em construção.">
   <section class="home-archive" aria-label="Publicações">
     <h1 class="sr-only">Arquivo</h1>
-    {archive.length > 0 ? <div class="archive-feed">{archive.map((entry, index) => <ArchiveEntry item={entry.item} kind={entry.kind} index={index} showTitle={entry.kind === 'text'} />)}</div> : <p class="empty">NENHUM TRABALHO PUBLICADO</p>}
+    {archive.length > 0 ? <div class="archive-feed" data-random-publications>{archive.map((entry, index) => <ArchiveEntry item={entry.item} kind={entry.kind} index={index} showTitle={entry.kind === 'text'} />)}</div> : <p class="empty">NENHUM TRABALHO PUBLICADO</p>}
   </section>
 </BaseLayout>
 <script>
-  const publications = document.querySelector<HTMLElement>('.archive-feed');
+  const publications = document.querySelector<HTMLElement>('[data-random-publications]');
 
   if (publications) {
-    // Scroll infinito: revela entradas conforme aparecem na tela
+    const entries = Array.from(publications.children);
+
+    // Separa obras e textos
+    const workEntries = entries.filter((el) => el.classList.contains('archive-entry--work'));
+    const textEntries = entries.filter((el) => el.classList.contains('archive-entry--text'));
+
+    // Embaralha cada grupo
+    function shuffle(arr: Element[]) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    shuffle(workEntries);
+    shuffle(textEntries);
+
+    // Distribui textos entre as obras (nunca dois textos juntos)
+    const finalOrder: Element[] = [];
+    if (workEntries.length === 0) {
+      // Só textos: coloca no máximo 1
+      if (textEntries.length > 0) finalOrder.push(textEntries[0]);
+    } else {
+      const frequency = Math.max(1, Math.floor(workEntries.length / (textEntries.length + 1)));
+      let textIndex = 0;
+
+      for (let i = 0; i < workEntries.length; i++) {
+        finalOrder.push(workEntries[i]);
+        // Insere texto a cada 'frequency' obras, se houver textos disponíveis
+        if (textIndex < textEntries.length && (i + 1) % frequency === 0) {
+          finalOrder.push(textEntries[textIndex]);
+          textIndex++;
+        }
+      }
+
+      // Textos restantes (se houver mais textos que espaços)
+      while (textIndex < textEntries.length) {
+        // Só adiciona se o último não for texto
+        if (finalOrder[finalOrder.length - 1]?.classList.contains('archive-entry--text') !== true) {
+          finalOrder.push(textEntries[textIndex]);
+          textIndex++;
+        } else {
+          break;
+        }
+      }
+    }
+
+    // Reordena no DOM
+    const fragment = document.createDocumentFragment();
+    finalOrder.forEach((entry) => fragment.append(entry));
+    publications.append(fragment);
+
+    // Fade-in conforme scroll
     const allEntries = Array.from(publications.children);
     const observer = new IntersectionObserver(
       (entries) => {
