@@ -29,7 +29,7 @@ const socialImage = new URL(sitePath(ogImage) ?? sitePath('/site-icon.png')!, As
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
-    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
+    {structuredData && <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />}
     <title>{title}</title>
   </head>
   <body>

@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkCard from '../../components/WorkCard.astro';
 import { formatPrice, isPurchasable, normalizeContentId, resolveSeriesLabel, sortByPublishedAt } from '../../utils/content';
-import { sitePath, responsiveSrcset } from '../../utils/paths';
+import { sitePath } from '../../utils/paths';
 
 export async function getStaticPaths() { const works = await getCollection('works'); return works.map((work) => ({ params: { slug: work.id }, props: { work } })); }
 
@@ -11,6 +11,7 @@ const { work } = Astro.props;
 const { Content } = await render(work);
 const title = work.data.title;
 const type = work.data.type ?? 'outro';
+const seoArtwork = ['fotografia', 'print', 'gravura', 'escultura', 'canvas'].includes(String(type).toLowerCase());
 const allWorks = sortByPublishedAt(await getCollection('works'));
 const allSeries = await getCollection('series');
 const seriesLabel = resolveSeriesLabel(allSeries, work);
@@ -22,7 +23,7 @@ const position = allWorks.findIndex((item) => item.id === work.id);
 const previous = allWorks[(position - 1 + allWorks.length) % allWorks.length];
 const next = allWorks[(position + 1) % allWorks.length];
 const consultHref = `https://ig.me/m/lucasdelacale`;
-const structuredData = {
+const structuredData = seoArtwork ? {
   "@context": "https://schema.org",
   "@type": "VisualArtwork",
   "name": title ?? 'Obra sem título',
@@ -43,12 +44,12 @@ const structuredData = {
     "name": "Lucas Delacale",
     "url": "https://lucasdelacale.com",
   },
-};
+} : null;
 ---
-<BaseLayout title={title ? `${title} / Acervo` : 'Obra / Acervo'} description={work.data.coverAlt ?? 'Obra do acervo'} ogImage={work.data.coverImage} structuredData={structuredData}>
+<BaseLayout title={title ? `${title} / Acervo` : 'Obra / Acervo'} description={work.data.coverAlt ?? 'Obra do acervo'} ogImage={seoArtwork ? work.data.coverImage : undefined} structuredData={structuredData}>
   <article class="detail">
      <div class="detail-head"><div><p class="eyebrow">Obra / {type}</p><h1>{title ?? 'Obra sem título'}</h1><p class="muted">{seriesEntry ? <a href={sitePath(`/series/${seriesEntry.id}/`)} class="series-link">{seriesLabel}</a> : seriesLabel ?? 'registro independente'}</p></div><div class="detail-meta"><p><span>Ano</span><strong>{work.data.year ?? '—'}</strong></p><p><span>Materiais</span><strong>{work.data.materials?.length ? work.data.materials.join(', ') : '—'}</strong></p><p><span>Dimensões</span><strong>{work.data.dimensions ?? '—'}</strong></p><p><span>Tags</span><strong>{work.data.tags?.length ? work.data.tags.join(' / ') : '—'}</strong></p>{purchasable && <p><span>Preço</span><strong>{work.data.price != null ? formatPrice(work.data.price) : 'Sob consulta'}</strong></p>}{purchasable && <p><span>Status</span><strong class={sold ? 'sale-sold' : undefined}>{sold ? 'Vendida' : 'Disponível'}</strong></p>}{purchasable && !sold && <p class="detail-cta"><a class="arrow-link" href={consultHref}>Consultar →</a></p>}</div></div>
-    <div class="detail-image-wrap">{work.data.coverImage ? <img class="detail-image" src={sitePath(work.data.coverImage)} srcset={responsiveSrcset(work.data.coverImage)} sizes="(max-width: 700px) 100vw, 80vw" alt={work.data.coverAlt ?? 'Imagem da obra'} fetchpriority="high" decoding="async" /> : <div class="detail-placeholder">Sem imagem para esta obra.</div>}{sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}</div>
+    <div class="detail-image-wrap">{work.data.coverImage ? <img class="detail-image" src={sitePath(work.data.coverImage)} alt={work.data.coverAlt ?? 'Imagem da obra'} fetchpriority="high" decoding="async" /> : <div class="detail-placeholder">Sem imagem para esta obra.</div>}{sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}</div>
     <div class="detail-copy prose"><Content /></div>
     {work.data.gallery?.length && <div class="detail-gallery" aria-label="Imagens adicionais">{work.data.gallery.map((image, index) => <button type="button" data-lightbox={sitePath(image)} data-lightbox-caption={`Vista adicional ${index + 1}`} aria-label={`Ampliar imagem ${index + 2}`}><img src={sitePath(image)} alt={`Vista adicional ${index + 1}`} loading="lazy" /></button>)}</div>}
     {work.data.photoCredit && <p class="caption muted">Fotografia: {work.data.photoCredit}</p>}

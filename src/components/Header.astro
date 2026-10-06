@@ -11,7 +11,7 @@ const home = sitePath('/');
 const currentPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 ---
 <header class="site-header">
-  <a class="logo" href={home} aria-label="Arquivo, início"><span class="logo-handle">@lucasdelacale</span><img src={sitePath('/images/0014.png')} alt="Arquivo" /></a>
+  <a class="logo" href={home} aria-label="Arquivo, início"><span class="logo-handle">@lucasdelacale</span><img src={sitePath('/images/0014.png')} alt="Arquivo" width="150" height="34" /></a>
   <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-navigation">Menu</button>
   <nav id="site-navigation" aria-label="Navegação principal">
     {links.map((link) => <a href={sitePath(link.path)} aria-current={currentPath === sitePath(link.path) ? 'page' : undefined}>{link.label}</a>)}
