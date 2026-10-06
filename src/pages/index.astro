@@ -23,43 +23,35 @@ const archive = [
   if (publications) {
     const entries = Array.from(publications.children);
 
-    // Separa obras e textos
-    const workEntries = entries.filter((el) => el.classList.contains('archive-entry--work'));
-    const textEntries = entries.filter((el) => el.classList.contains('archive-entry--text'));
-
-    // Embaralha cada grupo
-    function shuffle(arr: Element[]) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
+    // Embaralha tudo (como estava antes)
+    for (let index = entries.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [entries[index], entries[randomIndex]] = [entries[randomIndex], entries[index]];
     }
 
-    shuffle(workEntries);
-    shuffle(textEntries);
+    // Separa obras e textos após embaralhar
+    const workEntries = entries.filter((el) => el.classList.contains('archive-entry--work'));
+    const textEntries = entries.filter((el) => el.classList.contains('archive-entry--text'));
 
     // Distribui textos entre as obras (nunca dois textos juntos)
     const finalOrder: Element[] = [];
     if (workEntries.length === 0) {
-      // Só textos: coloca no máximo 1
       if (textEntries.length > 0) finalOrder.push(textEntries[0]);
+    } else if (textEntries.length === 0) {
+      finalOrder.push(...workEntries);
     } else {
       const frequency = Math.max(1, Math.floor(workEntries.length / (textEntries.length + 1)));
       let textIndex = 0;
 
       for (let i = 0; i < workEntries.length; i++) {
         finalOrder.push(workEntries[i]);
-        // Insere texto a cada 'frequency' obras, se houver textos disponíveis
         if (textIndex < textEntries.length && (i + 1) % frequency === 0) {
           finalOrder.push(textEntries[textIndex]);
           textIndex++;
         }
       }
 
-      // Textos restantes (se houver mais textos que espaços)
       while (textIndex < textEntries.length) {
-        // Só adiciona se o último não for texto
         if (finalOrder[finalOrder.length - 1]?.classList.contains('archive-entry--text') !== true) {
           finalOrder.push(textEntries[textIndex]);
           textIndex++;
@@ -70,9 +62,8 @@ const archive = [
     }
 
     // Reordena no DOM
-    const fragment = document.createDocumentFragment();
-    finalOrder.forEach((entry) => fragment.append(entry));
-    publications.append(fragment);
+    publications.innerHTML = '';
+    finalOrder.forEach((entry) => publications!.append(entry));
 
     // Fade-in conforme scroll
     const allEntries = Array.from(publications.children);
