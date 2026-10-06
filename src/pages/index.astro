@@ -23,7 +23,7 @@ const archive = [
         </div>
       </div>
     )}
-    {archive.length > 0 ? <div class="archive-feed" data-random-publications style="visibility:hidden">{archive.map((entry, index) => <ArchiveEntry item={entry.item} kind={entry.kind} index={index} showTitle={entry.kind === 'text'} />)}</div> : <p class="empty">NENHUM TRABALHO PUBLICADO</p>}
+    {archive.length > 0 ? <div class="archive-feed" data-random-publications style="visibility:hidden">{archive.map((entry, index) => <ArchiveEntry item={entry.item} kind={entry.kind} index={index} imageLoading="lazy" showTitle={entry.kind === 'text'} />)}</div> : <p class="empty">NENHUM TRABALHO PUBLICADO</p>}
   </section>
 </BaseLayout>
 <script>
@@ -70,6 +70,16 @@ const archive = [
       }
     }
 
+    // Promove as imagens que ficaram no primeiro plano após o shuffle.
+    // Antes, as primeiras imagens eager eram escolhidas na ordem de build,
+    // não na ordem aleatória que o visitante realmente via.
+    finalOrder.forEach((entry, index) => {
+      const image = entry.querySelector<HTMLImageElement>('img');
+      if (!image) return;
+      image.loading = index < 6 ? 'eager' : 'lazy';
+      if (index === 0) image.fetchPriority = 'high';
+    });
+
     // Reordena no DOM
     publications.innerHTML = '';
     finalOrder.forEach((entry) => publications!.append(entry));
@@ -82,14 +92,23 @@ const archive = [
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            (entry.target as HTMLElement).style.opacity = '1';
-            (entry.target as HTMLElement).style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
+          if (!entry.isIntersecting) return;
+          const card = entry.target as HTMLElement;
+          const image = card.querySelector<HTMLImageElement>('img');
+          const reveal = () => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+            observer.unobserve(card);
+          };
+
+          if (!image || image.complete) reveal();
+          else {
+            image.loading = 'eager';
+            image.decode().then(reveal).catch(reveal);
           }
         });
       },
-      { rootMargin: '100px', threshold: 0.1 }
+      { rootMargin: '900px 0px', threshold: 0.05 }
     );
 
     allEntries.forEach((entry, index) => {

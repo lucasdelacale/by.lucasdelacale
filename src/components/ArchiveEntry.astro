@@ -9,9 +9,10 @@ interface Props {
   index?: number;
   showTitle?: boolean;
   showSale?: boolean;
+  imageLoading?: 'eager' | 'lazy';
 }
 
-const { item, kind, index = 0, showTitle = true, showSale = false } = Astro.props;
+const { item, kind, index = 0, showTitle = true, showSale = false, imageLoading } = Astro.props;
 const data = item.data;
 const title = data.title;
 const href = sitePath(kind === 'work' ? `/acervo/${item.id}/` : kind === 'series' ? `/series/${item.id}/` : kind === 'text' ? `/textos/${item.id}/` : '/referencias/');
@@ -37,7 +38,7 @@ const excerpt = kind === 'text'
   <a href={href}>
     {image ? (
       <div class="archive-entry-image-wrap">
-        <img src={sitePath(image)} alt={alt} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" />
+        <img src={sitePath(image)} alt={alt} loading={imageLoading ?? (index < 4 ? 'eager' : 'lazy')} decoding="async" />
         {sold && <span class="sold-dot" role="img" title="Vendida" aria-label="Vendida"></span>}
       </div>
     ) : kind === 'text' ? (
