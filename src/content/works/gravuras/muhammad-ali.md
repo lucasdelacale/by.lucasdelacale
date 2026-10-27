@@ -3,7 +3,7 @@ title: Muhammad Ali
 publishedAt: 2026-10-05
 year: 2026
 type: gravura
-price: 380
+price: 250
 sold: false
 coverImage: /images/img0895-2.jpg
 gallery:
