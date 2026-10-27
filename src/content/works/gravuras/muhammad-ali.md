@@ -13,7 +13,7 @@ gallery:
   - /images/img0911-cms.jpg
   - /images/img0912-cms.jpg
   - /images/img0913-cms.jpg
-  - /images/img0895.jpg
+  - /images/img0895-3.jpg
 materials:
   - Giz pastel a óleo
 dimensions: A3 - 29,7x42cm
