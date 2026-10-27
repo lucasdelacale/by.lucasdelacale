@@ -3,7 +3,7 @@ title: Virgil Abloh
 publishedAt: 2026-09-24
 year: 2026
 type: gravura
-price: 280
+price: 250
 sold: true
 coverImage: /images/img0373.jpg
 gallery:
