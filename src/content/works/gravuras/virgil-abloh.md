@@ -5,7 +5,7 @@ year: 2026
 type: gravura
 price: 250
 sold: true
-coverImage: /images/img0373.jpg
+coverImage: /images/img0373-3.jpg
 gallery:
   - /images/img0373-1.jpg
   - /images/img0374-cms.jpg
