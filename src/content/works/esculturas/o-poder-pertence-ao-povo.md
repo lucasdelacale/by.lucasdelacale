@@ -17,5 +17,5 @@ gallery:
   - /images/bsc-004-1.jpg
 materials:
   - Cimento
-featured: true
+featured: false
 ---
