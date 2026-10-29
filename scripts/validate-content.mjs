@@ -32,6 +32,7 @@ function normalize(value) {
 
 const workFiles = filesIn(join(contentRoot, 'works'));
 const seriesFiles = filesIn(join(contentRoot, 'series'));
+const bookFiles = filesIn(join(contentRoot, 'books'));
 const ids = new Map();
 
 for (const file of workFiles) {
@@ -68,9 +69,34 @@ for (const file of workFiles) {
   }
 }
 
+for (const file of bookFiles) {
+  const data = frontmatter(file);
+  const downloadFiles = values(data, 'downloadFile');
+
+  if (downloadFiles.length === 0) {
+    errors.push(`Arquivo EPUB ausente em ${relative(root, file)}`);
+  }
+
+  for (const downloadFile of downloadFiles) {
+    if (!downloadFile.startsWith('/books/')) {
+      errors.push(`Arquivo EPUB deve estar em /books/: "${downloadFile}" em ${relative(root, file)}`);
+    } else if (!/\.epub$/i.test(downloadFile)) {
+      errors.push(`Arquivo da biblioteca não é EPUB: "${downloadFile}" em ${relative(root, file)}`);
+    } else if (!existsSync(join(publicRoot, downloadFile.slice(1)))) {
+      errors.push(`Arquivo EPUB não encontrado "${downloadFile}" em ${relative(root, file)}`);
+    }
+  }
+
+  for (const image of values(data, 'coverImage')) {
+    if (image.startsWith('/images/') && !existsSync(join(publicRoot, image.slice(1)))) {
+      errors.push(`Imagem de capa não encontrada "${image}" em ${relative(root, file)}`);
+    }
+  }
+}
+
 if (errors.length > 0) {
   console.error(errors.map((error) => `✖ ${error}`).join('\n'));
   process.exit(1);
 }
 
-console.log(`Conteúdo válido: ${workFiles.length} obras e ${seriesFiles.length} séries.`);
+console.log(`Conteúdo válido: ${workFiles.length} obras, ${seriesFiles.length} séries e ${bookFiles.length} ${bookFiles.length === 1 ? 'livro' : 'livros'}.`);

@@ -1,0 +1,22 @@
+---
+import { sitePath } from '../utils/paths';
+
+interface Props {
+  book: any;
+  index?: number;
+}
+
+const { book, index = 0 } = Astro.props;
+const { data } = book;
+---
+<article class="work-card book-card work-card--mosaic" style={`--card-index: ${index}`}>
+  <a href={sitePath(`/biblioteca/${book.id}/`)} class="work-link">
+    <div class="work-image-wrap">
+      {data.coverImage ? <img src={sitePath(data.coverImage)} alt={data.coverAlt ?? `Capa de ${data.title}`} loading={index < 3 ? 'eager' : 'lazy'} decoding="async" /> : <div class="work-placeholder" aria-label="Sem capa">sem capa</div>}
+    </div>
+    <div class="work-info">
+      <h3>{data.title}</h3>
+      <p>{data.author ?? 'livro'}{data.pages ? ` / ${data.pages} páginas` : ''}</p>
+    </div>
+  </a>
+</article>

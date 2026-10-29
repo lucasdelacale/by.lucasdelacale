@@ -5,6 +5,12 @@ media:
     output: /images
     extensions: [jpg, jpeg, png, webp, avif]
     rename: safe
+  - name: books
+    label: Livros
+    input: public/books
+    output: /books
+    extensions: [epub]
+    rename: safe
 
 settings:
   content: true
@@ -644,4 +650,55 @@ content:
         description: Slug do arquivo da referência.
       - name: body
         label: Texto
+        type: rich-text
+
+  - name: livros
+    label: Biblioteca
+    type: collection
+    path: src/content/books
+    filename: "{primary}.md"
+    subfolders: false
+    view:
+      fields: [title, author, pages, coverImage, downloadFile]
+      primary: title
+      sort: [publishedAt, title]
+      search: [title, author]
+      default:
+        sort: publishedAt
+        order: desc
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: publishedAt
+        label: Data de publicação
+        type: date
+      - name: author
+        label: Autor
+        type: string
+      - name: pages
+        label: Quantidade de páginas
+        type: number
+        options:
+          min: 1
+      - name: coverImage
+        label: Capa
+        type: image
+        required: true
+        options:
+          media: images
+          extensions: [jpg, jpeg, png, webp, avif]
+      - name: coverAlt
+        label: Texto alternativo da capa
+        type: string
+      - name: downloadFile
+        label: Arquivo EPUB
+        type: file
+        required: true
+        options:
+          media: books
+          extensions: [epub]
+      - name: body
+        label: Sobre o livro
         type: rich-text

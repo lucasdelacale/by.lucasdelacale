@@ -1,0 +1,32 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sitePath } from '../../utils/paths';
+
+export async function getStaticPaths() {
+  const books = await getCollection('books');
+  return books.map((book) => ({ params: { slug: book.id }, props: { book } }));
+}
+
+const { book } = Astro.props;
+const { Content } = await render(book);
+const { data } = book;
+const downloadUrl = sitePath(data.downloadFile);
+---
+<BaseLayout title={`${data.title} / Biblioteca`} description={data.coverAlt ?? `Livro ${data.title}`} ogImage={data.coverImage}>
+  <article class="detail book-detail">
+    <div class="detail-head">
+      <p class="eyebrow">Livro / Biblioteca</p>
+      <h1>{data.title}</h1>
+      <p class="muted">{data.author ?? 'publicação'}{data.pages ? ` / ${data.pages} páginas` : ''}</p>
+    </div>
+    <div class="archive-toolbar book-toolbar">
+      <a class="book-download" href={downloadUrl} download>Baixar artigo</a>
+    </div>
+    <div class="book-layout">
+      {data.coverImage && <div class="book-cover-wrap"><img class="book-cover" src={sitePath(data.coverImage)} alt={data.coverAlt ?? `Capa de ${data.title}`} fetchpriority="high" decoding="async" /></div>}
+      <div class="detail-copy prose"><Content /></div>
+    </div>
+    <nav class="detail-nav" aria-label="Navegar na biblioteca"><a href={sitePath('/biblioteca/')}>← voltar à biblioteca</a></nav>
+  </article>
+</BaseLayout>

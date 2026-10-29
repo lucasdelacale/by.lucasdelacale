@@ -6,10 +6,12 @@ import { compareByPublishedAt, sortByPublishedAt } from '../utils/content';
 
 const works = sortByPublishedAt(await getCollection('works'));
 const texts = sortByPublishedAt(await getCollection('texts'));
+const books = sortByPublishedAt(await getCollection('books'));
 const featured = works.filter((w) => w.data.featured).slice(0, 3);
 const archive = [
   ...works.map((item) => ({ item, kind: 'work' as const })),
   ...texts.map((item) => ({ item, kind: 'text' as const })),
+  ...books.map((item) => ({ item, kind: 'book' as const })),
 ].sort((a, b) => compareByPublishedAt(a.item, b.item));
 ---
 <BaseLayout title="Arquivo" description="Obras, processos, textos e referências de um acervo artístico em construção.">
@@ -23,7 +25,7 @@ const archive = [
         </div>
       </div>
     )}
-    {archive.length > 0 ? <div class="archive-feed" data-random-publications style="visibility:hidden">{archive.map((entry, index) => <ArchiveEntry item={entry.item} kind={entry.kind} index={index} imageLoading="lazy" showTitle={entry.kind === 'text'} />)}</div> : <p class="empty">NENHUM TRABALHO PUBLICADO</p>}
+    {archive.length > 0 ? <div class="archive-feed" data-random-publications style="visibility:hidden">{archive.map((entry, index) => <ArchiveEntry item={entry.item} kind={entry.kind} index={index} imageLoading="lazy" showTitle={entry.kind === 'text' || entry.kind === 'book'} />)}</div> : <p class="empty">NENHUM TRABALHO PUBLICADO</p>}
   </section>
 </BaseLayout>
 <script>
@@ -38,35 +40,23 @@ const archive = [
       [entries[index], entries[randomIndex]] = [entries[randomIndex], entries[index]];
     }
 
-    // Separa obras e textos após embaralhar
+    // Separa obras e publicações editoriais após embaralhar
     const workEntries = entries.filter((el) => el.classList.contains('archive-entry--work'));
-    const textEntries = entries.filter((el) => el.classList.contains('archive-entry--text'));
+    const editorialEntries = entries.filter((el) => el.classList.contains('archive-entry--text') || el.classList.contains('archive-entry--book'));
 
-    // Distribui textos entre as obras (nunca dois textos juntos)
+    // Distribui textos e livros entre as obras para manter o feed misturado.
     const finalOrder: Element[] = [];
     if (workEntries.length === 0) {
-      if (textEntries.length > 0) finalOrder.push(textEntries[0]);
-    } else if (textEntries.length === 0) {
+      finalOrder.push(...editorialEntries);
+    } else if (editorialEntries.length === 0) {
       finalOrder.push(...workEntries);
     } else {
-      const frequency = Math.max(1, Math.floor(workEntries.length / (textEntries.length + 1)));
-      let textIndex = 0;
-
-      for (let i = 0; i < workEntries.length; i++) {
-        finalOrder.push(workEntries[i]);
-        if (textIndex < textEntries.length && (i + 1) % frequency === 0) {
-          finalOrder.push(textEntries[textIndex]);
-          textIndex++;
-        }
-      }
-
-      while (textIndex < textEntries.length) {
-        if (finalOrder[finalOrder.length - 1]?.classList.contains('archive-entry--text') !== true) {
-          finalOrder.push(textEntries[textIndex]);
-          textIndex++;
-        } else {
-          break;
-        }
+      const gapCount = workEntries.length + 1;
+      for (let gap = 0; gap < gapCount; gap++) {
+        const start = Math.floor((gap * editorialEntries.length) / gapCount);
+        const end = Math.floor(((gap + 1) * editorialEntries.length) / gapCount);
+        finalOrder.push(...editorialEntries.slice(start, end));
+        if (gap < workEntries.length) finalOrder.push(workEntries[gap]);
       }
     }
 

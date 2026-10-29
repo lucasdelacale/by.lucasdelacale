@@ -5,6 +5,7 @@ export const GET: APIRoute = async ({ site }) => {
   const works = await getCollection('works');
   const series = await getCollection('series');
   const texts = await getCollection('texts');
+  const books = await getCollection('books');
   const origin = site ?? new URL('https://lucasdelacale.com');
   const now = new Date().toISOString();
 
@@ -30,6 +31,11 @@ export const GET: APIRoute = async ({ site }) => {
     ...texts.map((item) => {
       const date = item.data.publishedAt ? new Date(item.data.publishedAt).toISOString() : now;
       return getUrl(`/textos/${item.id}/`, date);
+    }),
+    getUrl('/biblioteca/', now),
+    ...books.map((item) => {
+      const date = item.data.publishedAt ? new Date(item.data.publishedAt).toISOString() : now;
+      return getUrl(`/biblioteca/${item.id}/`, date);
     }),
   ];
 
