@@ -70,4 +70,17 @@ const texts = defineCollection({
   }),
 });
 
-export const collections = { works, series, texts };
+const books = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/books' }),
+  schema: z.object({
+    title: z.string().min(1),
+    publishedAt,
+    author: z.string().nullish(),
+    pages: z.number().int().min(1).nullish(),
+    coverImage: image,
+    coverAlt: z.string().nullish(),
+    downloadFile: z.string().min(1),
+  }),
+});
+
+export const collections = { works, series, texts, books };

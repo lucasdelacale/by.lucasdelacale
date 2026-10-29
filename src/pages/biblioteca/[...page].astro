@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionIntro from '../../components/SectionIntro.astro';
+import BookCard from '../../components/BookCard.astro';
+import { sortByPublishedAt } from '../../utils/content';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const books = sortByPublishedAt(await getCollection('books'));
+  return paginate(books, { pageSize: 36 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+<BaseLayout title={page.currentPage === 1 ? 'Biblioteca / Acervo' : `Biblioteca — Página ${page.currentPage}`} description="Livros disponíveis para leitura e download.">
+  <div class="page">
+    <SectionIntro title="Biblioteca" copy="Livros, publicações e materiais de leitura disponíveis para download." />
+    {page.data.length > 0 ? (
+      <div class="works-grid" id="books-grid" data-mode="mosaic">
+        {page.data.map((book: any, i: number) => <BookCard book={book} index={(page.currentPage - 1) * 36 + i} />)}
+      </div>
+    ) : <p class="empty">AINDA NÃO HÁ LIVROS PUBLICADOS.</p>}
+    {page.url.next && <p class="pagination"><a class="pagination-link" href={page.url.next}>Carregar mais</a></p>}
+  </div>
+</BaseLayout>
