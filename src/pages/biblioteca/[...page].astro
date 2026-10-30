@@ -8,7 +8,7 @@ import { sortByPublishedAt } from '../../utils/content';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const books = sortByPublishedAt(await getCollection('books'));
-  return paginate(books, { pageSize: 36 });
+  return paginate(books, { pageSize: Math.max(1, books.length) });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
@@ -17,10 +17,39 @@ const { page } = Astro.props;
   <div class="page">
     <SectionIntro title="Biblioteca" copy="Livros, publicações e materiais de leitura disponíveis para download." />
     {page.data.length > 0 ? (
-      <div class="works-grid" id="books-grid" data-mode="mosaic">
-        {page.data.map((book: any, i: number) => <BookCard book={book} index={(page.currentPage - 1) * 36 + i} />)}
-      </div>
+      <>
+        <div class="archive-toolbar library-toolbar">
+          <label class="sr-only" for="library-search">Buscar livros</label>
+          <input id="library-search" class="library-search" type="search" placeholder="Buscar livros" autocomplete="off" />
+        </div>
+        <div class="works-grid" id="books-grid" data-mode="mosaic">
+          {page.data.map((book: any, i: number) => <BookCard book={book} index={i} />)}
+        </div>
+        <p class="empty library-filter-empty" data-library-filter-empty hidden>NENHUM LIVRO ENCONTRADO.</p>
+      </>
     ) : <p class="empty">AINDA NÃO HÁ LIVROS PUBLICADOS.</p>}
-    {page.url.next && <p class="pagination"><a class="pagination-link" href={page.url.next}>Carregar mais</a></p>}
   </div>
 </BaseLayout>
+<script>
+  const searchInput = document.querySelector<HTMLInputElement>('#library-search');
+  const emptyState = document.querySelector<HTMLElement>('[data-library-filter-empty]');
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-library-search]'));
+
+  const normalize = (value: string) => value
+    .toLocaleLowerCase('pt-BR')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+  searchInput?.addEventListener('input', () => {
+    const query = normalize(searchInput.value.trim());
+    let visible = 0;
+
+    cards.forEach((card) => {
+      const matches = !query || normalize(card.dataset.librarySearch ?? '').includes(query);
+      card.hidden = !matches;
+      if (matches) visible++;
+    });
+
+    emptyState?.toggleAttribute('hidden', visible > 0);
+  });
+</script>
