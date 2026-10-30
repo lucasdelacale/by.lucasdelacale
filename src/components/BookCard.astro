@@ -8,8 +8,9 @@ interface Props {
 
 const { book, index = 0 } = Astro.props;
 const { data } = book;
+const searchText = [data.title, data.subtitle, data.author].filter(Boolean).join(' ');
 ---
-<article class="work-card book-card work-card--mosaic" style={`--card-index: ${index}`}>
+<article class="work-card book-card work-card--mosaic" data-library-search={searchText} style={`--card-index: ${index}`}>
   <a href={sitePath(`/biblioteca/${book.id}/`)} class="work-link">
     <div class="work-image-wrap">
       {data.coverImage ? <img src={sitePath(data.coverImage)} alt={data.coverAlt ?? `Capa de ${data.title}`} loading={index < 3 ? 'eager' : 'lazy'} decoding="async" /> : <div class="work-placeholder" aria-label="Sem capa">sem capa</div>}
