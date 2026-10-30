@@ -2,7 +2,7 @@
 
 Versão atual: **v1.1**. Consulte o [histórico de versões](CHANGELOG.md).
 
-Site estático em Astro para um acervo artístico pessoal. A home funciona como uma entrada editorial: exibe as publicações em um mosaico aleatório a cada carregamento. `/trabalhos/` reúne as peças à venda (prints, canvas e esculturas) com valor, disponibilidade e selo vermelho de galeria; as séries possuem páginas próprias; o `/acervo` apresenta todas as obras em uma visão de mosaico mais densa e documental.
+Site estático em Astro para um acervo artístico pessoal. A home funciona como uma entrada editorial: exibe as publicações em um mosaico aleatório a cada carregamento. `/trabalhos/` reúne as peças à venda (prints, gravuras, canvas e esculturas) com valor, disponibilidade e selo vermelho de galeria; as séries possuem páginas próprias; o `/acervo` apresenta todas as obras em uma visão de mosaico mais densa e documental; `/biblioteca/` reúne livros para leitura e download em EPUB.
 
 O site não possui backend ou banco de dados próprio. O painel opcional usa Pages CMS, conecta-se ao GitHub e grava o conteúdo diretamente neste repositório.
 
@@ -70,6 +70,7 @@ npm run preview
 
 ```text
 public/images/                  imagens locais publicadas
+public/books/                   arquivos EPUB publicados
 src/content/works/fotografias/  obras autorais            (CMS: Obras)
 src/content/works/prints/       prints à venda            (CMS: Prints)
 src/content/works/gravuras/     gravuras à venda          (CMS: Gravuras)
@@ -77,6 +78,7 @@ src/content/works/canvas/       canvas à venda            (CMS: Canvas)
 src/content/works/esculturas/   esculturas à venda        (CMS: Esculturas)
 src/content/works/referencias/  referências de pesquisa   (CMS: Referências)
 src/content/series/             séries e projetos         (CMS: Séries)
+src/content/books/              livros e publicações      (CMS: Biblioteca)
 src/content/texts/              ensaios e anotações
 src/components/                 componentes Astro reutilizáveis
 src/pages/                      rotas do site
@@ -146,7 +148,7 @@ O trabalho aparecerá em `/trabalhos/` e também no `/acervo/` geral. Ao clicar 
 | `price: 1200` | exibe `R$ 1.200,00` nos cards de `/trabalhos/` e na linha `Preço` do detalhe |
 | `sold: true` | exibe o selo vermelho de galeria sobre a imagem e a marcação `Vendida` |
 
-Enquanto `sold` for `false` e houver `price`, o detalhe mostra `Status: Disponível` e o botão **Consultar →** (um `mailto` com o nome da obra no assunto). Ao marcar `sold: true`, o botão desaparece e o status passa a ser `Vendida`.
+Enquanto `sold` for `false` e houver `price`, o detalhe mostra `Status: Disponível` e o botão **Consultar →**, que abre uma conversa no Instagram. Ao marcar `sold: true`, o botão desaparece e o status passa a ser `Vendida`.
 
 O ponto vermelho é o mesmo adesivo que as galerias colam ao lado da peça vendida: aparece no canto inferior direito da imagem em todas as superfícies onde a obra é listada.
 
@@ -158,9 +160,47 @@ A relação entre obra e série se autora **pelo campo `Série` da obra** (`seri
 
 As séries aparecem em `/series/`, em uma galeria clicável. Elas não são repetidas na home.
 
+## Publicar um livro
+
+A Biblioteca usa duas partes: o arquivo EPUB, mantido em `public/books/`, e uma entrada Markdown com os metadados do livro, mantida em `src/content/books/`. O EPUB pode ser grande demais para o upload do Pages CMS, por isso o fluxo recomendado é enviar o arquivo diretamente ao GitHub e usar o CMS para cadastrar os dados.
+
+### Fluxo recomendado
+
+1. Coloque o EPUB em `public/books/`. Prefira nomes simples, sem espaços ou caracteres especiais, por exemplo `nome-do-livro.epub`.
+2. Coloque a capa em `public/images/` ou use uma capa que já esteja nessa pasta.
+3. Faça commit e push desses arquivos para a branch `main`.
+4. No Pages CMS, abra **Biblioteca**, crie o livro e selecione o EPUB e a capa já existentes.
+5. Preencha título, subtítulo, autor, quantidade de páginas e o texto sobre o livro.
+6. Salve a entrada. O CMS criará ou atualizará o Markdown e iniciará o deploy.
+
+Não é necessário criar o Markdown manualmente quando o cadastro for feito pelo CMS. Se preferir trabalhar diretamente no repositório, use `templates/livro.md` como modelo:
+
+```yaml
+---
+title: Nome do livro
+subtitle: Subtítulo do livro
+publishedAt: 2026-01-01
+author: Nome do autor
+pages: 200
+coverImage: /images/nome-do-livro.jpg
+coverAlt: Descrição objetiva da capa
+downloadFile: /books/nome-do-livro.epub
+---
+
+Escreva aqui um pequeno texto sobre o livro.
+```
+
+O livro aparecerá em `/biblioteca/`, na home editorial e na página individual `/biblioteca/nome-do-livro/`. A Biblioteca possui busca instantânea por título, subtítulo e autor. O botão da página individual baixa o arquivo como **Baixar artigo**.
+
+### EPUBs maiores que o limite do CMS
+
+O Pages CMS também está sujeito ao limite de request da Vercel. EPUBs maiores que aproximadamente 3,3 MB devem ser enviados diretamente ao GitHub, e não pelo seletor de upload do CMS. Depois que o arquivo estiver no repositório, ele pode ser selecionado normalmente ao criar o livro no CMS.
+
+O validador confirma que o caminho informado em `downloadFile` começa com `/books/`, termina em `.epub` e aponta para um arquivo existente. Rode `npm run validate:content` antes de publicar.
+
 ## Painel de publicação
 
-O arquivo `.pages.yml` configura o Pages CMS para editar conteúdo pelo navegador. O painel usa o GitHub como fonte de conteúdo. Imagens antigas continuam em `public/images/`; novos uploads são organizados em subpastas de `public/images/works/` ou `public/images/series/` conforme a área.
+O arquivo `.pages.yml` configura o Pages CMS para editar conteúdo pelo navegador. O painel usa o GitHub como fonte de conteúdo. Imagens e capas ficam em `public/images/`; arquivos EPUB ficam em `public/books/`.
 
 Para acessar o painel:
 
@@ -181,12 +221,13 @@ As áreas do painel espelham as pastas de conteúdo:
 | **Obras** | `src/content/works/fotografias/` | obras autorais |
 | **Referências** | `src/content/works/referencias/` | imagens de pesquisa |
 | **Séries** | `src/content/series/` | séries e projetos |
+| **Biblioteca** | `src/content/books/` | livros e publicações |
 | **Textos** | `src/content/texts/` | ensaios e anotações |
 | **Banco de imagens** | removido | — |
 
-O campo `type` aparece bloqueado no formulário: ele é carimbado pela seção em que o item é criado e não pode ser editado à mão. Os campos `Valor (R$)` e `Vendida` só existem nas três áreas de Trabalhos.
+O campo `type` aparece bloqueado no formulário: ele é carimbado pela seção em que o item é criado e não pode ser editado à mão. Os campos `Valor (R$)` e `Vendida` só existem nas áreas de Trabalhos.
 
-O formulário de obras inclui imagem principal, imagens complementares, materiais, dimensões, tags e obras relacionadas. A relação com a série se faz pelo campo **Série** da própria obra. O formulário de séries tem título, período, capa e descrição. Como o filename é derivado do título, mantenha títulos/nomes de arquivo únicos entre as obras. Textos podem ser criados pela área **Textos**.
+O formulário de obras inclui imagem principal, imagens complementares, materiais, dimensões, **Base** (campo interno `tags`) e obras relacionadas. A relação com a série se faz pelo campo **Série** da própria obra. O formulário de séries tem título, período, capa e descrição. O formulário da Biblioteca tem título, subtítulo, autor, quantidade de páginas, capa, arquivo EPUB e texto sobre o livro. Como o filename é derivado do título, mantenha títulos/nomes de arquivo únicos entre as obras e livros. Textos podem ser criados pela área **Textos**.
 
 Cada salvamento gera um commit no GitHub e inicia automaticamente o workflow de publicação. O painel não cria um banco de dados separado.
 
@@ -200,7 +241,7 @@ Imagens adicionadas manualmente podem ficar em:
 public/images/
 ```
 
-Pelo CMS, use o seletor da própria entrada. Todas as imagens são selecionadas da raiz central `public/images/`, que é onde estão os arquivos atuais e também onde imagens adicionadas manualmente pelo computador devem ser colocadas.
+Pelo CMS, use o seletor da própria entrada. Todas as imagens são selecionadas da raiz central `public/images/`, que é onde estão os arquivos atuais e também onde imagens adicionadas manualmente pelo computador devem ser colocadas. As capas dos livros usam o mesmo acervo de imagens.
 
 No frontmatter, use o caminho público, sem incluir `public`:
 
@@ -217,7 +258,7 @@ Use imagens otimizadas e, sempre que possível, nomes simples sem espaços ou ca
 
 As imagens são apresentadas sem bordas visuais. O mosaico controla o tamanho dos cards, enquanto títulos, tipos e anos ficam alinhados dentro da largura de cada imagem.
 
-### Limite de upload (erro 413)
+### Limite de upload de imagens (erro 413)
 
 O painel do Pages CMS (`app.pagescms.org`) roda na **Vercel**, que corta o corpo do request em **4,5 MB**, e o arquivo trafega codificado em base64 (que cresce ~33%). O limite prático é **≈ 3,3 MB por imagem**. Acima disso o upload falha com **413** — é limite do serviço, não há configuração no `.pages.yml` que mude isso (ver [pagescms#284](https://github.com/pages-cms/pages-cms/issues/284) e [pagescms#393](https://github.com/hunvreus/pagescms/issues/393)).
 
@@ -260,6 +301,7 @@ Os modelos disponíveis são:
 - `templates/serie.md` para séries e projetos.
 - `templates/texto.md` para ensaios, diários e anotações.
 - `templates/referencia.md` para artistas, livros, filmes, lugares e objetos de pesquisa.
+- `templates/livro.md` para livros e publicações da Biblioteca.
 
 As relações entre conteúdos usam os slugs dos arquivos:
 
@@ -274,7 +316,7 @@ A relação com a série é a exceção: use o campo `series` na obra, apontando
 
 O site é gerado como HTML estático. Em um serviço conectado ao GitHub, o fluxo recomendado é:
 
-1. Adicionar ou alterar o Markdown e as imagens.
+1. Adicionar ou alterar o Markdown, as imagens e os EPUBs.
 2. Executar `npm run check` localmente.
 3. Fazer commit e push para o repositório.
 4. Configurar o serviço para executar `npm run build`.
@@ -283,8 +325,10 @@ O site é gerado como HTML estático. Em um serviço conectado ao GitHub, o flux
 ### Comportamento das listagens
 
 - A home embaralha somente as publicações no navegador a cada carregamento; a ordem das séries não é envolvida porque elas não aparecem na home.
-- Na home, obras e referências com imagens exibem a etiqueta de série (quando houver), o tipo e o ano; os títulos aparecem nas páginas individuais.
-- `/acervo/`, `/trabalhos/` e `/series/` usam ordenação da publicação mais nova para a mais antiga.
+- Na home, obras, referências, textos e livros são misturados editorialmente; livros e textos são distribuídos entre as obras para evitar blocos consecutivos.
+- Na home, obras e referências com imagens exibem a etiqueta de série (quando houver), o tipo e o ano; livros exibem título, subtítulo e autor quando disponíveis.
+- `/acervo/`, `/trabalhos/`, `/series/` e `/biblioteca/` usam ordenação da publicação mais nova para a mais antiga.
+- `/biblioteca/` possui busca instantânea por título, subtítulo e autor.
 - `/trabalhos/` filtra `print`, `gravura`, `canvas` e `escultura` e permite restringir por tipo pelos botões acima da grade.
 - A data principal é `publishedAt`. Sem ela, o site usa `date`, `year` ou `period` como fallback.
 - Quando uma listagem não tem trabalhos, a mensagem explica que ainda não há conteúdo publicado.
@@ -317,6 +361,8 @@ O endereço provisório do GitHub Pages continua disponível em `https://lucasde
 - `/trabalhos/` peças à venda (prints, gravuras, canvas e esculturas) com filtros por tipo.
 - `/prints/`, `/canvas/` e `/esculturas/` redirecionam para `/trabalhos/` para preservar links antigos.
 - `/series/` séries e projetos.
+- `/biblioteca/` lista livros com busca por título, subtítulo e autor.
+- `/biblioteca/[slug]/` página individual do livro com descrição e download do EPUB.
 - `/textos/[slug]/` leitura individual de textos publicados; `/textos/` redireciona para a home.
 - `/referencias/` redireciona para o Arquivo; referências continuam publicadas como registros do acervo.
 - `/sobre/` apresentação e contato.
