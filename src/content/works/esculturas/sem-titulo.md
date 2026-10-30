@@ -1,5 +1,5 @@
 ---
-title: Sem título
+title: Sem título (Balaclava)
 publishedAt: 2026-10-30
 year: 2026
 type: escultura
