@@ -13,8 +13,8 @@ gallery:
   - /images/img1630-cms.jpg
   - /images/bsc-002-cms.jpg
   - /images/img1620-cms.jpg
-  - /images/bsc-001.jpg
   - /images/img1619-cms.jpg
+  - /images/bsc-001.jpg
 materials:
   - Cimento
 tags:
