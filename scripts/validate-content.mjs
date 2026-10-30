@@ -38,7 +38,11 @@ const ids = new Map();
 for (const file of workFiles) {
   const basenameId = basename(file, extname(file));
   const area = relative(join(contentRoot, 'works'), file).split(sep)[0];
-  const id = area === 'referencias' && disambiguatedReferenceIds.has(basenameId) ? `referencias-${basenameId}` : basenameId;
+  const id = area === 'referencias' && disambiguatedReferenceIds.has(basenameId)
+    ? `referencias-${basenameId}`
+    : area === 'esculturas'
+      ? `esculturas-${basenameId}`
+      : basenameId;
   const previous = ids.get(id);
   if (previous) errors.push(`ID duplicado "${id}": ${relative(root, previous)} e ${relative(root, file)}`);
   ids.set(id, file);

@@ -9,16 +9,17 @@ const publishedAt = z.union([z.string(), z.date()]).nullish();
 const workType = z.enum(['fotografia', 'print', 'gravura', 'canvas', 'escultura', 'referencia', 'outro']).nullish();
 const disambiguatedReferenceIds = new Set(['sem-titulo', 'sem-titulo-33', 'sem-titulo-34', 'sem-titulo-35', 'sem-titulo-36', 'sem-titulo-38']);
 
-// Obras vivem em subpastas por área (fotografias/, prints/, gravuras/, canvas/, esculturas/,
-// referencias/), mas o id é o basename. Referências antigas que colidem com fotografias
-// recebem um prefixo apenas no ID público, mantendo os dois registros acessíveis.
+// Obras vivem em subpastas por área, mas historicamente usam o basename como ID público.
+// Referências que colidem com fotografias e esculturas recebem prefixos para manter IDs únicos.
 const works = defineCollection({
   loader: glob({
     pattern: '**/*.{md,mdx}',
     base: './src/content/works',
     generateId: ({ entry }) => {
       const id = entry.replace(/\.(?:md|mdx)$/i, '').split('/').pop() ?? entry;
-      return entry.startsWith('referencias/') && disambiguatedReferenceIds.has(id) ? `referencias-${id}` : id;
+      if (entry.startsWith('referencias/') && disambiguatedReferenceIds.has(id)) return `referencias-${id}`;
+      if (entry.startsWith('esculturas/')) return `esculturas-${id}`;
+      return id;
     },
   }),
   schema: z.object({
