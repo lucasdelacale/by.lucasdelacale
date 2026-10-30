@@ -1,10 +1,12 @@
 ---
-title: "Marighella: O guerrilheiro que incendiou o mundo"
+title: Marighella
+subtitle: O guerrilheiro que incendiou o mundo
 publishedAt: 2026-10-29
 author: Mário Magalhães
 pages: 784
 coverImage: /images/marighella-cms.jpg
-downloadFile: /books/exemplo-de-livro.epub
+coverAlt: Capa do livro Marighella
+downloadFile: /books/Marighella.epub
 ---
 **Livro que inspirou o filme dirigido por Wagner Moura.**  
 **O jornalista Mário Magalhães reconstitui a trepidante trajetória do revolucionário Carlos Marighella, militante do Partido Comunista Brasileiro e fundador da Ação Libertadora Nacional, o maior grupo armado de oposição à ditadura militar (1964-85).**

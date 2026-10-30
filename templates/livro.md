@@ -1,6 +1,7 @@
 ---
 # Renomeie este arquivo para um slug, por exemplo: nome-do-livro.md
 title: Nome do livro
+subtitle: Subtítulo do livro
 publishedAt: 2026-01-01
 author: Nome do autor
 pages: 120
