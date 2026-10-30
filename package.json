@@ -11,9 +11,9 @@
     "optimize": "node scripts/optimize-image.mjs"
   },
   "dependencies": {
-    "@astrojs/check": "latest",
+    "@astrojs/check": "0.9.10",
     "astro": "^7.3.5",
     "heic2any": "^0.0.4",
-    "typescript": "latest"
+    "typescript": "6.0.3"
   }
 }

@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { basename, extname, join, relative, sep } from 'node:path';
+import { computeWorkIds, listWorkFiles } from '../src/utils/work-ids.mjs';
 
 const root = process.cwd();
 const contentRoot = join(root, 'src/content');
 const publicRoot = join(root, 'public');
 const errors = [];
-const disambiguatedReferenceIds = new Set(['sem-titulo', 'sem-titulo-33', 'sem-titulo-34', 'sem-titulo-35', 'sem-titulo-36', 'sem-titulo-38']);
 
 function filesIn(directory) {
   if (!existsSync(directory)) return [];
@@ -33,19 +33,15 @@ function normalize(value) {
 const workFiles = filesIn(join(contentRoot, 'works'));
 const seriesFiles = filesIn(join(contentRoot, 'series'));
 const bookFiles = filesIn(join(contentRoot, 'books'));
-const ids = new Map();
+const workIds = computeWorkIds(listWorkFiles(join(contentRoot, 'works')));
+const seenIds = new Map();
 
 for (const file of workFiles) {
-  const basenameId = basename(file, extname(file));
-  const area = relative(join(contentRoot, 'works'), file).split(sep)[0];
-  const id = area === 'referencias' && disambiguatedReferenceIds.has(basenameId)
-    ? `referencias-${basenameId}`
-    : area === 'esculturas'
-      ? `esculturas-${basenameId}`
-      : basenameId;
-  const previous = ids.get(id);
+  const relativePath = relative(join(contentRoot, 'works'), file).split(sep).join('/');
+  const id = workIds.get(relativePath);
+  const previous = seenIds.get(id);
   if (previous) errors.push(`ID duplicado "${id}": ${relative(root, previous)} e ${relative(root, file)}`);
-  ids.set(id, file);
+  seenIds.set(id, file);
 
   const data = frontmatter(file);
   const type = values(data, 'type')[0];

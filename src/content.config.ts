@@ -1,26 +1,22 @@
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
+import { computeWorkIds, listWorkFiles } from './utils/work-ids.mjs';
 
 // Accepts both local files from public/ and hosted image URLs.
 const image = z.string().min(1).nullish();
 const gallery = z.array(z.string().min(1)).nullish();
 const publishedAt = z.union([z.string(), z.date()]).nullish();
 const workType = z.enum(['fotografia', 'print', 'gravura', 'canvas', 'escultura', 'referencia', 'outro']).nullish();
-const disambiguatedReferenceIds = new Set(['sem-titulo', 'sem-titulo-33', 'sem-titulo-34', 'sem-titulo-35', 'sem-titulo-36', 'sem-titulo-38']);
 
-// Obras vivem em subpastas por área, mas historicamente usam o basename como ID público.
-// Referências que colidem com fotografias e esculturas recebem prefixos para manter IDs únicos.
+// IDs públicos das obras: regra única em utils/work-ids.mjs (também usada por scripts/validate-content.mjs).
+const workIds = computeWorkIds(listWorkFiles('./src/content/works'));
+
 const works = defineCollection({
   loader: glob({
     pattern: '**/*.{md,mdx}',
     base: './src/content/works',
-    generateId: ({ entry }) => {
-      const id = entry.replace(/\.(?:md|mdx)$/i, '').split('/').pop() ?? entry;
-      if (entry.startsWith('referencias/') && disambiguatedReferenceIds.has(id)) return `referencias-${id}`;
-      if (entry.startsWith('esculturas/')) return `esculturas-${id}`;
-      return id;
-    },
+    generateId: ({ entry }) => workIds.get(entry) ?? entry,
   }),
   schema: z.object({
     title: z.string().nullish(),
