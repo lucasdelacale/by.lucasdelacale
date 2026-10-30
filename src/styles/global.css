@@ -178,7 +178,7 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
 .series-link { color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
 .archive-entry-image-wrap { position:relative; max-width:100%; }
 .detail-image-wrap { position:relative; }
-.sold-dot { position:absolute; right:10px; bottom:10px; width:12px; height:12px; border-radius:50%; background:var(--accent); }
+.sold-dot { position:absolute; right:-22px; bottom:0; width:12px; height:12px; border-radius:50%; background:var(--accent); }
 .series-tag { color:var(--accent); display:block; font:11px var(--mono); letter-spacing:.08em; text-transform:uppercase; }
 .pagination { align-items:center; display:flex; gap:20px; justify-content:center; margin-top:60px; padding-top:30px; }
 .pagination-link { border:1px solid var(--ink); color:var(--ink); font:11px var(--mono); padding:10px 18px; text-transform:uppercase; }
@@ -247,7 +247,7 @@ h3 { font:400 18px/1.2 var(--serif); margin:0; }
   .book-cover-wrap { margin-bottom:35px; }
   .detail-meta { margin-top:20px; }
   .detail-nav { display:flex; }
-  .sold-dot { right:8px; bottom:8px; }
+  .sold-dot { right:-16px; bottom:0; }
   .editorial-row { grid-template-columns:80px 1fr; gap:10px; }
   .editorial-row .arrow-link { grid-column:2; }
   .site-footer { flex-direction:column; gap:5px; }
