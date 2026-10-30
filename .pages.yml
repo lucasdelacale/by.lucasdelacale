@@ -659,10 +659,10 @@ content:
     filename: "{primary}.md"
     subfolders: false
     view:
-      fields: [title, author, pages, coverImage, downloadFile]
+      fields: [title, subtitle, author, pages, coverImage, downloadFile]
       primary: title
       sort: [publishedAt, title]
-      search: [title, author]
+      search: [title, subtitle, author]
       default:
         sort: publishedAt
         order: desc
@@ -671,6 +671,9 @@ content:
         label: Título
         type: string
         required: true
+      - name: subtitle
+        label: Subtítulo
+        type: string
       - name: publishedAt
         label: Data de publicação
         type: date

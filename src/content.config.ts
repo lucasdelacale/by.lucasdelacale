@@ -74,6 +74,7 @@ const books = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/books' }),
   schema: z.object({
     title: z.string().min(1),
+    subtitle: z.string().nullish(),
     publishedAt,
     author: z.string().nullish(),
     pages: z.number().int().min(1).nullish(),

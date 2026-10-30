@@ -16,6 +16,7 @@ const { data } = book;
     </div>
     <div class="work-info">
       <h3>{data.title}</h3>
+      {data.subtitle && <p class="book-subtitle">{data.subtitle}</p>}
       <p>{data.author ?? 'livro'}{data.pages ? ` / ${data.pages} páginas` : ''}</p>
     </div>
   </a>

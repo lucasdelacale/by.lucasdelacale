@@ -18,6 +18,7 @@ const downloadUrl = sitePath(data.downloadFile);
     <div class="detail-head">
       <p class="eyebrow">Livro / Biblioteca</p>
       <h1>{data.title}</h1>
+      {data.subtitle && <p class="book-subtitle">{data.subtitle}</p>}
       <p class="muted">{data.author ?? 'publicação'}{data.pages ? ` / ${data.pages} páginas` : ''}</p>
     </div>
     <div class="archive-toolbar book-toolbar">
