@@ -53,12 +53,24 @@ jobs:
               changed=1
             fi
             rm -f "$temp"
-          done < <(git diff --name-only "$base" "$GITHUB_SHA" -- 'public/images/**')
+          done < <(git diff --name-only "$base" "$GITHUB_SHA" -- 'public/images/**' || true)
 
           if [ "$changed" -eq 1 ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add public/images
             git commit -m "chore: optimize uploaded images [skip ci]"
-            git push
+
+            branch="${{ github.ref_name }}"
+            for attempt in 1 2 3 4 5; do
+              git fetch origin "$branch" || { sleep 5; continue; }
+              if git rebase "origin/$branch" && git push origin "HEAD:$branch"; then
+                echo "Imagens otimizadas publicadas."
+                exit 0
+              fi
+              sleep 5
+            done
+
+            echo "::error::Não foi possível publicar as imagens otimizadas após várias tentativas."
+            exit 1
           fi
